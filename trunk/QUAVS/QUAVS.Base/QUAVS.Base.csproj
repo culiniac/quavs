@@ -71,6 +71,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Design" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -90,7 +91,6 @@
     <Compile Include="VideoControl.Designer.cs">
       <DependentUpon>VideoControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="VideoSourcePropEditor.cs" />
     <Service Include="{94E38DFF-614B-4cbd-B67C-F211BB35CE8B}" />
   </ItemGroup>
   <ItemGroup>

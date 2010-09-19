@@ -13,7 +13,7 @@ namespace QUAVS.Base
 #region Privates
 
         /// <summary>
-        /// 
+        /// Private variables to hold telemetry data
         /// </summary>
         private double _accel_x;
         private double _accel_y;
@@ -29,21 +29,11 @@ namespace QUAVS.Base
         private double _roll;
         private double _pitch;
         private double _yaw;
-        private string _message;
 
 #endregion
 
 #region Properties
 
-        /// <summary>
-        /// Gets or sets the message.
-        /// </summary>
-        /// <value>The message.</value>
-        public string Message
-        {
-            get {return _message;}
-            set { _message = value; }
-        }
         /// <summary>
         /// Gets or sets the longitude.
         /// </summary>

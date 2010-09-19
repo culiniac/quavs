@@ -41,7 +41,8 @@
             this.VideoFeed.MinimumSize = new System.Drawing.Size(640, 480);
             this.VideoFeed.Name = "VideoFeed";
             this.VideoFeed.Size = new System.Drawing.Size(722, 533);
-            this.VideoFeed.StrFileName = "test.avi";
+            this.VideoFeed.Speed = 0D;
+            this.VideoFeed.StrVideoFolder = "test.avi";
             this.VideoFeed.StrVideoCompressor = "MJPEG Compressor";
             this.VideoFeed.StrVideoSource = "Microsoft LifeCam VX-5000";
             this.VideoFeed.TabIndex = 0;

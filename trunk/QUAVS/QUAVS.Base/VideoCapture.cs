@@ -3,7 +3,7 @@ QuadUAV Video Capture Class
 *****************************************************************************/
 
 // type of bitmap to use
-#define ARGB32
+#define DEBUG
 
 using System;
 using System.Collections;
@@ -31,7 +31,6 @@ namespace QUAVS.Base
     /// cam = new VideoCapture(strVideoSource, strVideoCompressor, "test.avi", 30, 640, 480, panel1.Handle); 
     /// cam.Start();
     /// </example>
- 
     internal class VideoCapture : ISampleGrabberCB, IDisposable
     {
 
@@ -43,30 +42,35 @@ namespace QUAVS.Base
         private bool _bRunning = false;
 
         private string _strCapture;
+        private string _strCompressor;
+        private string _strFileName;
+        private IntPtr _hOwner;
+
+        private int _videoWidth;
+        private int _videoHeight;
+        private int _stride;
+        private int _fps;
+
+        private bool _hud_enabled;
+        private HUD _hud;
 
         public string CaptureDevice
         {
             get { return _strCapture; }
             set { _strCapture = value; }
         }
-
-        private string _strCompressor;
-
+        
         public string CompressorCodec
         {
             get { return _strCompressor; }
             set { _strCompressor = value; }
         }
 
-        private string _strFileName;
-
         public string VideoFile
         {
             get { return _strFileName; }
             set { _strFileName = value; }
         }
-        
-        private IntPtr _hOwner;
 
         public IntPtr Owner
         {
@@ -74,39 +78,31 @@ namespace QUAVS.Base
             set { _hOwner = value; }
         }
 
-        private TelemetryDataObject _dataObject;
-
-        public TelemetryDataObject DataObject
-        {
-            get { return _dataObject; }
-            set { _dataObject = value; }
-        }
-
-        private int _videoWidth;
         public int VideoWidth
         {
             get { return _videoWidth; }
             set { _videoWidth = value; }
         }
-        
-        private int _videoHeight;
+
         public int VideoHeight
         {
             get { return _videoHeight; }
             set { _videoHeight = value; }
         }
-        
-        private int _stride;
-        
-        private int _fps;
+
         public int Fps
         {
             get { return _fps; }
             set { _fps = value; }
         }
 
-        private HUD _hud;
-        internal HUD HUD
+        public bool HUD_Enabled
+        {
+            get { return _hud_enabled; }
+            set { _hud_enabled = value; }
+        }
+
+        public HUD HUD
         {
             get { return _hud; }
         }
@@ -125,22 +121,10 @@ namespace QUAVS.Base
 
 #endregion
         
-        public VideoCapture(IntPtr owner, TelemetryDataObject dataObject)
+        public VideoCapture(IntPtr owner)
         {
             _hOwner = owner;
-            _dataObject = dataObject;
-        }
-
-        public VideoCapture()
-        {
-            _strCapture = "";
-            _strCompressor = "";
-            _strFileName = "";
-            _fps = 0;
-            _videoWidth = 0;
-            _videoHeight = 0;
-            _hOwner = IntPtr.Zero;
-            _dataObject = null;
+            _hud = new HUD(_videoWidth, _videoHeight);
         }
 
         public void InitializeCapture()
@@ -148,7 +132,6 @@ namespace QUAVS.Base
             try
             {
                 // Set up the capture graph
-                _hud = new HUD(_videoWidth, _videoHeight, _dataObject);
                 SetupGraph(_strCapture, _strCompressor, _strFileName, _fps, _videoWidth, _videoHeight, _hOwner);
             }
             catch(Exception e)
@@ -214,7 +197,6 @@ namespace QUAVS.Base
 
             try
             {
-                
                 //Create the filter for the selected video input
                 captureDevice = CreateFilter(FilterCategory.VideoInputDevice, strCapture);
 
@@ -225,7 +207,6 @@ namespace QUAVS.Base
                 _graphBuilder = (IGraphBuilder)new FilterGraph();
 
                 //Create the Capture Graph Builder
-
                 captureGraphBuilder = (ICaptureGraphBuilder2)new CaptureGraphBuilder2();
 
                 // Attach the filter graph to the capture graph
@@ -381,14 +362,11 @@ namespace QUAVS.Base
             int hr;
             AMMediaType media = new AMMediaType();
 
-            // Set the media type to Video/RBG24
+            // Set the media type to Video/ARBG32
             media.majorType = MediaType.Video;
-
-#if ARGB32
             media.subType = MediaSubType.ARGB32;
-#else
-            media.subType = MediaSubType.RGB24;
-#endif
+            //obsolete:
+            //media.subType = MediaSubType.RGB24;
 
             media.formatType = FormatType.VideoInfo;
             hr = sampGrabber.SetMediaType(media);
@@ -530,14 +508,11 @@ namespace QUAVS.Base
         /// <summary> buffer callback, COULD BE FROM FOREIGN THREAD. </summary>
         int ISampleGrabberCB.BufferCB(double SampleTime, IntPtr pBuffer, int BufferLen)
         {
-            // Avoid the possibility that someone is calling SetLogo() at this instant
             lock (this)
             {
                 DrawHUD(pBuffer);
             }
-
             return 0;
-
         }
 
         static void checkHR(int hr, string msg)
@@ -601,8 +576,7 @@ namespace QUAVS.Base
 
             src = new Bitmap(_videoWidth, _videoHeight, PixelFormat.Format32bppArgb);
             dst = new Bitmap(_videoWidth, _videoHeight, _stride, PixelFormat.Format32bppArgb, pBuffer);
-            
-            
+
             _hud.DrawHUD(src, dst);
             // dispose of the various objects
             src.Dispose();

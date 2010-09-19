@@ -6,6 +6,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using System.Windows.Forms.Design;
 
 namespace QUAVS.Base
 {
@@ -17,7 +18,15 @@ namespace QUAVS.Base
         /// main VideoCapture object
         /// </summary>
         private VideoCapture _cam = null;
+        
+        #endregion
 
+        #region Parameters
+
+        /// <summary>
+        /// Gets or sets the video.
+        /// </summary>
+        /// <value>The video.</value>
         [Category("QUAVS")]
         [Description("select video source")]
         internal VideoCapture Video
@@ -25,22 +34,6 @@ namespace QUAVS.Base
             get { return _cam; }
             set { _cam = value; }
         }
-
-
-        /// <summary>
-        /// Telemetry data to be used with HUD - to be replaced by properties of the object
-        /// </summary>
-        private TelemetryDataObject _dataObject;
-
-        public TelemetryDataObject DataObject
-        {
-            get { return _dataObject; }
-            set { _dataObject = value; }
-        }
-
-        #endregion
-
-        #region Parameters
 
         /// <summary>
         /// Gets or sets the STR video source.
@@ -72,7 +65,8 @@ namespace QUAVS.Base
         /// <value>The name of the STR file.</value>
         [Category("QUAVS")]
         [Description("select video source")]
-        public string StrFileName
+        [EditorAttribute(typeof(System.Windows.Forms.Design.FolderNameEditor), typeof(System.Drawing.Design.UITypeEditor))]
+        public string StrVideoFolder
         {
             get { return _cam.VideoFile; }
             set { _cam.VideoFile = value; }
@@ -113,6 +107,15 @@ namespace QUAVS.Base
             get { return _cam.VideoHeight; }
             set { _cam.VideoHeight = value; }
         }
+
+        [Category("QUAVS")]
+        [Description("HUD speed")]
+        public double Speed
+        {
+            get { return _cam.HUD.Speed; }
+            set { _cam.HUD.Speed = value; }
+        }
+
         #endregion
 
         
@@ -122,8 +125,7 @@ namespace QUAVS.Base
         public VideoControl()
         {
             InitializeComponent();
-            _dataObject = new TelemetryDataObject();
-            _cam = new VideoCapture(this.Handle, _dataObject);
+            _cam = new VideoCapture(this.Handle);
         }
         
         #region Methods

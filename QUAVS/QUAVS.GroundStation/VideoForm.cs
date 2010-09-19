@@ -20,11 +20,6 @@ namespace QUAVS.GroundStation
 
         private void VideoForm_Load(object sender, EventArgs e)
         {
-            //VideoFeed.StrFileName = "test.avi";
-            //VideoFeed.StrVideoSource = "Microsoft LifeCam VX-5000";
-            //VideoFeed.StrVideoCompressor = "MJPEG Compressor";
-            //VideoFeed.Fps = 30;
-            //VideoFeed.DataObject = ;
             VideoFeed.Run();
         }
 

@@ -13,8 +13,7 @@
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SignAssembly>false</SignAssembly>
-    <AssemblyOriginatorKeyFile>
-    </AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>GMap.NET.WindowsForms.snk</AssemblyOriginatorKeyFile>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
     <OldToolsVersion>3.5</OldToolsVersion>
@@ -138,6 +137,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <None Include="GMap.NET.WindowsForms.snk" />
     <None Include="Resources\shadow50.png" />
   </ItemGroup>
   <ItemGroup>
@@ -153,6 +153,7 @@
     <ProjectReference Include="..\GMap.NET.Core\GMap.NET.Core.csproj">
       <Project>{D0C39D9D-BED0-418B-9A5E-713176CAF40C}</Project>
       <Name>GMap.NET.Core</Name>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

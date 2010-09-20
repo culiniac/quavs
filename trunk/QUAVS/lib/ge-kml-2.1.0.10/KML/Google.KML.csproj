@@ -75,6 +75,12 @@
     <PlatformTarget>x86</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
   </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>false</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>Google.KML.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
   <ItemGroup>
     <Compile Include="geAltitudeModeEnum.cs" />
     <Compile Include="geBaloonStyle.cs" />
@@ -144,6 +150,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="ge_ClassDiagram.cd" />
+    <None Include="Google.KML.snk" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="earth.ico" />

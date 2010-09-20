@@ -81,13 +81,13 @@ namespace QUAVS.Base
         public int VideoWidth
         {
             get { return _videoWidth; }
-            set { _videoWidth = value; }
+            set { _videoWidth = value; _hud.VideoWidth = _videoWidth; }
         }
 
         public int VideoHeight
         {
             get { return _videoHeight; }
-            set { _videoHeight = value; }
+            set { _videoHeight = value; _hud.VideoHeight = _videoHeight; }
         }
 
         public int Fps
@@ -123,8 +123,9 @@ namespace QUAVS.Base
         
         public VideoCapture(IntPtr owner)
         {
+            _hud_enabled = true;
             _hOwner = owner;
-            _hud = new HUD(_videoWidth, _videoHeight);
+            _hud = new HUD();
         }
 
         public void InitializeCapture()
@@ -567,20 +568,21 @@ namespace QUAVS.Base
             return (IBaseFilter)source;
         }
 
-        
-
         public void DrawHUD(IntPtr pBuffer)
         {
-            Bitmap dst;
-            Bitmap src;
+            if (_hud_enabled)
+            {
+                Bitmap dst;
+                Bitmap src;
 
-            src = new Bitmap(_videoWidth, _videoHeight, PixelFormat.Format32bppArgb);
-            dst = new Bitmap(_videoWidth, _videoHeight, _stride, PixelFormat.Format32bppArgb, pBuffer);
+                src = new Bitmap(_videoWidth, _videoHeight, PixelFormat.Format32bppArgb);
+                dst = new Bitmap(_videoWidth, _videoHeight, _stride, PixelFormat.Format32bppArgb, pBuffer);
 
-            _hud.DrawHUD(src, dst);
-            // dispose of the various objects
-            src.Dispose();
-            dst.Dispose();
+                _hud.DrawHUD(src, dst);
+                // dispose of the various objects
+                src.Dispose();
+                dst.Dispose();
+            }
         }
     }
 }

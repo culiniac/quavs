@@ -48,7 +48,7 @@ namespace GMap.NET.Internals
 #if SQLite
             if(ImageCache is SQLitePureImageCache)
             {
-               (ImageCache as SQLitePureImageCache).CacheLocation = value;
+                (ImageCache as SQLitePureImageCache).CacheLocation = value;
             }
 #else
             if(ImageCache is MsSQLCePureImageCache)

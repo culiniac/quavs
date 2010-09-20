@@ -59,5 +59,12 @@ namespace QUAVS.GroundStation.Properties {
                 resourceCulture = value;
             }
         }
+        
+        internal static System.Drawing.Icon quavs {
+            get {
+                object obj = ResourceManager.GetObject("quavs", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
     }
 }

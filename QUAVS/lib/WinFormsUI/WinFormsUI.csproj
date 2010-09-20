@@ -11,8 +11,7 @@
     <RootNamespace>WeifenLuo.WinFormsUI</RootNamespace>
     <AssemblyName>WeifenLuo.WinFormsUI.Docking</AssemblyName>
     <SignAssembly>false</SignAssembly>
-    <AssemblyOriginatorKeyFile>
-    </AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>WinFormsUI.snk</AssemblyOriginatorKeyFile>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
@@ -235,6 +234,7 @@
     <None Include="Docking\Resources\DockIndicator_PanelRight_Active.bmp" />
     <None Include="Docking\Resources\DockIndicator_PanelTop.bmp" />
     <None Include="Docking\Resources\DockIndicator_PanelTop_Active.bmp" />
+    <None Include="WinFormsUI.snk" />
   </ItemGroup>
   <ItemGroup>
     <None Include="license.txt">

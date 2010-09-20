@@ -65,6 +65,18 @@ namespace QUAVS.Base
         private SolidBrush _transparentBrush;
         
         #region Accessors & Mutators
+        
+        public int VideoWidth
+        {
+            get { return _videoWidth; }
+            set { _videoWidth = value; }
+        }
+        public int VideoHeight
+        {
+            get { return _videoHeight; }
+            set { _videoHeight = value; }
+        }
+        
         public double Longitude
         {
             get { return _longitude; }
@@ -117,10 +129,8 @@ namespace QUAVS.Base
         }
         #endregion
 
-        public HUD(int vW, int vH)
+        public HUD()
         {
-            int fSize;
-            
             _speed = 0;
             _altitude = 0;
             _latitude = 0;
@@ -131,13 +141,9 @@ namespace QUAVS.Base
             _yaw = 0;
             _message = "Initialized...";
 
-            _videoWidth = vW;
-            _videoHeight = vH;
+            _videoWidth = 640;
+            _videoHeight = 480;
 
-            //_dataObject = dataObject;
-
-            // scale the font size in some portion to the video image
-            fSize = (vW / 32);
             // TO DO: fix the font sizes
             // ADD: more parameters for color, font size, etc
             

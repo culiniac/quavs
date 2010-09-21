@@ -99,7 +99,7 @@
     <SignAssembly>false</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
-    <AssemblyOriginatorKeyFile>QUAVS.GroundStation.snk</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>Properties\QUAVS.GroundStation.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <PropertyGroup>
     <TargetZone>LocalIntranet</TargetZone>
@@ -194,7 +194,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="QUAVS.GroundStation.snk" />
+    <None Include="Properties\QUAVS.GroundStation.snk" />
     <None Include="Resources\quavs.ico" />
   </ItemGroup>
   <ItemGroup>

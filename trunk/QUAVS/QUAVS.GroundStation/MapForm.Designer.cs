@@ -32,15 +32,15 @@
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.MainMap = new GMap.NET.WindowsForms.GMapControl();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+            this.labelProviderType = new System.Windows.Forms.Label();
+            this.comboBoxProviderType = new System.Windows.Forms.ComboBox();
+            this.labelProviderMode = new System.Windows.Forms.Label();
+            this.comboBoxProviderMode = new System.Windows.Forms.ComboBox();
             this.labelLat = new System.Windows.Forms.Label();
             this.textBoxLat = new System.Windows.Forms.TextBox();
             this.labelLng = new System.Windows.Forms.Label();
             this.textBoxLng = new System.Windows.Forms.TextBox();
             this.trackBarMapZoom = new System.Windows.Forms.TrackBar();
-            this.labelProviderType = new System.Windows.Forms.Label();
-            this.comboBoxProviderType = new System.Windows.Forms.ComboBox();
-            this.comboBoxProviderMode = new System.Windows.Forms.ComboBox();
-            this.labelProviderMode = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -106,6 +106,42 @@
             this.flowLayoutPanel1.Size = new System.Drawing.Size(309, 602);
             this.flowLayoutPanel1.TabIndex = 1;
             // 
+            // labelProviderType
+            // 
+            this.labelProviderType.AutoSize = true;
+            this.labelProviderType.Location = new System.Drawing.Point(3, 0);
+            this.labelProviderType.Name = "labelProviderType";
+            this.labelProviderType.Size = new System.Drawing.Size(73, 13);
+            this.labelProviderType.TabIndex = 4;
+            this.labelProviderType.Text = "Provider Type";
+            // 
+            // comboBoxProviderType
+            // 
+            this.comboBoxProviderType.FormattingEnabled = true;
+            this.comboBoxProviderType.Location = new System.Drawing.Point(3, 16);
+            this.comboBoxProviderType.Name = "comboBoxProviderType";
+            this.comboBoxProviderType.Size = new System.Drawing.Size(220, 21);
+            this.comboBoxProviderType.TabIndex = 5;
+            this.comboBoxProviderType.DropDownClosed += new System.EventHandler(this.comboBoxProviderType_DropDownClosed);
+            // 
+            // labelProviderMode
+            // 
+            this.labelProviderMode.AutoSize = true;
+            this.labelProviderMode.Location = new System.Drawing.Point(3, 40);
+            this.labelProviderMode.Name = "labelProviderMode";
+            this.labelProviderMode.Size = new System.Drawing.Size(76, 13);
+            this.labelProviderMode.TabIndex = 7;
+            this.labelProviderMode.Text = "Provider Mode";
+            // 
+            // comboBoxProviderMode
+            // 
+            this.comboBoxProviderMode.FormattingEnabled = true;
+            this.comboBoxProviderMode.Location = new System.Drawing.Point(3, 56);
+            this.comboBoxProviderMode.Name = "comboBoxProviderMode";
+            this.comboBoxProviderMode.Size = new System.Drawing.Size(220, 21);
+            this.comboBoxProviderMode.TabIndex = 6;
+            this.comboBoxProviderMode.DropDownClosed += new System.EventHandler(this.comboBoxProviderMode_DropDownClosed);
+            // 
             // labelLat
             // 
             this.labelLat.AutoSize = true;
@@ -152,42 +188,6 @@
             this.trackBarMapZoom.TabIndex = 0;
             this.trackBarMapZoom.Value = 1;
             this.trackBarMapZoom.Scroll += new System.EventHandler(this.trackBarMapZoom_Scroll);
-            // 
-            // labelProviderType
-            // 
-            this.labelProviderType.AutoSize = true;
-            this.labelProviderType.Location = new System.Drawing.Point(3, 0);
-            this.labelProviderType.Name = "labelProviderType";
-            this.labelProviderType.Size = new System.Drawing.Size(73, 13);
-            this.labelProviderType.TabIndex = 4;
-            this.labelProviderType.Text = "Provider Type";
-            // 
-            // comboBoxProviderType
-            // 
-            this.comboBoxProviderType.FormattingEnabled = true;
-            this.comboBoxProviderType.Location = new System.Drawing.Point(3, 16);
-            this.comboBoxProviderType.Name = "comboBoxProviderType";
-            this.comboBoxProviderType.Size = new System.Drawing.Size(220, 21);
-            this.comboBoxProviderType.TabIndex = 5;
-            this.comboBoxProviderType.DropDownClosed += new System.EventHandler(this.comboBoxProviderType_DropDownClosed);
-            // 
-            // comboBoxProviderMode
-            // 
-            this.comboBoxProviderMode.FormattingEnabled = true;
-            this.comboBoxProviderMode.Location = new System.Drawing.Point(3, 56);
-            this.comboBoxProviderMode.Name = "comboBoxProviderMode";
-            this.comboBoxProviderMode.Size = new System.Drawing.Size(220, 21);
-            this.comboBoxProviderMode.TabIndex = 6;
-            this.comboBoxProviderMode.DropDownClosed += new System.EventHandler(this.comboBoxProviderMode_DropDownClosed);
-            // 
-            // labelProviderMode
-            // 
-            this.labelProviderMode.AutoSize = true;
-            this.labelProviderMode.Location = new System.Drawing.Point(3, 40);
-            this.labelProviderMode.Name = "labelProviderMode";
-            this.labelProviderMode.Size = new System.Drawing.Size(76, 13);
-            this.labelProviderMode.TabIndex = 7;
-            this.labelProviderMode.Text = "Provider Mode";
             // 
             // MapForm
             // 

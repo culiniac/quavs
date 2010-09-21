@@ -40,7 +40,7 @@ namespace QUAVS.GroundStation
         public MapForm()
         {
             InitializeComponent();
-            MainMap.CacheLocation = "." + Path.DirectorySeparatorChar;
+            //MainMap.CacheLocation = "." + Path.DirectorySeparatorChar;
             // set cache mode only if no internet avaible
             if (!DesignMode)
             {
@@ -111,6 +111,8 @@ namespace QUAVS.GroundStation
                 // map center
                 center = new GMapMarkerCross(MainMap.CurrentPosition);
                 top.Markers.Add(center);
+
+                splitContainer1.Panel2Collapsed = true;
             }
         }
 
@@ -176,12 +178,12 @@ namespace QUAVS.GroundStation
                     currentMarker.Position = MainMap.FromLocalToLatLng(e.X, e.Y);
                 }
 
-                Placemark pos = GMaps.Instance.GetPlacemarkFromGeocoder(currentMarker.Position);
-                if (pos != null)
-                {
-                    currentMarker.ToolTipText = pos.Address;
-                    MainMap.Invalidate(false);
-                }
+                //Placemark pos = GMaps.Instance.GetPlacemarkFromGeocoder(currentMarker.Position);
+                //if (pos != null)
+                //{
+                //    currentMarker.ToolTipText = pos.Address;
+                //    MainMap.Invalidate(false);
+                //}
             }
         }
 

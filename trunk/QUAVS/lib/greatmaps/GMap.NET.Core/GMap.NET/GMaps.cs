@@ -1667,7 +1667,7 @@ namespace GMap.NET
 
       #endregion
 
-      #region -- Content download --
+#region -- Content download --
 
       /// <summary>
       /// try to correct google versions

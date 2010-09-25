@@ -1,0 +1,68 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="FullSignature">
+  <Class Name="QUAVS.Base.HUD" Collapsed="true">
+    <Position X="4" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACCAAAJBAWUAgIEQgeAIiBABAAGAAAAgFAJAIYAhkBA=</HashCode>
+      <FileName>HUD.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="QUAVS.Base.TelemetryDataObject" Collapsed="true">
+    <Position X="0.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAABDmBAACEgAKAIiAABCAAAIAAgBABAAIIAEBA=</HashCode>
+      <FileName>TelemetryDataObject.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="QUAVS.Base.VideoCapture" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="2.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AChhAAqAJaUAgAAAAACEQAAAACAABAQACQUIAI+YAQQ=</HashCode>
+      <FileName>VideoCapture.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="QUAVS.Base.VideoCodecForm" Collapsed="true">
+    <Position X="2.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAgAACQAABAAAACKAAAKAAAAEgAAEQAgAAAAAAA=</HashCode>
+      <FileName>VideoCodecForm.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="QUAVS.Base.VideoCodecUITypeEditor" Collapsed="true">
+    <Position X="0.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAgAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>VideoCodecUITypeEditor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="QUAVS.Base.VideoControl" Collapsed="true">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEACAAIQQCQAgAAAACCAAAAKgAAAAAAAIAAAAIAAAAo=</HashCode>
+      <FileName>VideoControl.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="QUAVS.Base.VideoSettings" Collapsed="true">
+    <Position X="0.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAQAAAAAAAAAAAAABAAAAAAAACAAAAAAIAAAAA=</HashCode>
+      <FileName>VideoSettings.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="QUAVS.Base.VideoSourceForm" Collapsed="true">
+    <Position X="2.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAgAACQAABAAAACIAAAKAAEAEgAAAQAgAQAAAAA=</HashCode>
+      <FileName>VideoSourceForm.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="QUAVS.Base.VideoSourceUITypeEditor" Collapsed="true">
+    <Position X="0.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAgAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>VideoSourceUITypeEditor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

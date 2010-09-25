@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.Data;
-using System.Linq;
 using System.Text;
+using System.Drawing.Design;
 using System.Windows.Forms;
 using System.Windows.Forms.Design;
+
+
 
 namespace QUAVS.Base
 {
@@ -27,8 +29,7 @@ namespace QUAVS.Base
         /// Gets or sets the video.
         /// </summary>
         /// <value>The video.</value>
-        [Category("QUAVS")]
-        [Description("select video source")]
+        [BrowsableAttribute(false)]
         internal VideoCapture Video
         {
             get { return _cam; }
@@ -38,22 +39,24 @@ namespace QUAVS.Base
         /// <summary>
         /// Gets or sets the STR video source.
         /// </summary>
-        /// <value>The STR video source.</value>
+        /// <value>The video source.</value>
         [Category("QUAVS")]
         [Description("select video source")]
-        public string StrVideoSource
+        [EditorAttribute(typeof(VideoSourceUITypeEditor), typeof(System.Drawing.Design.UITypeEditor))]
+        public string VideoSource
         {
             get { return _cam.CaptureDevice; }
             set { _cam.CaptureDevice = value; }
         }
 
         /// <summary>
-        /// Gets or sets the STR video compressor.
+        /// Gets or sets the video compressor.
         /// </summary>
-        /// <value>The STR video compressor.</value>
+        /// <value>The video compressor.</value>
         [Category("QUAVS")]
-        [Description("select video source")]
-        public string StrVideoCompressor
+        [Description("select video compressor")]
+        [EditorAttribute(typeof(VideoCodecUITypeEditor), typeof(System.Drawing.Design.UITypeEditor))]
+        public string VideoCompressor
         {
             get { return _cam.CompressorCodec; }
             set { _cam.CompressorCodec = value; }
@@ -65,8 +68,8 @@ namespace QUAVS.Base
         /// <value>The name of the STR file.</value>
         [Category("QUAVS")]
         [Description("select video source")]
-        [EditorAttribute(typeof(System.Windows.Forms.Design.FolderNameEditor), typeof(System.Drawing.Design.UITypeEditor))]
-        public string StrVideoFolder
+        //[EditorAttribute(typeof(System.Windows.Forms.Design.FolderNameEditor), typeof(System.Drawing.Design.UITypeEditor))]
+        public string VideoFolder
         {
             get { return _cam.VideoFile; }
             set { _cam.VideoFile = value; }
@@ -78,7 +81,7 @@ namespace QUAVS.Base
         /// <value>The FPS.</value>
         [Category("QUAVS")]
         [Description("select video source")]
-        public int Fps
+        public int VideoFps
         {
             get { return _cam.Fps; }
             set { _cam.Fps = value; }
@@ -110,7 +113,7 @@ namespace QUAVS.Base
 
         [Category("QUAVS")]
         [Description("HUD speed")]
-        public double Speed
+        public double HUDSpeed
         {
             get { return _cam.HUD.Speed; }
             set { _cam.HUD.Speed = value; }
@@ -125,8 +128,32 @@ namespace QUAVS.Base
         public VideoControl()
         {
             InitializeComponent();
-            _cam = new VideoCapture(this.Handle);
+            
+            _cam = new VideoCapture(panelVideo.Handle);
         }
+
+        /// /// <summary> 
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                if (_cam != null)
+                {
+                    _cam.Dispose();
+                    _cam = null;
+                }
+
+                if (components != null)
+                {
+                    components.Dispose();
+                }
+            }
+            base.Dispose(disposing);
+        }
+
         
         #region Methods
         /// <summary>
@@ -151,6 +178,18 @@ namespace QUAVS.Base
             }
         }
         #endregion
+
+        private void VideoControl_Resize(object sender, EventArgs e)
+        {
+            // Resize and reposition video panel
+            panelVideo.Height = _cam.VideoHeight;
+            panelVideo.Width = _cam.VideoWidth;
+            panelVideo.Top = (this.Height - _cam.VideoHeight) / 2;
+            panelVideo.Left = (this.Width - _cam.VideoWidth) / 2;
+
+            if (panelVideo.Top < 0) panelVideo.Top = 0;
+            if (panelVideo.Left < 0) panelVideo.Left = 0;
+        }
 
     }
 }

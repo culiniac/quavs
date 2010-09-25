@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>QUAVS.Base</RootNamespace>
     <AssemblyName>QUAVS.Base</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>
     </TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
@@ -75,43 +75,67 @@
     <AssemblyOriginatorKeyFile>QUAVS.Base.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DirectShowLib-2005">
+      <HintPath>..\references\DirectShowLib-2005.dll</HintPath>
+    </Reference>
+    <Reference Include="GMap.NET.WindowsForms">
+      <HintPath>..\references\GMap.NET.WindowsForms.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.KML">
+      <HintPath>..\references\Google.KML.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
-    <Reference Include="System.Core" />
     <Reference Include="System.Design" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="VideoCodecForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="VideoCodecForm.Designer.cs">
+      <DependentUpon>VideoCodecForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="HUD.cs" />
     <Compile Include="TelemetryDataObject.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="VideoCapture.cs" />
+    <Compile Include="VideoCodecUITypeEditor.cs" />
     <Compile Include="VideoControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="VideoControl.Designer.cs">
       <DependentUpon>VideoControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="VideoSettings.cs" />
+    <Compile Include="VideoSourceForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="VideoSourceForm.Designer.cs">
+      <DependentUpon>VideoSourceForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="VideoSourceUITypeEditor.cs" />
     <Service Include="{94E38DFF-614B-4cbd-B67C-F211BB35CE8B}" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\lib\DirectShowLibV2-1\src\DirectShowLib-2008.csproj">
-      <Project>{5206162F-C2FC-493B-97F9-90CDE2F8546C}</Project>
-      <Name>DirectShowLib-2008</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
+    <EmbeddedResource Include="VideoCodecForm.resx">
+      <DependentUpon>VideoCodecForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="VideoControl.resx">
       <DependentUpon>VideoControl.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="VideoSourceForm.resx">
+      <DependentUpon>VideoSourceForm.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <None Include="ClassDiagram1.cd" />
     <None Include="QUAVS.Base.snk" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Resources\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

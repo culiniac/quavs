@@ -133,7 +133,7 @@ namespace QUAVS.Base
             try
             {
                 // Set up the capture graph
-                SetupGraph(_strCapture, _strCompressor, _strFileName, _fps, _videoWidth, _videoHeight, _hOwner);
+                SetupGraph(_strCapture, _strCompressor, _strFileName, _fps, _videoWidth, _videoHeight, _hOwner, true);
             }
             catch(Exception e)
             {
@@ -142,22 +142,27 @@ namespace QUAVS.Base
             }
         }
 
-        /// <summary> release everything. </summary>
+        /// <summary>
+        /// release everything.
+        /// </summary>
         public void Dispose()
         {
             CloseInterfaces();
         }
         
-        // Destructor
+        /// <summary>
+        /// Releases unmanaged resources and performs other cleanup operations before the
+        /// <see cref="VideoCapture"/> is reclaimed by garbage collection.
+        /// </summary>
         ~VideoCapture()
         {
-            CloseInterfaces();
+            Dispose();
         }
         
         /// <summary> capture the next image </summary>
         public void Start()
         {
-            if (!_bRunning)
+            if (!_bRunning & (_mediaCtrl != null))
             {
                 int hr = _mediaCtrl.Run();
                 checkHR(hr, "Cannot start capture graph");
@@ -171,9 +176,23 @@ namespace QUAVS.Base
         // isn't needed.
         public void Pause()
         {
-            if (_bRunning)
+            if (_bRunning & (_mediaCtrl != null))
             {
                 int hr = _mediaCtrl.Pause();
+                checkHR(hr, "Cannot pause capture graph");
+
+                _bRunning = false;
+            }
+        }
+
+        // Pause the capture graph.
+        // Running the graph takes up a lot of resources.  Pause it when it
+        // isn't needed.
+        public void Stop()
+        {
+            if (_bRunning & (_mediaCtrl != null))
+            {
+                int hr = _mediaCtrl.StopWhenReady();
                 checkHR(hr, "Cannot pause capture graph");
 
                 _bRunning = false;
@@ -186,7 +205,7 @@ namespace QUAVS.Base
         }
 
         /// <summary> build the capture graph for grabber. </summary>
-        private void SetupGraph(string strCapture, string strCompressor, string strFileName, int iFrameRate, int iWidth, int iHeight, IntPtr owner)
+        private void SetupGraph(string strCapture, string strCompressor, string strFileName, int iFrameRate, int iWidth, int iHeight, IntPtr owner, bool record)
         {
             ICaptureGraphBuilder2 captureGraphBuilder = null;
             ISampleGrabber sampGrabber = null;
@@ -195,6 +214,8 @@ namespace QUAVS.Base
             IFileSinkFilter sink = null;
             IBaseFilter captureDevice = null;
             IBaseFilter captureCompressor = null;
+            IBaseFilter theRenderer = null;
+            int hr = 0;
 
             try
             {
@@ -211,18 +232,14 @@ namespace QUAVS.Base
                 captureGraphBuilder = (ICaptureGraphBuilder2)new CaptureGraphBuilder2();
 
                 // Attach the filter graph to the capture graph
-                int hr = captureGraphBuilder.SetFiltergraph(this._graphBuilder);
+                hr = captureGraphBuilder.SetFiltergraph(this._graphBuilder);
                 checkHR(hr, "Error attaching filter graph to capture graph");
-
-                //Create the media control for controlling the graph
-                _mediaCtrl = (IMediaControl)this._graphBuilder;
 
                 //Add the Video input device to the graph
                 hr = _graphBuilder.AddFilter(captureDevice, "QUAVS input filter");
                 checkHR(hr, "Error attaching video input");
 
                 //setup cature device 
-                //### TO DO #### create properties for fps, width, height
                 SetConfigParms(captureGraphBuilder, captureDevice, iFrameRate, iWidth, iHeight);
 
                 //Add a sample grabber
@@ -242,33 +259,49 @@ namespace QUAVS.Base
 
                 //connect capture SampleGrabber to IPinTee
                 hr = _graphBuilder.Connect(GetPin((IBaseFilter)sampGrabber, "Output"), GetPin(theIPinTee, "Input"));
-                checkHR(hr, "Error adding infinite tee pin");
+                checkHR(hr, "Error adding SampleGrabber");
 
-                //Add the Video compressor filter to the graph
-                hr = _graphBuilder.AddFilter(captureCompressor, "QUAVS compressor filter");
-                checkHR(hr, "Error adding infinite tee pin");
+                if (record)
+                {
+                    //Add the Video compressor filter to the graph
+                    hr = _graphBuilder.AddFilter(captureCompressor, "QUAVS compressor filter");
+                    checkHR(hr, "Error adding compressor filter");
 
-                //connect capture IPinTee output1 to compressor
-                hr = _graphBuilder.Connect(GetPin(theIPinTee, "Output1"), GetPin(captureCompressor, "Input"));
-                DsError.ThrowExceptionForHR(hr);
+                    //connect capture IPinTee output1 to compressor
+                    hr = _graphBuilder.Connect(GetPin(theIPinTee, "Output1"), GetPin(captureCompressor, "Input"));
+                    checkHR(hr, "Error adding TO DO");
 
 
-                //Create the file writer part of the graph. SetOutputFileName does this for us, and returns the mux and sink
-                hr = captureGraphBuilder.SetOutputFileName(MediaSubType.Avi, strFileName, out mux, out sink);
-                DsError.ThrowExceptionForHR(hr);
+                    //Create the file writer part of the graph. SetOutputFileName does this for us, and returns the mux and sink
+                    hr = captureGraphBuilder.SetOutputFileName(MediaSubType.Avi, strFileName, out mux, out sink);
+                    checkHR(hr, "Error adding mux filter or setting output file name");
+                    
+                    //connect compressor to mux output
+                    hr = _graphBuilder.Connect(GetPin(captureCompressor, "Output"), GetPin(mux, "Input 01"));
+                    checkHR(hr, "Error connecting the compressor to mux");
 
-                //connect capture IPinTee output1 to compressor
-                hr = _graphBuilder.Connect(GetPin(captureCompressor, "Output"), GetPin(mux, "Input 01"));
-                DsError.ThrowExceptionForHR(hr);
+                    // Get the default video renderer
+                    theRenderer = new VideoRendererDefault() as IBaseFilter;
+                    hr = _graphBuilder.AddFilter(theRenderer, "Renderer");
+                    checkHR(hr, "Error adding screen renderer");
 
-                // Get the default video renderer
-                IBaseFilter theRenderer = new VideoRendererDefault() as IBaseFilter;
-                hr = _graphBuilder.AddFilter(theRenderer, "Renderer");
-                DsError.ThrowExceptionForHR(hr);
+                    //connect capture TO DO
+                    hr = _graphBuilder.Connect(GetPin(theIPinTee, "Output2"), GetPin(theRenderer, "VMR Input0"));
+                    checkHR(hr, "Error connecting screen renderer");
+                }
+                else
+                {
+                    // Get the default video renderer
+                    theRenderer = new VideoRendererDefault() as IBaseFilter;
+                    hr = _graphBuilder.AddFilter(theRenderer, "Renderer");
+                    checkHR(hr, "Error adding screen renderer");
 
-                //connect capture IPinTee output1 to compressor
-                hr = _graphBuilder.Connect(GetPin(theIPinTee, "Output2"), GetPin(theRenderer, "VMR Input0"));
-                DsError.ThrowExceptionForHR(hr);
+                    //connect capture TO DO
+                    hr = _graphBuilder.Connect(GetPin(theIPinTee, "Output1"), GetPin(theRenderer, "VMR Input0"));
+                    checkHR(hr, "Error connecting screen renderer");
+                }
+
+                
 
                 SaveSizeInfo(sampGrabber);
 #if DEBUG
@@ -297,10 +330,18 @@ namespace QUAVS.Base
                     DsError.ThrowExceptionForHR(hr);
                 }
 
+                //Create the media control for controlling the graph
+                _mediaCtrl = (IMediaControl)this._graphBuilder;
+
             }
             catch (Exception e)
             {
                 Trace.WriteLine(e.Message);
+                if (_mediaCtrl != null)
+                {
+                    Marshal.ReleaseComObject(_mediaCtrl);
+                    _mediaCtrl = null;
+                }
             }
             finally
             {
@@ -328,6 +369,21 @@ namespace QUAVS.Base
                 {
                     Marshal.ReleaseComObject(theIPinTee);
                     theIPinTee = null;
+                }
+                if (captureDevice != null)
+                {
+                    Marshal.ReleaseComObject(captureDevice);
+                    captureDevice = null;
+                }
+                if (captureCompressor != null)
+                {
+                    Marshal.ReleaseComObject(captureCompressor);
+                    captureCompressor = null;
+                }
+                if (theRenderer != null)
+                {
+                    Marshal.ReleaseComObject(theRenderer);
+                    theRenderer = null;
                 }
             }
         }
@@ -477,7 +533,7 @@ namespace QUAVS.Base
             }
             catch (Exception ex)
             {
-                Debug.WriteLine(ex);
+                Trace.WriteLine(ex);
             }
 
 #if DEBUG
@@ -498,15 +554,26 @@ namespace QUAVS.Base
 
             GC.Collect();
         }
-        
-        /// <summary> sample callback, NOT USED. </summary>
+
+        /// <summary>
+        /// sample callback, NOT USED.
+        /// </summary>
+        /// <param name="SampleTime">The sample time.</param>
+        /// <param name="pSample">The p sample.</param>
+        /// <returns></returns>
         int ISampleGrabberCB.SampleCB(double SampleTime, IMediaSample pSample)
         {
             Marshal.ReleaseComObject(pSample);
             return 0;
         }
 
-        /// <summary> buffer callback, COULD BE FROM FOREIGN THREAD. </summary>
+        /// <summary>
+        /// buffer callback, COULD BE FROM FOREIGN THREAD.
+        /// </summary>
+        /// <param name="SampleTime">The sample time.</param>
+        /// <param name="pBuffer">The p buffer.</param>
+        /// <param name="BufferLen">The buffer len.</param>
+        /// <returns></returns>
         int ISampleGrabberCB.BufferCB(double SampleTime, IntPtr pBuffer, int BufferLen)
         {
             lock (this)
@@ -516,6 +583,11 @@ namespace QUAVS.Base
             return 0;
         }
 
+        /// <summary>
+        /// Checks the HR.
+        /// </summary>
+        /// <param name="hr">The hr.</param>
+        /// <param name="msg">The MSG.</param>
         static void checkHR(int hr, string msg)
         {
             if (hr < 0)
@@ -525,6 +597,12 @@ namespace QUAVS.Base
             }
         }
 
+        /// <summary>
+        /// Gets the pin.
+        /// </summary>
+        /// <param name="filter">The filter.</param>
+        /// <param name="pinname">The pinname.</param>
+        /// <returns></returns>
         static IPin GetPin(IBaseFilter filter, string pinname)
         {
             IEnumPins epins;
@@ -568,6 +646,10 @@ namespace QUAVS.Base
             return (IBaseFilter)source;
         }
 
+        /// <summary>
+        /// Draws the HUD.
+        /// </summary>
+        /// <param name="pBuffer">The p buffer.</param>
         public void DrawHUD(IntPtr pBuffer)
         {
             if (_hud_enabled)

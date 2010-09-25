@@ -1,14 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.Diagnostics;
 
+
+using System.Globalization;
+using System.Collections;
+
 namespace QUAVS.Base
 {
+    /// <summary>
+    /// 
+    /// </summary>
     class HUD
     {
         /// <summary>
@@ -168,8 +174,7 @@ namespace QUAVS.Base
             _format2 = new StringFormat(StringFormatFlags.NoClip);
             _format2.LineAlignment = StringAlignment.Near;
             _format2.Alignment = StringAlignment.Near;
-            
-            Trace.WriteLine("HUD Contructor: object created");
+           
         }
 
 

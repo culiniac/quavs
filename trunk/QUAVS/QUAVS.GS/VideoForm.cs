@@ -15,11 +15,12 @@ namespace QUAVS.GS
         public VideoForm()
         {
             InitializeComponent();
+            Run();
         }
 
         private void VideoForm_Load(object sender, EventArgs e)
         {
-            Run();
+            
         }
 
         public void Stop()

@@ -132,8 +132,17 @@ namespace QUAVS.Base
         {
             try
             {
+                
+#if DEBUG
+                var benchmark = Stopwatch.StartNew();
+#endif
                 // Set up the capture graph
                 SetupGraph(_strCapture, _strCompressor, _strFileName, _fps, _videoWidth, _videoHeight, _hOwner, true);
+
+#if DEBUG
+                benchmark.Stop();
+                Console.WriteLine("SetupGraph: {0}", ((double)(benchmark.Elapsed.TotalMilliseconds)).ToString("0.00 ms"));
+#endif
             }
             catch(Exception e)
             {
@@ -203,9 +212,9 @@ namespace QUAVS.Base
         {
             return _bRunning;
         }
-
+        
         /// <summary> build the capture graph for grabber. </summary>
-        private void SetupGraph(string strCapture, string strCompressor, string strFileName, int iFrameRate, int iWidth, int iHeight, IntPtr owner, bool record)
+        public void SetupGraph(string strCapture, string strCompressor, string strFileName, int iFrameRate, int iWidth, int iHeight, IntPtr owner, bool record)
         {
             ICaptureGraphBuilder2 captureGraphBuilder = null;
             ISampleGrabber sampGrabber = null;

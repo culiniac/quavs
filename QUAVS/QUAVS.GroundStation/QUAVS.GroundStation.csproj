@@ -111,9 +111,6 @@
     <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DirectShowLib-2005">
-      <HintPath>..\references\DirectShowLib-2005.dll</HintPath>
-    </Reference>
     <Reference Include="GMap.NET.Core, Version=1.5.3.3, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\references\GMap.NET.Core.dll</HintPath>

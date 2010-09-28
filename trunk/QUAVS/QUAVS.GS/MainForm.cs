@@ -63,7 +63,7 @@ namespace QUAVS.GS
 
         private void standardLayoutToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            //check for null forms
+            //check for null forms - Not working - figure out the disposal of forms.
             if (_videoForm == null)
                 _videoForm = new VideoForm();
             _videoForm.Show(DockingPanel, DockState.Document);

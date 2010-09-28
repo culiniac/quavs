@@ -10,6 +10,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QUAVS.GroundStation", "QUAV
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{3106F931-EB75-4914-9E13-A7C37384D94F}"
 	ProjectSection(SolutionItems) = preProject
+		libraries.zip = libraries.zip
 		PublicKeys.htm = PublicKeys.htm
 		TextFile1.txt = TextFile1.txt
 	EndProjectSection

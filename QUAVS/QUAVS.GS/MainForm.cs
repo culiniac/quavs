@@ -63,9 +63,19 @@ namespace QUAVS.GS
 
         private void standardLayoutToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            //check for null forms
+            if (_videoForm == null)
+                _videoForm = new VideoForm();
             _videoForm.Show(DockingPanel, DockState.Document);
+            if (_mapForm == null)
+                _mapForm = new MapForm();
             _mapForm.Show(DockingPanel, DockState.DockRight);
+            if (_settingsForm == null)
+                _settingsForm = new SettingsForm();
             _settingsForm.Show(DockingPanel, DockState.DockLeft);
+            
+            //save current layout
+            _deserializeDockContent = new DeserializeDockContent(GetContentFromPersistString);
         }
     }
 }

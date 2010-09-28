@@ -16,6 +16,24 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QUAVS.GS", "QUAVS.GS\QUAVS.GS.csproj", "{6CC075A8-2A99-4BC6-B77D-6005A2B512BF}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "references", "references", "{AA9D5615-2902-4763-8C4C-12BA1667EA3C}"
+	ProjectSection(SolutionItems) = preProject
+		references\DirectShowLib-2005.dll = references\DirectShowLib-2005.dll
+		references\DirectShowLib-2005.dll.config = references\DirectShowLib-2005.dll.config
+		references\GMap.NET.Core.dll = references\GMap.NET.Core.dll
+		references\GMap.NET.Core.xml = references\GMap.NET.Core.xml
+		references\GMap.NET.WindowsForms.dll = references\GMap.NET.WindowsForms.dll
+		references\GMap.NET.WindowsForms.XML = references\GMap.NET.WindowsForms.XML
+		references\Google.KML.dll = references\Google.KML.dll
+		references\Google.KML.XML = references\Google.KML.XML
+		references\ICSharpCode.SharpZipLib.dll = references\ICSharpCode.SharpZipLib.dll
+		references\license.txt = references\license.txt
+		references\System.Data.SQLite.dll = references\System.Data.SQLite.dll
+		references\System.Data.SQLite.xml = references\System.Data.SQLite.xml
+		references\WeifenLuo.WinFormsUI.Docking.dll = references\WeifenLuo.WinFormsUI.Docking.dll
+		references\WeifenLuo.WinFormsUI.Docking.pdb = references\WeifenLuo.WinFormsUI.Docking.pdb
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SubversionScc) = preSolution
 		Svn-Managed = True
@@ -61,5 +79,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{AA9D5615-2902-4763-8C4C-12BA1667EA3C} = {3106F931-EB75-4914-9E13-A7C37384D94F}
 	EndGlobalSection
 EndGlobal

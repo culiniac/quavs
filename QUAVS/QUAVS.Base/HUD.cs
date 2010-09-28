@@ -6,10 +6,6 @@ using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.Diagnostics;
 
-
-using System.Globalization;
-using System.Collections;
-
 namespace QUAVS.Base
 {
     /// <summary>
@@ -174,7 +170,6 @@ namespace QUAVS.Base
             _format2 = new StringFormat(StringFormatFlags.NoClip);
             _format2.LineAlignment = StringAlignment.Near;
             _format2.Alignment = StringAlignment.Near;
-           
         }
 
 

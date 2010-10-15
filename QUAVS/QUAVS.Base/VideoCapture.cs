@@ -40,6 +40,7 @@ namespace QUAVS.Base
         IMediaControl _mediaCtrl = null;
         
         private bool _bRunning = false;
+        private bool _bPaused = false;
 
         private string _strCapture;
         private string _strCompressor;
@@ -51,8 +52,10 @@ namespace QUAVS.Base
         private int _stride;
         private int _fps;
 
-        private bool _hud_enabled;
-        private HUD _hud;
+        private bool _hud_enabled = true;
+        private HUD _hud = new HUD();
+
+        private bool _recording = false;
 
         public string CaptureDevice
         {
@@ -107,6 +110,12 @@ namespace QUAVS.Base
             get { return _hud; }
         }
 
+        public bool Recording
+        {
+            get { return _recording; }
+            set { _recording = value; }
+        }
+
 #if DEBUG
         // Allow you to "Connect to remote graph" from GraphEdit
         DsROTEntry _rot = null;
@@ -121,23 +130,22 @@ namespace QUAVS.Base
 
 #endregion
         
-        public VideoCapture(IntPtr owner)
+        public VideoCapture()
         {
-            _hud_enabled = true;
-            _hOwner = owner;
-            _hud = new HUD();
+
         }
 
-        public void InitializeCapture()
+        public void InitializeCapture(IntPtr owner)
         {
             try
             {
+                _hOwner = owner;
                 
 #if DEBUG
-                var benchmark = Stopwatch.StartNew();
+                Stopwatch benchmark = Stopwatch.StartNew();
 #endif
                 // Set up the capture graph
-                SetupGraph(_strCapture, _strCompressor, _strFileName, _fps, _videoWidth, _videoHeight, _hOwner, true);
+                SetupGraph(_strCapture, _strCompressor, _strFileName, _fps, _videoWidth, _videoHeight, _hOwner, _recording);
 
 #if DEBUG
                 benchmark.Stop();
@@ -175,14 +183,17 @@ namespace QUAVS.Base
             {
                 int hr = _mediaCtrl.Run();
                 checkHR(hr, "Cannot start capture graph");
-
+                
+                _bPaused = false;
                 _bRunning = true;
             }
         }
         
-        // Pause the capture graph.
-        // Running the graph takes up a lot of resources.  Pause it when it
-        // isn't needed.
+        /// <summary>
+        /// Pause the capture graph.
+        /// Running the graph takes up a lot of resources.  Pause it when it
+        /// isn't needed.
+        /// </summary>
         public void Pause()
         {
             if (_bRunning & (_mediaCtrl != null))
@@ -190,13 +201,15 @@ namespace QUAVS.Base
                 int hr = _mediaCtrl.Pause();
                 checkHR(hr, "Cannot pause capture graph");
 
-                _bRunning = false;
+                _bPaused = true;
+                _bRunning = true;
             }
         }
 
-        // Pause the capture graph.
-        // Running the graph takes up a lot of resources.  Pause it when it
-        // isn't needed.
+
+        /// <summary>
+        /// Stops the capture graph.
+        /// </summary>
         public void Stop()
         {
             if (_bRunning & (_mediaCtrl != null))
@@ -204,13 +217,32 @@ namespace QUAVS.Base
                 int hr = _mediaCtrl.StopWhenReady();
                 checkHR(hr, "Cannot pause capture graph");
 
+                Recording = false;
+                _bPaused = false;
                 _bRunning = false;
             }
         }
 
+        /// <summary>
+        /// Determines whether this instance is running.
+        /// </summary>
+        /// <returns>
+        /// 	<c>true</c> if this instance is running; otherwise, <c>false</c>.
+        /// </returns>
         public bool IsRunning()
         {
             return _bRunning;
+        }
+
+        /// <summary>
+        /// Determines whether this instance is pause.
+        /// </summary>
+        /// <returns>
+        /// 	<c>true</c> if this instance is pause; otherwise, <c>false</c>.
+        /// </returns>
+        public bool IsPaused()
+        {
+            return _bPaused;
         }
         
         /// <summary> build the capture graph for grabber. </summary>

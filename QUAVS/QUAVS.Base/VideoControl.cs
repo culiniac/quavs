@@ -19,7 +19,7 @@ namespace QUAVS.Base
         /// <summary>
         /// main VideoCapture object
         /// </summary>
-        private VideoCapture _cam = null;
+        private VideoCapture _cam = new VideoCapture();
         
         #endregion
 
@@ -128,8 +128,6 @@ namespace QUAVS.Base
         public VideoControl()
         {
             InitializeComponent();
-            
-            _cam = new VideoCapture(panelVideo.Handle);
         }
 
         /// /// <summary> 
@@ -161,8 +159,19 @@ namespace QUAVS.Base
         /// </summary>
         public void Run()
         {
-            //add to constructure if you can
-            _cam.InitializeCapture();
+            if(!_cam.Recording | !_cam.IsRunning() | !_cam.IsPaused())
+                _cam.InitializeCapture(panelVideo.Handle);
+            _cam.Start();
+        }
+
+        /// <summary>
+        /// Records the video capture.
+        /// </summary>
+        public void Record()
+        {
+            _cam.Recording = true;
+            _cam.Dispose();
+            _cam.InitializeCapture(panelVideo.Handle);
             _cam.Start();
         }
 
@@ -171,12 +180,17 @@ namespace QUAVS.Base
         /// </summary>
         public void Stop()
         {
-            if (_cam != null)
-            {
-                _cam.Dispose();
-                _cam = null;
-            }
+            _cam.Stop();
         }
+
+        /// <summary>
+        /// Pauses this instance.
+        /// </summary>
+        public void Pause()
+        {
+            _cam.Pause();
+        }
+
         #endregion
 
         private void VideoControl_Resize(object sender, EventArgs e)

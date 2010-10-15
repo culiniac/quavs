@@ -46,12 +46,19 @@ namespace QUAVS.GS
                 File.Delete(configFile);
         }
 
+        /// <summary>
+        /// Gets the content from persist string. !!! Needs update anytime we add another form to the project !!!
+        /// </summary>
+        /// <param name="persistString">The persist string.</param>
+        /// <returns></returns>
         private IDockContent GetContentFromPersistString(string persistString)
         {
             if (persistString == typeof(VideoForm).ToString())
                 return _videoForm;
             else if (persistString == typeof(MapForm).ToString())
                 return _mapForm;
+            else if (persistString == typeof(SettingsForm).ToString())
+                return _settingsForm;
             else
                 return null;
         }
@@ -63,19 +70,23 @@ namespace QUAVS.GS
 
         private void standardLayoutToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            DockingPanel.SuspendLayout(true);
+
             //check for null forms - Not working - figure out the disposal of forms.
-            if (_videoForm == null)
+            if (_videoForm.IsDisposed == true)
                 _videoForm = new VideoForm();
             _videoForm.Show(DockingPanel, DockState.Document);
-            if (_mapForm == null)
+            if (_mapForm.IsDisposed == true)
                 _mapForm = new MapForm();
             _mapForm.Show(DockingPanel, DockState.DockRight);
-            if (_settingsForm == null)
+            if (_settingsForm.IsDisposed == true)
                 _settingsForm = new SettingsForm();
             _settingsForm.Show(DockingPanel, DockState.DockLeft);
             
             //save current layout
             _deserializeDockContent = new DeserializeDockContent(GetContentFromPersistString);
+
+            DockingPanel.ResumeLayout(true, true);
         }
     }
 }

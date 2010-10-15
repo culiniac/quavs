@@ -60,6 +60,20 @@ namespace QUAVS.GS.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap PauseHS {
+            get {
+                object obj = ResourceManager.GetObject("PauseHS", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap PlayHS {
+            get {
+                object obj = ResourceManager.GetObject("PlayHS", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Icon quavs {
             get {
                 object obj = ResourceManager.GetObject("quavs", resourceCulture);
@@ -70,6 +84,20 @@ namespace QUAVS.GS.Properties {
         internal static System.Drawing.Bitmap quavsbkg {
             get {
                 object obj = ResourceManager.GetObject("quavsbkg", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap RecordHS {
+            get {
+                object obj = ResourceManager.GetObject("RecordHS", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap StopHS {
+            get {
+                object obj = ResourceManager.GetObject("StopHS", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

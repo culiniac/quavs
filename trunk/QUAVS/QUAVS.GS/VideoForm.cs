@@ -12,6 +12,9 @@ namespace QUAVS.GS
 {
     public partial class VideoForm : DockContent
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="VideoForm"/> class.
+        /// </summary>
         public VideoForm()
         {
             InitializeComponent();
@@ -20,22 +23,32 @@ namespace QUAVS.GS
 
         private void VideoForm_Load(object sender, EventArgs e)
         {
-            Run();
-        }
-
-        public void Stop()
-        {
-            VideoFeed.Stop();
-        }
-
-        public void Run()
-        {
-            VideoFeed.Run();
+            // VideoFeed.Run(false);
         }
 
         private void VideoForm_FormClosed(object sender, FormClosedEventArgs e)
         {
-            Stop();
+            VideoFeed.Stop();
+        }
+
+        private void toolStripStartButton_Click(object sender, EventArgs e)
+        {
+            VideoFeed.Run();
+        }
+
+        private void toolStripPauseButton_Click(object sender, EventArgs e)
+        {
+            VideoFeed.Pause();
+        }
+
+        private void toolStripRecordButton_Click(object sender, EventArgs e)
+        {
+            VideoFeed.Record();
+        }
+
+        private void toolStripStopButton_Click(object sender, EventArgs e)
+        {
+            VideoFeed.Stop();
         }
     }
 }

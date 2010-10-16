@@ -20,6 +20,37 @@ using DirectShowLib;
 
 namespace QUAVS.Base
 {
+    /// <summary>
+    /// 
+    /// </summary>
+    public enum VideoCaptureState
+    {
+        /// <summary>
+        /// 
+        /// </summary>
+        UNINITIALIZED,
+        /// <summary>
+        /// 
+        /// </summary>
+        STOPPED,
+        /// <summary>
+        /// 
+        /// </summary>
+        PAUSED,
+        /// <summary>
+        /// 
+        /// </summary>
+        RECORDING_PAUSED,
+        /// <summary>
+        /// 
+        /// </summary>
+        RUNNING,
+        /// <summary>
+        /// 
+        /// </summary>
+        RECORDING
+    }
+
     /// <summary> 
     /// VideoCapture class 
     /// </summary> 
@@ -38,12 +69,11 @@ namespace QUAVS.Base
 
         IGraphBuilder _graphBuilder = null;
         IMediaControl _mediaCtrl = null;
-        
-        private bool _bRunning = false;
-        private bool _bPaused = false;
 
-        private string _strCapture;
-        private string _strCompressor;
+        private VideoCaptureState _state;
+
+        private VideoSourceType _strCapture;
+        private VideoCodecType _strCompressor;
         private string _strFileName;
         private IntPtr _hOwner;
 
@@ -52,18 +82,22 @@ namespace QUAVS.Base
         private int _stride;
         private int _fps;
 
-        private bool _hud_enabled = true;
-        private HUD _hud = new HUD();
+        private bool _hud_enabled;
+        private HUD _hud;
 
-        private bool _recording = false;
 
-        public string CaptureDevice
+        public VideoCaptureState State
+        {
+            get { return _state; }
+        }
+
+        public VideoSourceType CaptureDevice
         {
             get { return _strCapture; }
             set { _strCapture = value; }
         }
         
-        public string CompressorCodec
+        public VideoCodecType CompressorCodec
         {
             get { return _strCompressor; }
             set { _strCompressor = value; }
@@ -110,12 +144,6 @@ namespace QUAVS.Base
             get { return _hud; }
         }
 
-        public bool Recording
-        {
-            get { return _recording; }
-            set { _recording = value; }
-        }
-
 #if DEBUG
         // Allow you to "Connect to remote graph" from GraphEdit
         DsROTEntry _rot = null;
@@ -130,27 +158,31 @@ namespace QUAVS.Base
 
 #endregion
         
-        public VideoCapture()
+        public VideoCapture(IntPtr owner)
         {
-
+            _hOwner = owner;
+            _state = VideoCaptureState.UNINITIALIZED;
+            _hud_enabled = false;
+            _hud = new HUD();
+            _hud_enabled = true;
         }
 
-        public void InitializeCapture(IntPtr owner)
+        public void InitializeCapture(bool recording)
         {
             try
             {
-                _hOwner = owner;
-                
 #if DEBUG
                 Stopwatch benchmark = Stopwatch.StartNew();
 #endif
+                CloseInterfaces();
                 // Set up the capture graph
-                SetupGraph(_strCapture, _strCompressor, _strFileName, _fps, _videoWidth, _videoHeight, _hOwner, _recording);
+                SetupGraph(_strCapture, _strCompressor, _strFileName, _fps, _videoWidth, _videoHeight, _hOwner, recording);
 
 #if DEBUG
                 benchmark.Stop();
-                Console.WriteLine("SetupGraph: {0}", ((double)(benchmark.Elapsed.TotalMilliseconds)).ToString("0.00 ms"));
+                Trace.WriteLine("SetupGraph: {0}", ((double)(benchmark.Elapsed.TotalMilliseconds)).ToString("0.00 ms"));
 #endif
+                _state = VideoCaptureState.STOPPED;
             }
             catch(Exception e)
             {
@@ -165,6 +197,8 @@ namespace QUAVS.Base
         public void Dispose()
         {
             CloseInterfaces();
+            if (_hud != null)
+                _hud.Dispose();
         }
         
         /// <summary>
@@ -179,14 +213,33 @@ namespace QUAVS.Base
         /// <summary> capture the next image </summary>
         public void Start()
         {
-            if (!_bRunning & (_mediaCtrl != null))
+            
+            if (_state == VideoCaptureState.PAUSED)
             {
-                int hr = _mediaCtrl.Run();
-                checkHR(hr, "Cannot start capture graph");
-                
-                _bPaused = false;
-                _bRunning = true;
+                if(_mediaCtrl != null)
+                {
+                    int hr = _mediaCtrl.Run();
+                    checkHR(hr, "Cannot start capture graph");
+                    _state = VideoCaptureState.RUNNING;
+                }
+                else
+                {
+                    _state = VideoCaptureState.UNINITIALIZED;
+                }
+
             }
+            else
+            {
+                CloseInterfaces();
+                InitializeCapture(false);
+                if (_mediaCtrl != null)
+                {
+                    int hr = _mediaCtrl.Run();
+                    checkHR(hr, "Cannot start capture graph");
+                }
+                _state = VideoCaptureState.RUNNING;
+            }
+
         }
         
         /// <summary>
@@ -196,13 +249,36 @@ namespace QUAVS.Base
         /// </summary>
         public void Pause()
         {
-            if (_bRunning & (_mediaCtrl != null))
+            if (_mediaCtrl != null)
             {
-                int hr = _mediaCtrl.Pause();
-                checkHR(hr, "Cannot pause capture graph");
-
-                _bPaused = true;
-                _bRunning = true;
+                if (_state == VideoCaptureState.RUNNING)
+                {
+                    if (_mediaCtrl != null)
+                    {
+                        int hr = _mediaCtrl.Pause();
+                        checkHR(hr, "Cannot pause capture graph");
+                        _state = VideoCaptureState.PAUSED;
+                    }
+                    else
+                    {
+                        _state = VideoCaptureState.UNINITIALIZED;
+                    }
+                    
+                }
+                if (_state == VideoCaptureState.RECORDING)
+                {
+                    if (_mediaCtrl != null)
+                    {
+                        int hr = _mediaCtrl.Pause();
+                        checkHR(hr, "Cannot pause capture graph");
+                        _state = VideoCaptureState.RECORDING_PAUSED;
+                    }
+                    else
+                    {
+                        _state = VideoCaptureState.UNINITIALIZED;
+                    } 
+                    
+                }
             }
         }
 
@@ -212,39 +288,53 @@ namespace QUAVS.Base
         /// </summary>
         public void Stop()
         {
-            if (_bRunning & (_mediaCtrl != null))
+            if (_state != VideoCaptureState.UNINITIALIZED)
             {
-                int hr = _mediaCtrl.StopWhenReady();
-                checkHR(hr, "Cannot pause capture graph");
-
-                Recording = false;
-                _bPaused = false;
-                _bRunning = false;
+                if (_mediaCtrl != null)
+                {
+                    int hr = _mediaCtrl.StopWhenReady();
+                    checkHR(hr, "Cannot pause capture graph");
+                    _state = VideoCaptureState.STOPPED;
+                }
+                else
+                {
+                    _state = VideoCaptureState.UNINITIALIZED;
+                }
             }
+
         }
 
-        /// <summary>
-        /// Determines whether this instance is running.
-        /// </summary>
-        /// <returns>
-        /// 	<c>true</c> if this instance is running; otherwise, <c>false</c>.
-        /// </returns>
-        public bool IsRunning()
+        public void Recording()
         {
-            return _bRunning;
+            
+                if (_state == VideoCaptureState.RECORDING_PAUSED)
+                {
+                    if (_mediaCtrl != null)
+                    {
+                        int hr = _mediaCtrl.Run();
+                        checkHR(hr, "Cannot start capture graph");
+                        _state = VideoCaptureState.RECORDING;
+                    }
+                    else
+                    {
+                        _state = VideoCaptureState.UNINITIALIZED;
+                    }
+                }
+                else
+                {
+                    CloseInterfaces();
+                    InitializeCapture(true);
+                    if (_mediaCtrl != null)
+                    {
+                        int hr = _mediaCtrl.Run();
+                        checkHR(hr, "Cannot start capture graph");
+                    }
+                    _state = VideoCaptureState.RECORDING;
+                }
+           
         }
 
-        /// <summary>
-        /// Determines whether this instance is pause.
-        /// </summary>
-        /// <returns>
-        /// 	<c>true</c> if this instance is pause; otherwise, <c>false</c>.
-        /// </returns>
-        public bool IsPaused()
-        {
-            return _bPaused;
-        }
-        
+              
         /// <summary> build the capture graph for grabber. </summary>
         public void SetupGraph(string strCapture, string strCompressor, string strFileName, int iFrameRate, int iWidth, int iHeight, IntPtr owner, bool record)
         {
@@ -378,11 +468,7 @@ namespace QUAVS.Base
             catch (Exception e)
             {
                 Trace.WriteLine(e.Message);
-                if (_mediaCtrl != null)
-                {
-                    Marshal.ReleaseComObject(_mediaCtrl);
-                    _mediaCtrl = null;
-                }
+                CloseInterfaces();
             }
             finally
             {
@@ -569,7 +655,6 @@ namespace QUAVS.Base
                     // Stop the graph
                     hr = _mediaCtrl.Stop();
                     _mediaCtrl = null;
-                    _bRunning = false;
                 }
             }
             catch (Exception ex)
@@ -590,8 +675,7 @@ namespace QUAVS.Base
                 _graphBuilder = null;
             }
 
-            if(_hud != null)
-                _hud.Dispose();
+            _state = VideoCaptureState.UNINITIALIZED;
 
             GC.Collect();
         }
@@ -617,9 +701,21 @@ namespace QUAVS.Base
         /// <returns></returns>
         int ISampleGrabberCB.BufferCB(double SampleTime, IntPtr pBuffer, int BufferLen)
         {
-            lock (this)
+            if (_hud_enabled)
             {
-                DrawHUD(pBuffer);
+                lock (this)
+                {
+                    Bitmap dst;
+                    Bitmap src;
+
+                    src = new Bitmap(_videoWidth, _videoHeight, PixelFormat.Format32bppArgb);
+                    dst = new Bitmap(_videoWidth, _videoHeight, _stride, PixelFormat.Format32bppArgb, pBuffer);
+
+                    _hud.DrawHUD(src, dst);
+                    // dispose of the various objects
+                    src.Dispose();
+                    dst.Dispose();
+                }
             }
             return 0;
         }
@@ -687,25 +783,5 @@ namespace QUAVS.Base
             return (IBaseFilter)source;
         }
 
-        /// <summary>
-        /// Draws the HUD.
-        /// </summary>
-        /// <param name="pBuffer">The p buffer.</param>
-        public void DrawHUD(IntPtr pBuffer)
-        {
-            if (_hud_enabled)
-            {
-                Bitmap dst;
-                Bitmap src;
-
-                src = new Bitmap(_videoWidth, _videoHeight, PixelFormat.Format32bppArgb);
-                dst = new Bitmap(_videoWidth, _videoHeight, _stride, PixelFormat.Format32bppArgb, pBuffer);
-
-                _hud.DrawHUD(src, dst);
-                // dispose of the various objects
-                src.Dispose();
-                dst.Dispose();
-            }
-        }
     }
 }

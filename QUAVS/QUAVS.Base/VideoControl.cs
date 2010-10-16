@@ -19,7 +19,7 @@ namespace QUAVS.Base
         /// <summary>
         /// main VideoCapture object
         /// </summary>
-        private VideoCapture _cam = new VideoCapture();
+        private VideoCapture _cam;
         
         #endregion
 
@@ -37,13 +37,23 @@ namespace QUAVS.Base
         }
 
         /// <summary>
+        /// Gets the state.
+        /// </summary>
+        /// <value>The state.</value>
+        [BrowsableAttribute(false)]
+        public VideoCaptureState State
+        {
+            get { return _cam.State; }
+        }
+
+        /// <summary>
         /// Gets or sets the STR video source.
         /// </summary>
         /// <value>The video source.</value>
         [Category("QUAVS")]
         [Description("select video source")]
         [EditorAttribute(typeof(VideoSourceUITypeEditor), typeof(System.Drawing.Design.UITypeEditor))]
-        public string VideoSource
+        public VideoSourceType VideoSource
         {
             get { return _cam.CaptureDevice; }
             set { _cam.CaptureDevice = value; }
@@ -56,7 +66,7 @@ namespace QUAVS.Base
         [Category("QUAVS")]
         [Description("select video compressor")]
         [EditorAttribute(typeof(VideoCodecUITypeEditor), typeof(System.Drawing.Design.UITypeEditor))]
-        public string VideoCompressor
+        public VideoCodecType VideoCompressor
         {
             get { return _cam.CompressorCodec; }
             set { _cam.CompressorCodec = value; }
@@ -128,6 +138,7 @@ namespace QUAVS.Base
         public VideoControl()
         {
             InitializeComponent();
+            _cam = new VideoCapture(panelVideo.Handle);
         }
 
         /// /// <summary> 
@@ -159,8 +170,6 @@ namespace QUAVS.Base
         /// </summary>
         public void Run()
         {
-            if(!_cam.Recording | !_cam.IsRunning() | !_cam.IsPaused())
-                _cam.InitializeCapture(panelVideo.Handle);
             _cam.Start();
         }
 
@@ -169,10 +178,7 @@ namespace QUAVS.Base
         /// </summary>
         public void Record()
         {
-            _cam.Recording = true;
-            _cam.Dispose();
-            _cam.InitializeCapture(panelVideo.Handle);
-            _cam.Start();
+            _cam.Recording();
         }
 
         /// <summary>

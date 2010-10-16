@@ -25,9 +25,12 @@ namespace QUAVS.Base
         private double _pitch;
         private double _yaw;
         private string _message;
+        
+        
         private Pen _pen1;
         private Pen _pen2;
         private SolidBrush _brush;
+        
         /// <summary>
         /// format1 for HUD numbers
         /// </summary>
@@ -47,15 +50,15 @@ namespace QUAVS.Base
         private Rectangle[] _rectangleHUD1 = new Rectangle[4];
         private Rectangle[] _rectanglePitch = new Rectangle[4];
 
+        private Color _color = Color.FromArgb(255, 0, 255, 0);
+
         private int _pitch_resolution = 10;
         private int _yaw_resolution = 10;
-        private int _reticlesize = 20;
+        private int _reticlesize = 6;
+        private int _reticlesize1 = 2;
 
         private Graphics _g;
         private GraphicsState _oldState;
-
-        // Build with internal parameters
-        // private TelemetryDataObject _dataObject;
 
         private String _s;
 
@@ -149,17 +152,16 @@ namespace QUAVS.Base
             // TO DO: fix the font sizes
             // ADD: more parameters for color, font size, etc
             
-            _fontOverlay = new Font("Tahoma", 10, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            _fontOverlay = new Font("Tahoma", 12, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            _transparentFont = new Font("Tahoma", 12, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
 
-            // scale the font size in some portion to the video image
-            _transparentFont = new Font("Tahoma", 10, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            _transparentBrush = new SolidBrush(Color.FromArgb(255, 0, 255, 0));
-            
-            _pen1 = new Pen(Color.FromArgb(255, 0, 255, 0), 1);
-            _pen2 = new Pen(Color.FromArgb(255, 0, 255, 0), 1);
+            _transparentBrush = new SolidBrush(_color);
+
+            _pen1 = new Pen(_color, 1);
+            _pen2 = new Pen(_color, 1);
             _pen2.DashStyle = System.Drawing.Drawing2D.DashStyle.Dash;
             
-            _brush = new SolidBrush(Color.FromArgb(255, 0, 0, 0)); //FromArgb(0, 0, 0, 0));
+            _brush = new SolidBrush(Color.FromArgb(100, 0, 0, 0));
 
 
             // Construct 2 new StringFormat objects
@@ -171,7 +173,6 @@ namespace QUAVS.Base
             _format2.LineAlignment = StringAlignment.Near;
             _format2.Alignment = StringAlignment.Near;
         }
-
 
         public void Dispose()
         {
@@ -186,11 +187,11 @@ namespace QUAVS.Base
             _g = Graphics.FromImage(src);
             _g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
             _g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBilinear;
-            _g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit; //.AntiAliasGridFit;
+            _g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAliasGridFit; //.ClearTypeGridFit;
 
             // Draw top and bottom black bands
-            _rectangleTextBkg[0] = new Rectangle(0, 0, _videoWidth, 15);
-            _rectangleTextBkg[1] = new Rectangle(0, _videoHeight - 15, _videoWidth, _videoHeight);
+            _rectangleTextBkg[0] = new Rectangle(0, 0, _videoWidth, 20);
+            _rectangleTextBkg[1] = new Rectangle(0, _videoHeight - 20, _videoWidth, _videoHeight);
             _g.FillRectangles(_brush, _rectangleTextBkg);
             _s = DateTime.Now.ToString();
             _s += " " + _message;
@@ -203,37 +204,48 @@ namespace QUAVS.Base
             _rectangleHUD[1] = new Rectangle(_videoWidth - 95, (_videoHeight / 2) - 8, 50, 15);
             // 3. Speed
             _rectangleHUD[2] = new Rectangle(45, (_videoHeight / 2) - 8, 50, 15);
-            _g.DrawRectangles(_pen1, _rectangleHUD);
+            //_g.DrawRectangles(_pen1, _rectangleHUD);
             
             //Draw numeric values inside each box:
             // 1. Heading
             _g.DrawString(_headingMagneticNorth.ToString(), _fontOverlay, _transparentBrush, (RectangleF)_rectangleHUD[0], _format1);
             // 2. Altitude
-            _g.DrawString(_altitude.ToString(), _fontOverlay, _transparentBrush, (RectangleF)_rectangleHUD[1], _format1);
+            _g.DrawString(_altitude.ToString(), _transparentFont, _transparentBrush, (RectangleF)_rectangleHUD[1], _format1);
             //3. Speed
-            _g.DrawString(_speed.ToString(), _fontOverlay, _transparentBrush, (RectangleF)_rectangleHUD[2], _format1);
-            
-            //int radius = 150;
-            //Rectangle rectangleRoll = new Rectangle(VideoWidth / 2 - radius, VideoHeight / 2 - radius, 2 * radius, 2 * radius);
-            //g.DrawArc(myPen, rectangleRoll, 230.0f, 80.0f);
+            _g.DrawString(_speed.ToString(), _transparentFont, _transparentBrush, (RectangleF)_rectangleHUD[2], _format1);
 
-            //Draw the actual HUD
+            //Draw aircraft indicator
             _pointsHUD3[0].X = _videoWidth / 2 - 20;
             _pointsHUD3[0].Y = _videoHeight / 2;
+            
             _pointsHUD3[1].X = _videoWidth / 2 - 10;
             _pointsHUD3[1].Y = _videoHeight / 2;
+            
             _pointsHUD3[2].X = _videoWidth / 2 - 5;
             _pointsHUD3[2].Y = _videoHeight / 2 + 10;
+            
             _pointsHUD3[3].X = _videoWidth / 2;
-            _pointsHUD3[3].Y = _videoHeight / 2;
+            _pointsHUD3[3].Y = _videoHeight / 2 + 3;
+            
             _pointsHUD3[4].X = _videoWidth / 2 + 5;
             _pointsHUD3[4].Y = _videoHeight / 2 + 10;
+            
             _pointsHUD3[5].X = _videoWidth / 2 + 10;
             _pointsHUD3[5].Y = _videoHeight / 2;
+            
             _pointsHUD3[6].X = _videoWidth / 2 + 20;
             _pointsHUD3[6].Y = _videoHeight / 2;
             _g.DrawLines(_pen1, _pointsHUD3);
 
+            // Draw horizontal speed indicator
+            Rectangle rectangleObj = new Rectangle(_videoWidth / 2 - _reticlesize / 2, _videoHeight / 2 - _reticlesize / 2, _reticlesize, _reticlesize);
+            _g.DrawEllipse(_pen1, rectangleObj);
+            // this line should represent the horizontal direction and speed up to X m/s
+            _pointsHUD1[0].X = _videoWidth / 2 + 20;
+            _pointsHUD1[0].Y = _videoHeight / 2 - 30;
+            _pointsHUD1[1].X = _videoWidth / 2;
+            _pointsHUD1[1].Y = _videoHeight / 2;
+            _g.DrawLines(_pen1, _pointsHUD1);
 
             double pitch = 0;
             if (_pitch >= 90)
@@ -270,7 +282,10 @@ namespace QUAVS.Base
             _pointsHUD1[1].X = _videoWidth / 2 + 25;
             _pointsHUD1[1].Y = _videoHeight / 2;
             _g.DrawLines(_pen1, _pointsHUD1);
-            
+
+            rectangleObj = new Rectangle(_videoWidth / 2 - _reticlesize1 / 2, _videoHeight / 2 - _reticlesize1 / 2, _reticlesize1, _reticlesize1);
+            _g.DrawEllipse(_pen1, rectangleObj);
+
             for (int i = 1; i <= 36; i++)
             {
                 _pointsHUD2[0].X = _videoWidth / 2 - 75;
@@ -327,27 +342,9 @@ namespace QUAVS.Base
             // translate back
             _g.TranslateTransform(_videoWidth / 2, _videoHeight - 100, MatrixOrder.Append);
 
-            Rectangle rectangleObj = new Rectangle(_videoWidth / 2 - _reticlesize / 2, _videoHeight - 100 - _reticlesize / 2, _reticlesize, _reticlesize);
-            _g.DrawEllipse(_pen1, rectangleObj);
-
-            _pointsHUD1[0].X = _videoWidth / 2 - 50;
-            _pointsHUD1[0].Y = _videoHeight - 100;
-            _pointsHUD1[1].X = _videoWidth / 2 - 20;
-            _pointsHUD1[1].Y = _videoHeight - 100;
-            _g.DrawLines(_pen1, _pointsHUD1);
-            _pointsHUD1[0].X = _videoWidth / 2 + 50;
-            _pointsHUD1[0].Y = _videoHeight - 100;
-            _pointsHUD1[1].X = _videoWidth / 2 + 20;
-            _pointsHUD1[1].Y = _videoHeight - 100;
-            _g.DrawLines(_pen1, _pointsHUD1);
-            _pointsHUD1[0].X = _videoWidth / 2 ;
-            _pointsHUD1[0].Y = _videoHeight - 100 - _reticlesize;
-            _pointsHUD1[1].X = _videoWidth / 2 ;
-            _pointsHUD1[1].Y = _videoHeight - 100;
-            _g.DrawLines(_pen1, _pointsHUD1);
-            _g.Dispose();
-            
             src.RotateFlip(RotateFlipType.RotateNoneFlipY);
+
+            _g.Dispose();
             
             _g = Graphics.FromImage(dst);
             _g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;

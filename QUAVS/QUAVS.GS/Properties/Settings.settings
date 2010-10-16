@@ -2,11 +2,14 @@
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="QUAVS.GS.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
-    <Setting Name="VideoSource" Type="System.String" Scope="User">
+    <Setting Name="VideoSource" Type="QUAVS.Base.VideoSourceType" Scope="Application">
       <Value Profile="(Default)">Microsoft LifeCam VX-5000</Value>
     </Setting>
-    <Setting Name="VideoCompressor" Type="System.String" Scope="User">
-      <Value Profile="(Default)">MJPEG Compressor</Value>
+    <Setting Name="VideoCompressor" Type="QUAVS.Base.VideoCodecType" Scope="Application">
+      <Value Profile="(Default)">DivX 6.8.5 Codec (2 Logical CPUs)</Value>
+    </Setting>
+    <Setting Name="MapType" Type="GMap.NET.MapType" Scope="Application">
+      <Value Profile="(Default)">GoogleHybrid</Value>
     </Setting>
   </Settings>
 </SettingsFile>

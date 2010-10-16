@@ -30,6 +30,8 @@
         {
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.MainMap = new GMap.NET.WindowsForms.GMapControl();
+            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.labelProviderType = new System.Windows.Forms.Label();
             this.comboBoxProviderType = new System.Windows.Forms.ComboBox();
@@ -39,18 +41,16 @@
             this.textBoxLat = new System.Windows.Forms.TextBox();
             this.labelLng = new System.Windows.Forms.Label();
             this.textBoxLng = new System.Windows.Forms.TextBox();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
             this.trackBarMapZoom = new System.Windows.Forms.TrackBar();
             this.gMapControl1 = new GMap.NET.WindowsForms.GMapControl();
-            this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
-            this.flowLayoutPanel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBarMapZoom)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
+            this.flowLayoutPanel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBarMapZoom)).BeginInit();
             this.SuspendLayout();
             // 
             // splitContainer1
@@ -80,7 +80,7 @@
             this.MainMap.GrayScaleMode = false;
             this.MainMap.LevelsKeepInMemmory = 5;
             this.MainMap.Location = new System.Drawing.Point(0, 0);
-            this.MainMap.MapType = GMap.NET.MapType.GoogleMap;
+            this.MainMap.MapType = global::QUAVS.GS.Properties.Settings.Default.MapType;
             this.MainMap.MarkersEnabled = true;
             this.MainMap.MaxZoom = 17;
             this.MainMap.MinZoom = 2;
@@ -94,6 +94,28 @@
             this.MainMap.TabIndex = 0;
             this.MainMap.VirtualSizeEnabled = false;
             this.MainMap.Zoom = 2D;
+            // 
+            // tabControl1
+            // 
+            this.tabControl1.Controls.Add(this.tabPage1);
+            this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabControl1.Location = new System.Drawing.Point(45, 0);
+            this.tabControl1.Name = "tabControl1";
+            this.tabControl1.SelectedIndex = 0;
+            this.tabControl1.Size = new System.Drawing.Size(262, 461);
+            this.tabControl1.TabIndex = 2;
+            // 
+            // tabPage1
+            // 
+            this.tabPage1.Controls.Add(this.flowLayoutPanel1);
+            this.tabPage1.Location = new System.Drawing.Point(4, 22);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(254, 435);
+            this.tabPage1.TabIndex = 0;
+            this.tabPage1.Text = "tabPage1";
+            this.tabPage1.UseVisualStyleBackColor = true;
             // 
             // flowLayoutPanel1
             // 
@@ -130,7 +152,7 @@
             this.comboBoxProviderType.Name = "comboBoxProviderType";
             this.comboBoxProviderType.Size = new System.Drawing.Size(205, 21);
             this.comboBoxProviderType.TabIndex = 1;
-            this.comboBoxProviderType.DropDownClosed += new System.EventHandler(this.comboBoxProviderType_DropDownClosed);
+            this.comboBoxProviderType.SelectionChangeCommitted += new System.EventHandler(this.comboBoxProviderType_SelectionChangeCommitted);
             // 
             // labelProviderMode
             // 
@@ -148,7 +170,7 @@
             this.comboBoxProviderMode.Name = "comboBoxProviderMode";
             this.comboBoxProviderMode.Size = new System.Drawing.Size(205, 21);
             this.comboBoxProviderMode.TabIndex = 3;
-            this.comboBoxProviderMode.DropDownClosed += new System.EventHandler(this.comboBoxProviderMode_DropDownClosed);
+            this.comboBoxProviderMode.SelectionChangeCommitted += new System.EventHandler(this.comboBoxProviderMode_SelectionChangeCommitted);
             // 
             // labelLat
             // 
@@ -183,6 +205,16 @@
             this.textBoxLng.ReadOnly = true;
             this.textBoxLng.Size = new System.Drawing.Size(205, 20);
             this.textBoxLng.TabIndex = 7;
+            // 
+            // tabPage2
+            // 
+            this.tabPage2.Location = new System.Drawing.Point(4, 22);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(254, 435);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "tabPage2";
+            this.tabPage2.UseVisualStyleBackColor = true;
             // 
             // trackBarMapZoom
             // 
@@ -221,38 +253,6 @@
             this.gMapControl1.VirtualSizeEnabled = false;
             this.gMapControl1.Zoom = 0D;
             // 
-            // tabControl1
-            // 
-            this.tabControl1.Controls.Add(this.tabPage1);
-            this.tabControl1.Controls.Add(this.tabPage2);
-            this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tabControl1.Location = new System.Drawing.Point(45, 0);
-            this.tabControl1.Name = "tabControl1";
-            this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(262, 461);
-            this.tabControl1.TabIndex = 2;
-            // 
-            // tabPage1
-            // 
-            this.tabPage1.Controls.Add(this.flowLayoutPanel1);
-            this.tabPage1.Location = new System.Drawing.Point(4, 22);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(254, 435);
-            this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "tabPage1";
-            this.tabPage1.UseVisualStyleBackColor = true;
-            // 
-            // tabPage2
-            // 
-            this.tabPage2.Location = new System.Drawing.Point(4, 22);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(254, 435);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "tabPage2";
-            this.tabPage2.UseVisualStyleBackColor = true;
-            // 
             // MapForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -267,12 +267,12 @@
             this.splitContainer1.Panel2.ResumeLayout(false);
             this.splitContainer1.Panel2.PerformLayout();
             this.splitContainer1.ResumeLayout(false);
-            this.flowLayoutPanel1.ResumeLayout(false);
-            this.flowLayoutPanel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBarMapZoom)).EndInit();
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
+            this.flowLayoutPanel1.ResumeLayout(false);
+            this.flowLayoutPanel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBarMapZoom)).EndInit();
             this.ResumeLayout(false);
 
         }

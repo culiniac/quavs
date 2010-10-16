@@ -80,7 +80,7 @@
             this.MainMap.GrayScaleMode = false;
             this.MainMap.LevelsKeepInMemmory = 5;
             this.MainMap.Location = new System.Drawing.Point(0, 0);
-            this.MainMap.MapType = global::QUAVS.GS.Properties.Settings.Default.MapType;
+            this.MainMap.MapType = GMap.NET.MapType.GoogleHybrid;
             this.MainMap.MarkersEnabled = true;
             this.MainMap.MaxZoom = 17;
             this.MainMap.MinZoom = 2;

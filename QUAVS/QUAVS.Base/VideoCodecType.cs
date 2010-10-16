@@ -15,6 +15,8 @@ namespace QUAVS.Base
     [TypeConverter(typeof(VideoCodecTypeConverter))]
     [SettingsSerializeAs(SettingsSerializeAs.String)]
     [EditorAttribute(typeof(VideoCodecUITypeEditor), typeof(System.Drawing.Design.UITypeEditor))]
+    [Category("QUAVS")]
+    [Description("select video codec")]
     public class VideoCodecType
     {
         private string _vs;
@@ -41,7 +43,10 @@ namespace QUAVS.Base
         // User-defined conversion from Digit to double
         public static implicit operator string(VideoCodecType vs)
         {
-            return vs._vs;
+            if (vs != null)
+                return vs._vs;
+            else
+                return null;
         }
         //  User-defined conversion from double to Digit
         public static implicit operator VideoCodecType(string vs)

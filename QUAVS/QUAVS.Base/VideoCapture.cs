@@ -236,8 +236,12 @@ namespace QUAVS.Base
                 {
                     int hr = _mediaCtrl.Run();
                     checkHR(hr, "Cannot start capture graph");
+                    _state = VideoCaptureState.RUNNING;
                 }
-                _state = VideoCaptureState.RUNNING;
+                else
+                {
+                    _state = VideoCaptureState.UNINITIALIZED;
+                }
             }
 
         }
@@ -328,8 +332,12 @@ namespace QUAVS.Base
                     {
                         int hr = _mediaCtrl.Run();
                         checkHR(hr, "Cannot start capture graph");
+                        _state = VideoCaptureState.RECORDING;
                     }
-                    _state = VideoCaptureState.RECORDING;
+                    else
+                    {
+                        _state = VideoCaptureState.UNINITIALIZED;
+                    }
                 }
            
         }

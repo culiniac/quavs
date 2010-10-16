@@ -21,6 +21,18 @@ namespace QUAVS.GS
         private void SettingsForm_Load(object sender, EventArgs e)
         {
             this.propertyGrid.SelectedObject = QUAVS.GS.Properties.Settings.Default;
+            btnSave.Enabled = false;
+        }
+
+        private void propertyGrid_PropertyValueChanged(object s, PropertyValueChangedEventArgs e)
+        {
+            btnSave.Enabled = true;
+        }
+
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+            QUAVS.GS.Properties.Settings.Default.Save();
+            btnSave.Enabled = false;
         }
     }
 }

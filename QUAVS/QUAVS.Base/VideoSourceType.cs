@@ -14,6 +14,8 @@ namespace QUAVS.Base
     [TypeConverter(typeof(VideoSourceTypeConverter))]
     [SettingsSerializeAs(SettingsSerializeAs.String)]
     [EditorAttribute(typeof(VideoSourceUITypeEditor), typeof(System.Drawing.Design.UITypeEditor))]
+    [Category("QUAVS")]
+    [Description("select video source")]
     public class VideoSourceType
     {
         private string _vs;

@@ -8,7 +8,7 @@ using System.Windows.Forms.Design;
 
 namespace QUAVS.Base
 {
-    class VideoCodecUITypeEditor : UITypeEditor
+    public class VideoCodecUITypeEditor : UITypeEditor
     {
         public override UITypeEditorEditStyle GetEditStyle(ITypeDescriptorContext context)
         {
@@ -18,7 +18,7 @@ namespace QUAVS.Base
         public override object EditValue(ITypeDescriptorContext context, System.IServiceProvider provider, object value)
         {
             IWindowsFormsEditorService svc = provider.GetService(typeof(IWindowsFormsEditorService)) as IWindowsFormsEditorService;
-            string videoCodec = value as string;
+            VideoCodecType videoCodec = value as VideoCodecType;
             if (svc != null)
             {
                 using (VideoCodecForm form = new VideoCodecForm())

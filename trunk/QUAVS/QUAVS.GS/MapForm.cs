@@ -309,23 +309,23 @@ namespace QUAVS.GS
         }
         #endregion
 
-        private void comboBoxProviderType_DropDownClosed(object sender, EventArgs e)
-        {
-            MainMap.MapType = (MapType)comboBoxProviderType.SelectedValue;
-        }
-
-        private void comboBoxProviderMode_DropDownClosed(object sender, EventArgs e)
-        {
-            GMaps.Instance.Mode = (AccessMode)comboBoxProviderMode.SelectedValue;
-            MainMap.ReloadMap();
-        }
-
         private void MapForm_DockStateChanged(object sender, EventArgs e)
         {
             if (this.DockState != WeifenLuo.WinFormsUI.Docking.DockState.Document)
                 splitContainer1.Panel2Collapsed = true;
             else
                 splitContainer1.Panel2Collapsed = false;
+        }
+
+        private void comboBoxProviderMode_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            GMaps.Instance.Mode = (AccessMode)comboBoxProviderMode.SelectedValue;
+            MainMap.ReloadMap();
+        }
+
+        private void comboBoxProviderType_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            MainMap.MapType = (MapType)comboBoxProviderType.SelectedValue;
         }
     }
 }

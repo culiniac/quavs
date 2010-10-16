@@ -44,6 +44,8 @@ namespace QUAVS.GS
                 DockingPanel.SaveAsXml(configFile);
             else if (File.Exists(configFile))
                 File.Delete(configFile);
+
+            QUAVS.GS.Properties.Settings.Default.Save();
         }
 
         /// <summary>

@@ -23,30 +23,25 @@ namespace QUAVS.GS.Properties {
             }
         }
         
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Microsoft LifeCam VX-5000")]
         public global::QUAVS.Base.VideoSourceType VideoSource {
             get {
                 return ((global::QUAVS.Base.VideoSourceType)(this["VideoSource"]));
             }
+            set {
+                this["VideoSource"] = value;
+            }
         }
         
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("DivX 6.8.5 Codec (2 Logical CPUs)")]
         public global::QUAVS.Base.VideoCodecType VideoCompressor {
             get {
                 return ((global::QUAVS.Base.VideoCodecType)(this["VideoCompressor"]));
             }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("GoogleHybrid")]
-        public global::GMap.NET.MapType MapType {
-            get {
-                return ((global::GMap.NET.MapType)(this["MapType"]));
+            set {
+                this["VideoCompressor"] = value;
             }
         }
     }

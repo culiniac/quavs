@@ -18,7 +18,8 @@ namespace QUAVS.Base
         public override object EditValue(ITypeDescriptorContext context, System.IServiceProvider provider, object value)
         {
             IWindowsFormsEditorService svc = provider.GetService(typeof(IWindowsFormsEditorService)) as IWindowsFormsEditorService;
-            VideoCodecType videoCodec = value as VideoCodecType;
+            VideoCodecType videoCodec = new VideoCodecType();
+            videoCodec = value as VideoCodecType;
             if (svc != null)
             {
                 using (VideoCodecForm form = new VideoCodecForm())

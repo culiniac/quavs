@@ -84,11 +84,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MessageQueueTraceListener.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="TextWriterTraceListenerWithTime.cs" />
     <Compile Include="VideoCodecForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -133,7 +135,6 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <None Include="ClassDiagram1.cd" />
     <None Include="QUAVS.Base.snk" />
   </ItemGroup>
   <ItemGroup />

@@ -1,11 +1,4 @@
-﻿/****************************************************************************
-QuadUAV Video Capture Class
-*****************************************************************************/
-
-// type of bitmap to use
-#define DEBUG
-
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -196,9 +189,9 @@ namespace QUAVS.Base
 
 #if DEBUG
                 benchmark.Stop();
-                Trace.WriteLine("SetupGraph: {0}", ((double)(benchmark.Elapsed.TotalMilliseconds)).ToString("0.00 ms"));
+                Debug.WriteLine("SetupGraph: " + ((double)(benchmark.Elapsed.TotalMilliseconds)).ToString("0.00 ms"));
 #endif
-                 ChangeState(VideoCaptureState.STOPPED);
+                ChangeState(VideoCaptureState.STOPPED);
             }
             catch(Exception e)
             {

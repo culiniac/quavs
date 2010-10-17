@@ -42,7 +42,10 @@ namespace QUAVS.Base
         // User-defined conversion from Digit to double
         public static implicit operator string(VideoSourceType vs)
         {
-            return vs._vs;
+            if (vs != null)
+                return vs._vs;
+            else
+                return null;
         }
         //  User-defined conversion from double to Digit
         public static implicit operator VideoSourceType(string vs)

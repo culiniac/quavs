@@ -71,7 +71,6 @@ namespace QUAVS.Base
         IMediaControl _mediaCtrl = null;
 
         private VideoCaptureState _state;
-
         private VideoSourceType _strCapture;
         private VideoCodecType _strCompressor;
         private string _strFileName;
@@ -79,66 +78,81 @@ namespace QUAVS.Base
 
         private int _videoWidth;
         private int _videoHeight;
-        private int _stride;
+
+        private int _SGvideoWidth;
+        private int _SGvideoHeight;
+        private int _SGstride;
+
         private int _fps;
 
         private bool _hud_enabled;
         private HUD _hud;
 
+        private bool _canPlay;
+        private bool _canStop;
+        private bool _canRecord;
+        private bool _canPause;
 
+        public bool CanPlay
+        {
+            get { return _canPlay; }
+        }
+        public bool CanStop
+        {
+            get { return _canStop; }
+        }
+        public bool CanRecord
+        {
+            get { return _canRecord; }
+        }
+        public bool CanPause
+        {
+            get { return _canPause; }
+        }
         public VideoCaptureState State
         {
             get { return _state; }
         }
-
         public VideoSourceType CaptureDevice
         {
             get { return _strCapture; }
             set { _strCapture = value; }
         }
-        
         public VideoCodecType CompressorCodec
         {
             get { return _strCompressor; }
             set { _strCompressor = value; }
         }
-
         public string VideoFile
         {
             get { return _strFileName; }
             set { _strFileName = value; }
         }
-
         public IntPtr Owner
         {
             get { return _hOwner; }
             set { _hOwner = value; }
         }
-
         public int VideoWidth
         {
             get { return _videoWidth; }
-            set { _videoWidth = value; _hud.VideoWidth = _videoWidth; }
+            set { _videoWidth = value;}
         }
-
         public int VideoHeight
         {
             get { return _videoHeight; }
-            set { _videoHeight = value; _hud.VideoHeight = _videoHeight; }
+            set { _videoHeight = value;}
         }
-
         public int Fps
         {
             get { return _fps; }
             set { _fps = value; }
         }
-
         public bool HUD_Enabled
         {
             get { return _hud_enabled; }
             set { _hud_enabled = value; }
         }
-
         public HUD HUD
         {
             get { return _hud; }
@@ -161,7 +175,9 @@ namespace QUAVS.Base
         public VideoCapture(IntPtr owner)
         {
             _hOwner = owner;
-            _state = VideoCaptureState.UNINITIALIZED;
+
+            ChangeState(VideoCaptureState.UNINITIALIZED);
+
             _hud_enabled = false;
             _hud = new HUD();
             _hud_enabled = true;
@@ -182,7 +198,7 @@ namespace QUAVS.Base
                 benchmark.Stop();
                 Trace.WriteLine("SetupGraph: {0}", ((double)(benchmark.Elapsed.TotalMilliseconds)).ToString("0.00 ms"));
 #endif
-                _state = VideoCaptureState.STOPPED;
+                 ChangeState(VideoCaptureState.STOPPED);
             }
             catch(Exception e)
             {
@@ -209,38 +225,41 @@ namespace QUAVS.Base
         {
             Dispose();
         }
-        
-        /// <summary> capture the next image </summary>
-        public void Start()
-        {
-            
-            if (_state == VideoCaptureState.PAUSED)
-            {
-                if(_mediaCtrl != null)
-                {
-                    int hr = _mediaCtrl.Run();
-                    checkHR(hr, "Cannot start capture graph");
-                    _state = VideoCaptureState.RUNNING;
-                }
-                else
-                {
-                    _state = VideoCaptureState.UNINITIALIZED;
-                }
 
-            }
-            else
+        /// <summary>
+        /// Plays this instance.
+        /// </summary>
+        public void Play()
+        {
+            if (_canPlay)
             {
-                CloseInterfaces();
-                InitializeCapture(false);
-                if (_mediaCtrl != null)
+                if (_state == VideoCaptureState.PAUSED)
                 {
-                    int hr = _mediaCtrl.Run();
-                    checkHR(hr, "Cannot start capture graph");
-                    _state = VideoCaptureState.RUNNING;
+                    if (_mediaCtrl != null)
+                    {
+                        int hr = _mediaCtrl.Run();
+                        checkHR(hr, "Cannot start capture graph");
+                        ChangeState(VideoCaptureState.RUNNING);
+                    }
+                    else
+                    {
+                        ChangeState(VideoCaptureState.UNINITIALIZED);
+                    }
+
                 }
                 else
                 {
-                    _state = VideoCaptureState.UNINITIALIZED;
+                    InitializeCapture(false);
+                    if (_mediaCtrl != null)
+                    {
+                        int hr = _mediaCtrl.Run();
+                        checkHR(hr, "Cannot start capture graph");
+                        ChangeState(VideoCaptureState.RUNNING);
+                    }
+                    else
+                    {
+                       ChangeState(VideoCaptureState.UNINITIALIZED);
+                    }
                 }
             }
 
@@ -253,98 +272,114 @@ namespace QUAVS.Base
         /// </summary>
         public void Pause()
         {
-            if (_mediaCtrl != null)
+            if (_canPause)
             {
-                if (_state == VideoCaptureState.RUNNING)
+                if (_mediaCtrl != null)
                 {
-                    if (_mediaCtrl != null)
+                    if (_state == VideoCaptureState.RUNNING)
                     {
-                        int hr = _mediaCtrl.Pause();
-                        checkHR(hr, "Cannot pause capture graph");
-                        _state = VideoCaptureState.PAUSED;
+                        if (_mediaCtrl != null)
+                        {
+                            int hr = _mediaCtrl.Pause();
+                            checkHR(hr, "Cannot pause capture graph");
+                            ChangeState(VideoCaptureState.PAUSED);
+                        }
+                        else
+                        {
+                            ChangeState(VideoCaptureState.UNINITIALIZED);
+                        }
+
                     }
-                    else
+                    if (_state == VideoCaptureState.RECORDING)
                     {
-                        _state = VideoCaptureState.UNINITIALIZED;
+                        if (_mediaCtrl != null)
+                        {
+                            int hr = _mediaCtrl.Pause();
+                            checkHR(hr, "Cannot pause capture graph");
+                            ChangeState(VideoCaptureState.RECORDING_PAUSED);
+                        }
+                        else
+                        {
+                            ChangeState(VideoCaptureState.UNINITIALIZED);
+                        }
+
                     }
-                    
-                }
-                if (_state == VideoCaptureState.RECORDING)
-                {
-                    if (_mediaCtrl != null)
-                    {
-                        int hr = _mediaCtrl.Pause();
-                        checkHR(hr, "Cannot pause capture graph");
-                        _state = VideoCaptureState.RECORDING_PAUSED;
-                    }
-                    else
-                    {
-                        _state = VideoCaptureState.UNINITIALIZED;
-                    } 
-                    
                 }
             }
         }
-
 
         /// <summary>
         /// Stops the capture graph.
         /// </summary>
         public void Stop()
         {
-            if (_state != VideoCaptureState.UNINITIALIZED)
+            if (_canStop)
             {
-                if (_mediaCtrl != null)
+                if (_state != VideoCaptureState.UNINITIALIZED)
                 {
-                    int hr = _mediaCtrl.StopWhenReady();
-                    checkHR(hr, "Cannot pause capture graph");
-                    _state = VideoCaptureState.STOPPED;
-                }
-                else
-                {
-                    _state = VideoCaptureState.UNINITIALIZED;
+                    if (_mediaCtrl != null)
+                    {
+                        int hr = _mediaCtrl.StopWhenReady();
+                        checkHR(hr, "Cannot pause capture graph");
+                        ChangeState(VideoCaptureState.STOPPED);
+                    }
+                    else
+                    {
+                        ChangeState(VideoCaptureState.UNINITIALIZED);
+                    }
                 }
             }
-
         }
 
-        public void Recording()
+        /// <summary>
+        /// Recordings this instance.
+        /// </summary>
+        public void Record()
         {
-            
+            if(_canRecord)
+            {
                 if (_state == VideoCaptureState.RECORDING_PAUSED)
                 {
                     if (_mediaCtrl != null)
                     {
                         int hr = _mediaCtrl.Run();
                         checkHR(hr, "Cannot start capture graph");
-                        _state = VideoCaptureState.RECORDING;
+                        ChangeState(VideoCaptureState.RECORDING);
                     }
                     else
                     {
-                        _state = VideoCaptureState.UNINITIALIZED;
+                        ChangeState(VideoCaptureState.UNINITIALIZED);
                     }
                 }
                 else
                 {
-                    CloseInterfaces();
                     InitializeCapture(true);
                     if (_mediaCtrl != null)
                     {
                         int hr = _mediaCtrl.Run();
                         checkHR(hr, "Cannot start capture graph");
-                        _state = VideoCaptureState.RECORDING;
+                        ChangeState(VideoCaptureState.RECORDING);
                     }
                     else
                     {
-                        _state = VideoCaptureState.UNINITIALIZED;
+                        ChangeState(VideoCaptureState.UNINITIALIZED);
                     }
                 }
-           
+            }
         }
 
-              
-        /// <summary> build the capture graph for grabber. </summary>
-        public void SetupGraph(string strCapture, string strCompressor, string strFileName, int iFrameRate, int iWidth, int iHeight, IntPtr owner, bool record)
+        /// <summary>
+        /// build the capture graph for grabber.
+        /// </summary>
+        /// <param name="strCapture">The STR capture.</param>
+        /// <param name="strCompressor">The STR compressor.</param>
+        /// <param name="strFileName">Name of the STR file.</param>
+        /// <param name="iFrameRate">The i frame rate.</param>
+        /// <param name="iWidth">Width of the i.</param>
+        /// <param name="iHeight">Height of the i.</param>
+        /// <param name="owner">The owner.</param>
+        /// <param name="record">if set to <c>true</c> [record].</param>
+        private void SetupGraph(string strCapture, string strCompressor, string strFileName, int iFrameRate, int iWidth, int iHeight, IntPtr owner, bool record)
         {
             ICaptureGraphBuilder2 captureGraphBuilder = null;
             ISampleGrabber sampGrabber = null;
@@ -523,7 +558,10 @@ namespace QUAVS.Base
             }
         }
 
-        /// <summary> Read and store the properties </summary>
+        /// <summary>
+        /// Read and store the properties
+        /// </summary>
+        /// <param name="sampGrabber">The samp grabber.</param>
         private void SaveSizeInfo(ISampleGrabber sampGrabber)
         {
             int hr;
@@ -540,15 +578,21 @@ namespace QUAVS.Base
 
             // Grab the size info
             VideoInfoHeader videoInfoHeader = (VideoInfoHeader)Marshal.PtrToStructure(media.formatPtr, typeof(VideoInfoHeader));
-            _videoWidth = videoInfoHeader.BmiHeader.Width;
-            _videoHeight = videoInfoHeader.BmiHeader.Height;
-            _stride = _videoWidth * (videoInfoHeader.BmiHeader.BitCount / 8);
+            _SGvideoWidth = videoInfoHeader.BmiHeader.Width;
+            _SGvideoHeight = videoInfoHeader.BmiHeader.Height;
+            _SGstride = _SGvideoWidth * (videoInfoHeader.BmiHeader.BitCount / 8);
+            
+            _hud.VideoHeight = _SGvideoHeight;
+            _hud.VideoWidth = _SGvideoWidth;
 
             DsUtils.FreeAMMediaType(media);
             media = null;
         }
 
-        /// <summary> Set the options on the sample grabber </summary>
+        /// <summary>
+        /// Set the options on the sample grabber
+        /// </summary>
+        /// <param name="sampGrabber">The samp grabber.</param>
         private void ConfigureSampleGrabber(ISampleGrabber sampGrabber)
         {
             int hr;
@@ -572,7 +616,14 @@ namespace QUAVS.Base
             DsError.ThrowExceptionForHR(hr);
         }
 
-        // Set the Framerate, and video size
+        /// <summary>
+        /// Set the Framerate, and video size
+        /// </summary>
+        /// <param name="capGraph">The cap graph.</param>
+        /// <param name="capFilter">The cap filter.</param>
+        /// <param name="iFrameRate">The i frame rate.</param>
+        /// <param name="iWidth">Width of the i.</param>
+        /// <param name="iHeight">Height of the i.</param>
         private void SetConfigParms(ICaptureGraphBuilder2 capGraph, IBaseFilter capFilter, int iFrameRate, int iWidth, int iHeight)
         {
             int hr;
@@ -651,7 +702,9 @@ namespace QUAVS.Base
             }
         }
 
-        /// <summary> Shut down capture </summary>
+        /// <summary>
+        /// Shut down capture
+        /// </summary>
         private void CloseInterfaces()
         {
             int hr;
@@ -716,8 +769,8 @@ namespace QUAVS.Base
                     Bitmap dst;
                     Bitmap src;
 
-                    src = new Bitmap(_videoWidth, _videoHeight, PixelFormat.Format32bppArgb);
-                    dst = new Bitmap(_videoWidth, _videoHeight, _stride, PixelFormat.Format32bppArgb, pBuffer);
+                    src = new Bitmap(_SGvideoWidth, _SGvideoHeight, PixelFormat.Format32bppArgb);
+                    dst = new Bitmap(_SGvideoWidth, _SGvideoHeight, _SGstride, PixelFormat.Format32bppArgb, pBuffer);
 
                     _hud.DrawHUD(src, dst);
                     // dispose of the various objects
@@ -791,5 +844,59 @@ namespace QUAVS.Base
             return (IBaseFilter)source;
         }
 
+        /// <summary>
+        /// Changes the state.
+        /// </summary>
+        /// <param name="cState">State of the c.</param>
+        private void ChangeState(VideoCaptureState cState)
+        {
+            _state = cState;
+
+            switch (_state)
+            {
+                case VideoCaptureState.UNINITIALIZED:
+                    _canPlay = true;
+                    _canStop = false;
+                    _canRecord = true;
+                    _canPause = false;
+                    break;
+                case VideoCaptureState.STOPPED:
+                    _canPlay = true;
+                    _canStop = false;
+                    _canRecord = true;
+                    _canPause = false;
+                    break;
+                case VideoCaptureState.RUNNING:
+                    _canPlay = false;
+                    _canStop = true;
+                    _canRecord = false;
+                    _canPause = true;
+                    break;
+                case VideoCaptureState.RECORDING:
+                    _canPlay = false;
+                    _canStop = true;
+                    _canRecord = false;
+                    _canPause = true;
+                    break;
+                case VideoCaptureState.PAUSED:
+                    _canPlay = true;
+                    _canStop = true;
+                    _canRecord = false;
+                    _canPause = false;
+                    break;
+                case VideoCaptureState.RECORDING_PAUSED:
+                    _canPlay = false;
+                    _canStop = true;
+                    _canRecord = true;
+                    _canPause = false;
+                    break;
+                default:
+                    _canPlay = true;
+                    _canStop = false;
+                    _canRecord = true;
+                    _canPause = false;
+                    break;
+            }
+        }
     }
 }

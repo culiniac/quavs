@@ -50,7 +50,8 @@ namespace QUAVS.Base
         private Rectangle[] _rectangleHUD1 = new Rectangle[4];
         private Rectangle[] _rectanglePitch = new Rectangle[4];
 
-        private Color _color = Color.FromArgb(255, 0, 255, 0);
+        private Color _color = Color.FromArgb(255,0,255,0);
+        private byte _alpha = 255;
 
         private int _pitch_resolution = 10;
         private int _yaw_resolution = 10;
@@ -71,6 +72,25 @@ namespace QUAVS.Base
         
         #region Accessors & Mutators
         
+        public Color HUDColor
+        {
+            get { return _color; }
+            set 
+            {
+                _color = Color.FromArgb(_alpha, value.R, value.G, value.B);
+            }
+        }
+
+        public byte HUDAlpha
+        {
+            get { return _alpha; }
+            set 
+            {
+                _alpha = value;
+                _color = Color.FromArgb(_alpha, _color.R, _color.G, _color.B);
+            }
+        }
+
         public int VideoWidth
         {
             get { return _videoWidth; }
@@ -136,14 +156,14 @@ namespace QUAVS.Base
 
         public HUD()
         {
-            _speed = 0;
-            _altitude = 0;
+            _speed = 100;
+            _altitude = 20;
             _latitude = 0;
             _longitude = 0;
-            _headingMagneticNorth = 0;
-            _roll = 0;
-            _pitch = 0;
-            _yaw = 0;
+            _headingMagneticNorth = 235;
+            _roll = 13;
+            _pitch = 5;
+            _yaw = 1;
             _message = "Initialized...";
 
             _videoWidth = 640;
@@ -152,8 +172,8 @@ namespace QUAVS.Base
             // TO DO: fix the font sizes
             // ADD: more parameters for color, font size, etc
             
-            _fontOverlay = new Font("Tahoma", 12, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            _transparentFont = new Font("Tahoma", 12, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            _fontOverlay = new Font("Tahoma", 10, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            _transparentFont = new Font("Tahoma", 10, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
 
             _transparentBrush = new SolidBrush(_color);
 
@@ -183,6 +203,16 @@ namespace QUAVS.Base
 
         public void DrawHUD(Bitmap src, Bitmap dst)
         {
+
+            //_fontOverlay = new Font("Tahoma", 12, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            //_transparentFont = new Font("Tahoma", 12, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+
+            _transparentBrush.Color = _color;
+            _pen1.Color = _color;
+            _pen2.Color = _color;
+
+            //_brush.Color = _color_brush;
+
             //Initialize Graphics
             _g = Graphics.FromImage(src);
             _g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
@@ -205,10 +235,11 @@ namespace QUAVS.Base
             // 3. Speed
             _rectangleHUD[2] = new Rectangle(45, (_videoHeight / 2) - 8, 50, 15);
             //_g.DrawRectangles(_pen1, _rectangleHUD);
+            _g.FillRectangles(_brush, _rectangleHUD);
             
             //Draw numeric values inside each box:
             // 1. Heading
-            _g.DrawString(_headingMagneticNorth.ToString(), _fontOverlay, _transparentBrush, (RectangleF)_rectangleHUD[0], _format1);
+            _g.DrawString(_headingMagneticNorth.ToString(), _transparentFont, _transparentBrush, (RectangleF)_rectangleHUD[0], _format1);
             // 2. Altitude
             _g.DrawString(_altitude.ToString(), _transparentFont, _transparentBrush, (RectangleF)_rectangleHUD[1], _format1);
             //3. Speed

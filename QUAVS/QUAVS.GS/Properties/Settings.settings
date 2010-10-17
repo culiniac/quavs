@@ -8,5 +8,17 @@
     <Setting Name="VideoCompressor" Type="QUAVS.Base.VideoCodecType" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
+    <Setting Name="HUDAlpha" Type="System.Byte" Scope="User">
+      <Value Profile="(Default)">255</Value>
+    </Setting>
+    <Setting Name="VideoHeight" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">480</Value>
+    </Setting>
+    <Setting Name="VideoWidth" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">640</Value>
+    </Setting>
+    <Setting Name="HUDColor" Type="System.Drawing.Color" Scope="User">
+      <Value Profile="(Default)">0, 255, 0</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

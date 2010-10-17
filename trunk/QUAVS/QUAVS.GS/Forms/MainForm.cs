@@ -12,14 +12,16 @@ namespace QUAVS.GS
 {
     public partial class MainForm : Form
     {
+        static private TelemetryDataObject _telemetryData = new TelemetryDataObject();
 
         private bool _bSaveLayout = true;
         private DeserializeDockContent _deserializeDockContent;
 
-        private VideoForm _videoForm = new VideoForm();
+        private VideoForm _videoForm = new VideoForm(_telemetryData);
         private MapForm _mapForm = new MapForm();
         private SettingsForm _settingsForm = new SettingsForm();
         private OutputForm _outputForm = new OutputForm();
+        private TelemetryForm _telemetryForm = new TelemetryForm(_telemetryData);
 
         public MainForm()
         {
@@ -47,7 +49,7 @@ namespace QUAVS.GS
         }
 
         /// <summary>
-        /// Gets the content from persist string. !!! Needs update anytime we add another form to the project !!!
+        /// Gets the content from persist string. !!! Needs update anytime I add another form to the project !!!
         /// </summary>
         /// <param name="persistString">The persist string.</param>
         /// <returns></returns>
@@ -61,6 +63,8 @@ namespace QUAVS.GS
                 return _settingsForm;
             else if (persistString == typeof(OutputForm).ToString())
                 return _outputForm;
+            else if (persistString == typeof(TelemetryForm).ToString())
+                return _telemetryForm;
             else
                 return null;
         }
@@ -76,7 +80,7 @@ namespace QUAVS.GS
 
             //check for null forms - Not working - figure out the disposal of forms.
             if (_videoForm.IsDisposed == true)
-                _videoForm = new VideoForm();
+                _videoForm = new VideoForm(_telemetryData);
             _videoForm.Show(DockingPanel, DockState.Document);
             if (_mapForm.IsDisposed == true)
                 _mapForm = new MapForm();
@@ -86,7 +90,10 @@ namespace QUAVS.GS
             _settingsForm.Show(DockingPanel, DockState.DockLeft);
             if (_outputForm.IsDisposed == true)
                 _outputForm = new OutputForm();
-            _outputForm.Show(DockingPanel, DockState.DockLeft);
+            _outputForm.Show(DockingPanel, DockState.DockBottom);
+            if (_telemetryForm.IsDisposed == true)
+                _telemetryForm = new TelemetryForm(_telemetryData);
+            _telemetryForm.Show(DockingPanel, DockState.Float);
             
             //save current layout
             _deserializeDockContent = new DeserializeDockContent(GetContentFromPersistString);

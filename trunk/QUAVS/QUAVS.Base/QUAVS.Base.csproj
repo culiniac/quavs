@@ -98,7 +98,6 @@
       <DependentUpon>VideoCodecForm.cs</DependentUpon>
     </Compile>
     <Compile Include="HUD.cs" />
-    <Compile Include="TelemetryDataObject.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="VideoCapture.cs" />
     <Compile Include="VideoCodecUITypeEditor.cs" />

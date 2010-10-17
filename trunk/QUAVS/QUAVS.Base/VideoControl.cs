@@ -285,7 +285,7 @@ namespace QUAVS.Base
             // Resize and reposition video panel
             panelVideo.Height = _cam.VideoHeight;
             panelVideo.Width = _cam.VideoWidth;
-            panelVideo.Top = (this.Height - _cam.VideoHeight) / 2;
+            panelVideo.Top = (this.Height - _cam.VideoHeight + toolStripVideoControl.Height) / 2;
             panelVideo.Left = (this.Width - _cam.VideoWidth) / 2;
 
             if (panelVideo.Top < 0) panelVideo.Top = 0;

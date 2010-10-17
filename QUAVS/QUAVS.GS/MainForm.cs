@@ -19,6 +19,7 @@ namespace QUAVS.GS
         private VideoForm _videoForm = new VideoForm();
         private MapForm _mapForm = new MapForm();
         private SettingsForm _settingsForm = new SettingsForm();
+        private OutputForm _outputForm = new OutputForm();
 
         public MainForm()
         {
@@ -32,9 +33,6 @@ namespace QUAVS.GS
 
             if (File.Exists(configFile))
                 DockingPanel.LoadFromXml(configFile, _deserializeDockContent);
-
-            //_videoForm.Show(this.DockingPanel);
-            //_mapForm.Show(this.DockingPanel);
         }
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -61,6 +59,8 @@ namespace QUAVS.GS
                 return _mapForm;
             else if (persistString == typeof(SettingsForm).ToString())
                 return _settingsForm;
+            else if (persistString == typeof(OutputForm).ToString())
+                return _outputForm;
             else
                 return null;
         }
@@ -84,6 +84,9 @@ namespace QUAVS.GS
             if (_settingsForm.IsDisposed == true)
                 _settingsForm = new SettingsForm();
             _settingsForm.Show(DockingPanel, DockState.DockLeft);
+            if (_outputForm.IsDisposed == true)
+                _outputForm = new OutputForm();
+            _outputForm.Show(DockingPanel, DockState.DockLeft);
             
             //save current layout
             _deserializeDockContent = new DeserializeDockContent(GetContentFromPersistString);

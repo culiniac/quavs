@@ -198,5 +198,12 @@ namespace QUAVS.Base
             base.WriteLine(message);
         }
 
+        public override void Write(string message)
+        {
+            base.Write(DateTime.Now.ToString());
+            base.Write(" ");
+            base.Write(message);
+        }
+
     }
 }

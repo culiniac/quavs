@@ -51,65 +51,65 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CommsForm.cs">
+    <Compile Include="Forms\CommsForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="CommsForm.Designer.cs">
+    <Compile Include="Forms\CommsForm.Designer.cs">
       <DependentUpon>CommsForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="LogForm.cs">
+    <Compile Include="Interfaces\IObservable.cs" />
+    <Compile Include="Interfaces\IObserver.cs" />
+    <Compile Include="Forms\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="LogForm.Designer.cs">
-      <DependentUpon>LogForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="MainForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="MainForm.Designer.cs">
+    <Compile Include="Forms\MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="MapForm.cs">
+    <Compile Include="Forms\MapForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MapForm.Designer.cs">
+    <Compile Include="Forms\MapForm.Designer.cs">
       <DependentUpon>MapForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="OutputForm.cs">
+    <Compile Include="Forms\OutputForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="OutputForm.Designer.cs">
+    <Compile Include="Forms\OutputForm.Designer.cs">
       <DependentUpon>OutputForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Settings.cs" />
-    <Compile Include="SettingsForm.cs">
+    <Compile Include="Forms\SettingsForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="SettingsForm.Designer.cs">
+    <Compile Include="Forms\SettingsForm.Designer.cs">
       <DependentUpon>SettingsForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="TelemetryForm.cs">
+    <Compile Include="TelemetryDataObject.cs" />
+    <Compile Include="Forms\TelemetryForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="TelemetryForm.Designer.cs">
+    <Compile Include="Forms\TelemetryForm.Designer.cs">
       <DependentUpon>TelemetryForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="VideoForm.cs">
+    <Compile Include="Forms\VideoForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="VideoForm.Designer.cs">
+    <Compile Include="Forms\VideoForm.Designer.cs">
       <DependentUpon>VideoForm.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="MainForm.resx">
+    <EmbeddedResource Include="Forms\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="MapForm.resx">
+    <EmbeddedResource Include="Forms\MapForm.resx">
       <DependentUpon>MapForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="OutputForm.resx">
+    <EmbeddedResource Include="Forms\OutputForm.resx">
       <DependentUpon>OutputForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\TelemetryForm.resx">
+      <DependentUpon>TelemetryForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -121,10 +121,10 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="SettingsForm.resx">
+    <EmbeddedResource Include="Forms\SettingsForm.resx">
       <DependentUpon>SettingsForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="VideoForm.resx">
+    <EmbeddedResource Include="Forms\VideoForm.resx">
       <DependentUpon>VideoForm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="app.config" />

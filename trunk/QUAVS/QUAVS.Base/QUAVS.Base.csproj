@@ -85,6 +85,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Log.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="VideoCodecForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -114,6 +119,10 @@
     <Service Include="{94E38DFF-614B-4cbd-B67C-F211BB35CE8B}" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="VideoCodecForm.resx">
       <DependentUpon>VideoCodecForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -128,9 +137,7 @@
     <None Include="ClassDiagram1.cd" />
     <None Include="QUAVS.Base.snk" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Resources\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\libraries\DirectShowNet\src\DirectShowLib-2008.csproj">
       <Project>{CE009BFA-5EF6-4153-B2A1-2FA79698A9AE}</Project>
@@ -148,6 +155,18 @@
       <Project>{E06DEF77-F933-42FB-AFD7-DB2D0D8D6A98}</Project>
       <Name>GMap.NET.WindowsForms</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PauseHS.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PlayHS.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\RecordHS.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\StopHS.bmp" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

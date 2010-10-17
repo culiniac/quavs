@@ -106,7 +106,11 @@ namespace QUAVS.Base
         public int VideoWidth
         {
             get { return _cam.VideoWidth; }
-            set { _cam.VideoWidth = value; }
+            set
+            {
+                _cam.VideoWidth = value;
+                ResizeVideo();
+            }
         }
 
         /// <summary>
@@ -118,9 +122,57 @@ namespace QUAVS.Base
         public int VideoHeight
         {
             get { return _cam.VideoHeight; }
-            set { _cam.VideoHeight = value; }
+            set
+            {
+                _cam.VideoHeight = value;
+                ResizeVideo();
+            }
         }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether [control visible].
+        /// </summary>
+        /// <value><c>true</c> if [control visible]; otherwise, <c>false</c>.</value>
+        [Category("QUAVS")]
+        [Description("Video Control Visibile")]
+        public bool ControlVisible
+        {
+            get { return toolStripVideoControl.Visible; }
+            set {
+                toolStripVideoControl.Visible = value;
+                ResizeVideo();
+            }
+
+        }
+
+        /// <summary>
+        /// Gets or sets the color of the HUD.
+        /// </summary>
+        /// <value>The color of the HUD.</value>
+        [Category("QUAVS")]
+        [Description("HUD color")]
+        public Color HUDColor
+        {
+            get { return _cam.HUD.HUDColor; }
+            set { _cam.HUD.HUDColor = value; }
+        }
+
+        /// <summary>
+        /// Gets or sets the HUD alpha.
+        /// </summary>
+        /// <value>The HUD alpha.</value>
+        [Category("QUAVS")]
+        [Description("HUD color")]
+        public byte HUDAlpha
+        {
+            get { return _cam.HUD.HUDAlpha; }
+            set { _cam.HUD.HUDAlpha = value; }
+        }
+
+        /// <summary>
+        /// Gets or sets the HUD speed.
+        /// </summary>
+        /// <value>The HUD speed.</value>
         [Category("QUAVS")]
         [Description("HUD speed")]
         public double HUDSpeed
@@ -168,9 +220,10 @@ namespace QUAVS.Base
         /// <summary>
         /// Runs the video capture.
         /// </summary>
-        public void Run()
+        public void Play()
         {
-            _cam.Start();
+            _cam.Play();
+            UpdateVideoControl();
         }
 
         /// <summary>
@@ -178,7 +231,8 @@ namespace QUAVS.Base
         /// </summary>
         public void Record()
         {
-            _cam.Recording();
+            _cam.Record();
+            UpdateVideoControl();
         }
 
         /// <summary>
@@ -187,6 +241,7 @@ namespace QUAVS.Base
         public void Stop()
         {
             _cam.Stop();
+            UpdateVideoControl();
         }
 
         /// <summary>
@@ -195,11 +250,37 @@ namespace QUAVS.Base
         public void Pause()
         {
             _cam.Pause();
+            UpdateVideoControl();
         }
 
         #endregion
 
+        /// <summary>
+        /// Updates the video control.
+        /// </summary>
+        private void UpdateVideoControl()
+        {
+            toolStripPauseButton.Visible = _cam.CanPause;
+            toolStripPlayButton.Visible = _cam.CanPlay;
+            toolStripRecordButton.Visible = _cam.CanRecord;
+            toolStripStopButton.Visible = _cam.CanStop;
+            toolStripStatusLabel.Text = _cam.State.ToString();
+        }
+
+        /// <summary>
+        /// Handles the Resize event of the VideoControl control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         private void VideoControl_Resize(object sender, EventArgs e)
+        {
+            ResizeVideo();
+        }
+
+        /// <summary>
+        /// Resizes the video.
+        /// </summary>
+        private void ResizeVideo()
         {
             // Resize and reposition video panel
             panelVideo.Height = _cam.VideoHeight;
@@ -209,6 +290,26 @@ namespace QUAVS.Base
 
             if (panelVideo.Top < 0) panelVideo.Top = 0;
             if (panelVideo.Left < 0) panelVideo.Left = 0;
+        }
+
+        private void toolStripPlayButton_Click(object sender, EventArgs e)
+        {
+            Play();
+        }
+
+        private void toolStripPauseButton_Click(object sender, EventArgs e)
+        {
+            Pause();
+        }
+
+        private void toolStripRecordButton_Click(object sender, EventArgs e)
+        {
+            Record();
+        }
+
+        private void toolStripStopButton_Click(object sender, EventArgs e)
+        {
+            Stop();
         }
 
     }

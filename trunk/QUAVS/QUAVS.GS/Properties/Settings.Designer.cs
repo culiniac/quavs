@@ -44,5 +44,53 @@ namespace QUAVS.GS.Properties {
                 this["VideoCompressor"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("255")]
+        public byte HUDAlpha {
+            get {
+                return ((byte)(this["HUDAlpha"]));
+            }
+            set {
+                this["HUDAlpha"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("480")]
+        public int VideoHeight {
+            get {
+                return ((int)(this["VideoHeight"]));
+            }
+            set {
+                this["VideoHeight"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("640")]
+        public int VideoWidth {
+            get {
+                return ((int)(this["VideoWidth"]));
+            }
+            set {
+                this["VideoWidth"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0, 255, 0")]
+        public global::System.Drawing.Color HUDColor {
+            get {
+                return ((global::System.Drawing.Color)(this["HUDColor"]));
+            }
+            set {
+                this["HUDColor"] = value;
+            }
+        }
     }
 }

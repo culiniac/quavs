@@ -57,8 +57,6 @@
     <Compile Include="Forms\CommsForm.Designer.cs">
       <DependentUpon>CommsForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Interfaces\IObservable.cs" />
-    <Compile Include="Interfaces\IObserver.cs" />
     <Compile Include="Forms\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -86,7 +84,6 @@
     <Compile Include="Forms\SettingsForm.Designer.cs">
       <DependentUpon>SettingsForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="TelemetryDataObject.cs" />
     <Compile Include="Forms\TelemetryForm.cs">
       <SubType>Form</SubType>
     </Compile>

@@ -17,7 +17,7 @@ namespace QUAVS.GS
         {
             FileStreamWithBackup fs = new FileStreamWithBackup("quavs.gs.log", 2000000000, 10, FileMode.Append);
             fs.CanSplitData = false;
-            TextWriterTraceListenerWithTime listener = new TextWriterTraceListenerWithTime(fs);
+            TextWriterTraceListener listener = new TextWriterTraceListener(fs);
             Trace.AutoFlush = true;
             Trace.Listeners.Add(listener);
 

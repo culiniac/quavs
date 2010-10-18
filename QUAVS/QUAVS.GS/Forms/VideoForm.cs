@@ -11,50 +11,32 @@ using System.Diagnostics;
 
 namespace QUAVS.GS
 {
-    public partial class VideoForm : DockContent, IObserver
+    public partial class VideoForm : DockContent
     {
-        public delegate void UpdateObserverDelegate(TelemetryDataObject dataObject);
+        private TelemetryDataObject _telemetryDataObject;
+        private TelemetryData _telemetryData = new TelemetryData();
+        TelemetryDataObject.TelemetryDataDelegate _delegate;
 
-        private TelemetryDataObject _dataObject;
-
-        #region IObserver - Methods
-        
-        public void UpdateObserver(TelemetryDataObject dataObject)
+        public void TelemetryDataChanged(TelemetryData tData)
         {
-            if (this.InvokeRequired == false)
-            {
-                VideoFeed.HUDSpeed = dataObject.SpeedZ;
-                //DisplayData();
-            }
-            else
-            {
-                UpdateObserverDelegate updateDelegate = new UpdateObserverDelegate(UpdateObserver);
-                this.BeginInvoke(updateDelegate, new object[] { dataObject });
-            }
+            Debug.WriteLine("TelemetryDataChanged event received", "VideoForm");
+            _telemetryData = tData;
+            VideoFeed.HUDSpeed = _telemetryData.SpeedX;
         }
-
-        //public void DisplayData()
-        //{
-        //    try
-        //    {
-                                
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        Trace.WriteLine("VideoForm DisplayData: Exception: " + e.Message);
-        //    }
-        //}
-
-        #endregion
-
+        
         /// <summary>
         /// Initializes a new instance of the <see cref="VideoForm"/> class.
         /// </summary>
-        public VideoForm(TelemetryDataObject dataObject)
+        public VideoForm(TelemetryDataObject tDataObject)
         {
+            if (tDataObject == null)
+                throw new ArgumentNullException("TelemetryDataObject is null", "VideoForm");
+
             InitializeComponent();
-            _dataObject = dataObject;
-            _dataObject.RegisterObserver(this);
+            _telemetryDataObject = tDataObject;
+
+            _delegate = new TelemetryDataObject.TelemetryDataDelegate(this.TelemetryDataChanged);
+            _telemetryDataObject.TelemetryDataChanged += _delegate;
         }
 
         /// <summary>
@@ -64,12 +46,12 @@ namespace QUAVS.GS
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         private void VideoForm_Load(object sender, EventArgs e)
         {
-            VideoFeed.Play();
+            
         }
 
         private void VideoForm_FormClosed(object sender, FormClosedEventArgs e)
         {
-            _dataObject.RemoveObserver(this);
+            _telemetryDataObject.TelemetryDataChanged -= _delegate;
         }
 
     }

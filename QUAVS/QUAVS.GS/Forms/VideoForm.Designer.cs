@@ -34,7 +34,6 @@
             // VideoFeed
             // 
             this.VideoFeed.BackColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.VideoFeed.ControlVisible = true;
             this.VideoFeed.DataBindings.Add(new System.Windows.Forms.Binding("VideoCompressor", global::QUAVS.GS.Properties.Settings.Default, "VideoCompressor", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.VideoFeed.DataBindings.Add(new System.Windows.Forms.Binding("VideoSource", global::QUAVS.GS.Properties.Settings.Default, "VideoSource", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.VideoFeed.DataBindings.Add(new System.Windows.Forms.Binding("HUDColor", global::QUAVS.GS.Properties.Settings.Default, "HUDColor", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
@@ -52,6 +51,7 @@
             this.VideoFeed.Size = new System.Drawing.Size(947, 578);
             this.VideoFeed.TabIndex = 0;
             this.VideoFeed.VideoCompressor = global::QUAVS.GS.Properties.Settings.Default.VideoCompressor;
+            this.VideoFeed.VideoControlVisible = false;
             this.VideoFeed.VideoFolder = "test.avi";
             this.VideoFeed.VideoFps = 0;
             this.VideoFeed.VideoHeight = global::QUAVS.GS.Properties.Settings.Default.VideoHeight;
@@ -75,6 +75,7 @@
 
         #endregion
 
-        private Base.VideoControl VideoFeed;
+        public Base.VideoControl VideoFeed;
+
     }
 }

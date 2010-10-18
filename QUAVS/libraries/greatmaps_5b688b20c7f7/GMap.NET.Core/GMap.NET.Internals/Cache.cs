@@ -96,11 +96,12 @@ namespace GMap.NET.Internals
                // move database to non-roaming user directory
                try
                {
-                  if(Directory.Exists(oldCache))
-                  {
-                     Directory.Move(oldCache, newCache);
-                  }
-                  CacheLocation = newCache;
+                   //changed to avoid exceptions
+                    if (Directory.Exists(oldCache) & !Directory.Exists(newCache))
+                    {
+                        Directory.Move(oldCache, newCache);
+                    }
+                    CacheLocation = newCache;
                }
                catch(Exception ex)
                {

@@ -64,7 +64,6 @@ namespace QUAVS.Base
                     {
                         strBuilder.Append(e.Current as string);
                     }
-
                     _messages.Clear();
                 }
             }

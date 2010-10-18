@@ -8,8 +8,6 @@ using System.Drawing.Design;
 using System.Windows.Forms;
 using System.Windows.Forms.Design;
 
-
-
 namespace QUAVS.Base
 {
     public partial class VideoControl : UserControl
@@ -135,7 +133,7 @@ namespace QUAVS.Base
         /// <value><c>true</c> if [control visible]; otherwise, <c>false</c>.</value>
         [Category("QUAVS")]
         [Description("Video Control Visibile")]
-        public bool ControlVisible
+        public bool VideoControlVisible
         {
             get { return toolStripVideoControl.Visible; }
             set {
@@ -285,7 +283,12 @@ namespace QUAVS.Base
             // Resize and reposition video panel
             panelVideo.Height = _cam.VideoHeight;
             panelVideo.Width = _cam.VideoWidth;
-            panelVideo.Top = (this.Height - _cam.VideoHeight + toolStripVideoControl.Height) / 2;
+            
+            if(VideoControlVisible)
+                panelVideo.Top = (this.Height - _cam.VideoHeight + toolStripVideoControl.Height) / 2;
+            else
+                panelVideo.Top = (this.Height - _cam.VideoHeight) / 2;
+
             panelVideo.Left = (this.Width - _cam.VideoWidth) / 2;
 
             if (panelVideo.Top < 0) panelVideo.Top = 0;

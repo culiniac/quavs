@@ -195,7 +195,8 @@ namespace QUAVS.Base
             }
             catch(Exception e)
             {
-                Trace.WriteLine(e);
+                //Trace.WriteLine(e);
+                TraceException.WriteLine(e);
                 Dispose();
             }
         }
@@ -503,7 +504,8 @@ namespace QUAVS.Base
             }
             catch (Exception e)
             {
-                Trace.WriteLine(e.Message);
+                TraceException.WriteLine(e); 
+                //Trace.WriteLine(e.Message);
                 CloseInterfaces();
             }
             finally
@@ -710,28 +712,27 @@ namespace QUAVS.Base
                     hr = _mediaCtrl.Stop();
                     _mediaCtrl = null;
                 }
-            }
-            catch (Exception ex)
-            {
-                Trace.WriteLine(ex);
-            }
-
 #if DEBUG
-            if (_rot != null)
-            {
-                _rot.Dispose();
-            }
+                if (_rot != null)
+                {
+                    _rot.Dispose();
+                }
 #endif
+                if (_graphBuilder != null)
+                {
+                    Marshal.ReleaseComObject(_graphBuilder);
+                    _graphBuilder = null;
+                }
 
-            if (_graphBuilder != null)
-            {
-                Marshal.ReleaseComObject(_graphBuilder);
-                _graphBuilder = null;
+                _state = VideoCaptureState.UNINITIALIZED;
+
+                GC.Collect();
+            
             }
-
-            _state = VideoCaptureState.UNINITIALIZED;
-
-            GC.Collect();
+            catch (Exception e)
+            {
+                TraceException.WriteLine(e);
+            }
         }
 
         /// <summary>
@@ -783,7 +784,7 @@ namespace QUAVS.Base
         {
             if (hr < 0)
             {
-                Trace.WriteLine(msg);
+                //Trace.WriteLine(msg);
                 DsError.ThrowExceptionForHR(hr);
             }
         }

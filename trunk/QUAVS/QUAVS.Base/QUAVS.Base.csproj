@@ -84,13 +84,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FileStreamWithBackup.cs" />
     <Compile Include="MessageQueueTraceListener.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Comms.cs" />
+    <Compile Include="TelemetryComms.cs" />
+    <Compile Include="TelemetryDataObject.cs" />
     <Compile Include="TextWriterTraceListenerWithTime.cs" />
+    <Compile Include="TraceException.cs" />
     <Compile Include="VideoCodecForm.cs">
       <SubType>Form</SubType>
     </Compile>

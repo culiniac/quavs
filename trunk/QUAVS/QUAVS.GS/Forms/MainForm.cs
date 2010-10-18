@@ -7,36 +7,63 @@ using System.Text;
 using System.Windows.Forms;
 using System.IO;
 using WeifenLuo.WinFormsUI.Docking;
+using QUAVS.Base;
+
 
 namespace QUAVS.GS
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public partial class MainForm : Form
     {
-        static private TelemetryDataObject _telemetryData = new TelemetryDataObject();
+        static private TelemetryDataObject _telemetryDataObject = new TelemetryDataObject();
 
         private bool _bSaveLayout = true;
         private DeserializeDockContent _deserializeDockContent;
 
-        private VideoForm _videoForm = new VideoForm(_telemetryData);
-        private MapForm _mapForm = new MapForm();
-        private SettingsForm _settingsForm = new SettingsForm();
-        private OutputForm _outputForm = new OutputForm();
-        private TelemetryForm _telemetryForm = new TelemetryForm(_telemetryData);
+        static private VideoForm _videoForm;
+        static private MapForm _mapForm;
+        static private SettingsForm _settingsForm;
+        static private OutputForm _outputForm;
+        static private TelemetryForm _telemetryForm;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MainForm"/> class.
+        /// </summary>
         public MainForm()
         {
             InitializeComponent();
+
+            _videoForm = new VideoForm(_telemetryDataObject);
+            _mapForm = new MapForm();
+            _settingsForm = new SettingsForm();
+            _outputForm = new OutputForm();
+            _telemetryForm = new TelemetryForm(_telemetryDataObject);
+
             _deserializeDockContent = new DeserializeDockContent(GetContentFromPersistString);
         }
 
+        /// <summary>
+        /// Handles the Load event of the MainForm control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         private void MainForm_Load(object sender, EventArgs e)
         {
+            toolStripEndSessionButton.Enabled = false;
+            toolStripNewSessionButton.Enabled = true;
+            
             string configFile = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "DockPanel.config");
-
             if (File.Exists(configFile))
                 DockingPanel.LoadFromXml(configFile, _deserializeDockContent);
         }
 
+        /// <summary>
+        /// Handles the FormClosing event of the MainForm control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.Windows.Forms.FormClosingEventArgs"/> instance containing the event data.</param>
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             string configFile = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "DockPanel.config");
@@ -80,7 +107,7 @@ namespace QUAVS.GS
 
             //check for null forms - Not working - figure out the disposal of forms.
             if (_videoForm.IsDisposed == true)
-                _videoForm = new VideoForm(_telemetryData);
+                _videoForm = new VideoForm(_telemetryDataObject);
             _videoForm.Show(DockingPanel, DockState.Document);
             if (_mapForm.IsDisposed == true)
                 _mapForm = new MapForm();
@@ -92,13 +119,52 @@ namespace QUAVS.GS
                 _outputForm = new OutputForm();
             _outputForm.Show(DockingPanel, DockState.DockBottom);
             if (_telemetryForm.IsDisposed == true)
-                _telemetryForm = new TelemetryForm(_telemetryData);
+                _telemetryForm = new TelemetryForm(_telemetryDataObject);
             _telemetryForm.Show(DockingPanel, DockState.Float);
             
             //save current layout
             _deserializeDockContent = new DeserializeDockContent(GetContentFromPersistString);
 
             DockingPanel.ResumeLayout(true, true);
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            TelemetryData telemetry = _telemetryDataObject.Telemetry;
+            telemetry.SpeedX += 1;
+            _telemetryDataObject.Telemetry = telemetry;
+        }
+
+        private void NewSession()
+        {
+            if (_videoForm.IsDisposed != true)
+            {
+                _videoForm.VideoFeed.Record();
+            }
+
+            toolStripEndSessionButton.Enabled = true;
+            toolStripNewSessionButton.Enabled = false;
+        }
+
+        private void EndSession()
+        {
+            if (_videoForm.IsDisposed != true)
+            {
+                _videoForm.VideoFeed.Stop();
+            }
+
+            toolStripEndSessionButton.Enabled = false;
+            toolStripNewSessionButton.Enabled = true;
+        }
+
+        private void toolStripNewSessionButton_Click(object sender, EventArgs e)
+        {
+            NewSession();
+        }
+
+        private void toolStripEndSessionButton_Click(object sender, EventArgs e)
+        {
+            EndSession();
         }
     }
 }

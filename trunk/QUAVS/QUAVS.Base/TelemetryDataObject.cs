@@ -1,40 +1,34 @@
-
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 using System.Diagnostics;
 
-namespace QUAVS.GS
+namespace QUAVS.Base
 {
-    /// <summary>
-    /// 
-    /// </summary>
-    public class TelemetryDataObject : IObservable
+    public struct TelemetryData
     {
         #region Privates
 
-        private List<IObserver> _observer;
+        public double _accel_x;
+        public double _accel_y;
+        public double _accel_z;
+        public double _gyro_x;
+        public double _gyro_y;
+        public double _gyro_z;
+        public double _speed_x;
+        public double _speed_y;
+        public double _speed_z;
+        public double _altitude;
+        public double _latitude;
+        public double _longitude;
+        public double _headingMagneticNorth;
+        public double _roll;
+        public double _pitch;
+        public double _yaw;
 
-        private double _accel_x = 0;
-        private double _accel_y = 0;
-        private double _accel_z = 0;
-        private double _gyro_x = 0;
-        private double _gyro_y = 0;
-        private double _gyro_z = 0;
-        private double _speed_x = 0;
-        private double _speed_y = 0;
-        private double _speed_z = 0;
-        private double _altitude = 0;
-        private double _latitude = 0;
-        private double _longitude = 0;
-        private double _headingMagneticNorth = 0;
-        private double _roll = 0;
-        private double _pitch = 0;
-        private double _yaw = 0;
-        
         #endregion
-        
+
         #region Properties
         /// <summary>
         /// Gets or sets the longitude.
@@ -60,7 +54,7 @@ namespace QUAVS.GS
         /// <value>The speed.</value>
         public double SpeedX
         {
-            get {return _speed_x;}
+            get { return _speed_x; }
             set { _speed_x = value; }
         }
 
@@ -83,7 +77,7 @@ namespace QUAVS.GS
             get { return _speed_z; }
             set { _speed_z = value; }
         }
-        
+
         /// <summary>
         /// Gets or sets the altitude.
         /// </summary>
@@ -192,7 +186,33 @@ namespace QUAVS.GS
             get { return _gyro_z; }
             set { _gyro_z = value; }
         }
+
+        #endregion
+    }
+    /// <summary>
+    /// 
+    /// </summary>
+    public class TelemetryDataObject
+    {
+        #region Public Members
+
+        private TelemetryData _telemetry = new TelemetryData();
+       
+        #endregion
         
+        #region Properties
+        
+        public TelemetryData Telemetry
+        {
+            get { return _telemetry; }
+            set 
+            { 
+                _telemetry = value;
+                TelemetryDataChanged(_telemetry);
+                Debug.WriteLine("Telemetry data changed", "TelemetryDataObject");
+            }
+        }
+
         #endregion
         
         #region Constructor
@@ -201,45 +221,13 @@ namespace QUAVS.GS
         /// </summary>
         public TelemetryDataObject()
         {
-            _observer = new List<IObserver>();
-            Trace.WriteLine("TelemetryDataObject Constructor: Object created");
+            Trace.TraceInformation("{0} : TelemetryDataObject Constructor : Object created", DateTime.Now.ToString("[d/M/yyyy HH:mm:ss.fff]"));
         }
         #endregion
 
-        #region Interface Methods
+        public delegate void TelemetryDataDelegate(TelemetryData data);
+        public event TelemetryDataDelegate TelemetryDataChanged;
 
-        public void RemoveObserver(IObserver observer)
-        {
-            int i = _observer.IndexOf(observer);
-            if (i >= 0)
-            {
-                _observer.Remove(observer);
-                Debug.WriteLine("TelemetryDataObject Observer removed: " + observer.ToString());
-            }
-        }
-
-        public void RegisterObserver(IObserver observer)
-        {
-            this._observer.Add(observer);
-            Debug.WriteLine("TelemetryDataObject Observer added: " + observer.ToString());
-        }
-
-        public void NotifyObservers()
-        {
-            if (_observer.Count > 0)
-            {
-                // update every observer here!
-                foreach (IObserver observer in this._observer)
-                {
-                    observer.UpdateObserver(this);
-                }
-
-                Debug.WriteLine("TelemetryDataObject NotifyingObservers: " + _observer.Count.ToString());
-            }
-            else
-                Trace.WriteLine("TelemetryDataObject WARNING: No Observers to NOTIFY!");
-        }
-        #endregion
     }
 }
 

@@ -25,9 +25,9 @@ namespace QUAVS.GS.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public global::QUAVS.Base.VideoSourceType VideoSource {
+        public global::QUAVS.Types.VideoSourceType VideoSource {
             get {
-                return ((global::QUAVS.Base.VideoSourceType)(this["VideoSource"]));
+                return ((global::QUAVS.Types.VideoSourceType)(this["VideoSource"]));
             }
             set {
                 this["VideoSource"] = value;
@@ -36,9 +36,9 @@ namespace QUAVS.GS.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public global::QUAVS.Base.VideoCodecType VideoCompressor {
+        public global::QUAVS.Types.VideoCodecType VideoCompressor {
             get {
-                return ((global::QUAVS.Base.VideoCodecType)(this["VideoCompressor"]));
+                return ((global::QUAVS.Types.VideoCodecType)(this["VideoCompressor"]));
             }
             set {
                 this["VideoCompressor"] = value;

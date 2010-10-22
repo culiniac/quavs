@@ -42,7 +42,10 @@
             this.VideoFeed.DataBindings.Add(new System.Windows.Forms.Binding("VideoWidth", global::QUAVS.GS.Properties.Settings.Default, "VideoWidth", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.VideoFeed.Dock = System.Windows.Forms.DockStyle.Fill;
             this.VideoFeed.HUDAlpha = global::QUAVS.GS.Properties.Settings.Default.HUDAlpha;
+            this.VideoFeed.HUDAltitude = 0D;
             this.VideoFeed.HUDColor = global::QUAVS.GS.Properties.Settings.Default.HUDColor;
+            this.VideoFeed.HUDPitch = 0D;
+            this.VideoFeed.HUDRoll = 0D;
             this.VideoFeed.HUDSpeed = 0D;
             this.VideoFeed.Location = new System.Drawing.Point(0, 0);
             this.VideoFeed.Margin = new System.Windows.Forms.Padding(0);

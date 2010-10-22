@@ -1,4 +1,4 @@
-﻿namespace QUAVS.Base
+﻿namespace QUAVS.Types
 {
     partial class VideoSourceForm
     {

@@ -7,6 +7,7 @@ using System.Text;
 using System.Drawing.Design;
 using System.Windows.Forms;
 using System.Windows.Forms.Design;
+using QUAVS.Types;
 
 namespace QUAVS.Base
 {
@@ -18,11 +19,24 @@ namespace QUAVS.Base
         /// main VideoCapture object
         /// </summary>
         private VideoCapture _cam;
+
+        
         
         #endregion
 
         #region Parameters
 
+        /// <summary>
+        /// Gets or sets the video capture.
+        /// </summary>
+        /// <value>The video capture.</value>
+        [BrowsableAttribute(false)]
+        internal VideoCapture VideoCapture
+        {
+            get { return _cam; }
+            set { _cam = value; }
+        }
+        
         /// <summary>
         /// Gets or sets the video.
         /// </summary>
@@ -177,6 +191,47 @@ namespace QUAVS.Base
         {
             get { return _cam.HUD.Speed; }
             set { _cam.HUD.Speed = value; }
+        }
+
+
+        [Category("QUAVS")]
+        [Description("HUD pitch")]
+        public double HUDPitch
+        {
+            get { return _cam.HUD.Pitch; }
+            set { _cam.HUD.Pitch = value; }
+        }
+
+        [Category("QUAVS")]
+        [Description("HUD roll")]
+        public double HUDRoll
+        {
+            get { return _cam.HUD.Roll; }
+            set { _cam.HUD.Roll = value; }
+        }
+
+        [Category("QUAVS")]
+        [Description("HUD yaw")]
+        public double HUDYaw
+        {
+            get { return _cam.HUD.Yaw; }
+            set { _cam.HUD.Yaw = value; }
+        }
+
+        [Category("QUAVS")]
+        [Description("HUD altitude")]
+        public double HUDAltitude
+        {
+            get { return _cam.HUD.Altitude; }
+            set { _cam.HUD.Altitude = value; }
+        }
+
+        [Category("QUAVS")]
+        [Description("HUD altitude")]
+        public double HUDHeading
+        {
+            get { return _cam.HUD.HeadingMagN; }
+            set { _cam.HUD.HeadingMagN = value; }
         }
 
         #endregion

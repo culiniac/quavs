@@ -9,7 +9,7 @@ using System.Windows.Forms;
 using System.Windows.Forms.Design;
 using System.Configuration;
 
-namespace QUAVS.Base
+namespace QUAVS.Types
 {
     
     [TypeConverter(typeof(VideoCodecTypeConverter))]

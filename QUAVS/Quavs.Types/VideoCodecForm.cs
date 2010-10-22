@@ -11,9 +11,9 @@ using System.Diagnostics;
 
 using DirectShowLib;
 
-namespace QUAVS.Base
+namespace QUAVS.Types
 {
-    public partial class VideoSourceForm : Form
+    public partial class VideoCodecForm : Form
     {
         //A (modified) definition of OleCreatePropertyFrame found here: http://groups.google.no/group/microsoft.public.dotnet.languages.csharp/browse_thread/thread/db794e9779144a46/55dbed2bab4cd772?lnk=st&q=[DllImport(%22olepro32.dll%22)]&rnum=1&hl=no#55dbed2bab4cd772
         [DllImport(@"oleaut32.dll")]
@@ -33,27 +33,42 @@ namespace QUAVS.Base
 
         public string Value
         {
-            get { return listBoxVideoSources.Text; }
-            set { listBoxVideoSources.Text = value; }
+            get { return listBoxVideoCodec.Text; }
+            set 
+            { 
+                listBoxVideoCodec.Text = value;
+                // Ensure we have a proper string to search for.
+                if (value != string.Empty)
+                {
+                    // Find the item in the list and store the index to the item.
+                    int index = listBoxVideoCodec.FindStringExact(value);
+                    // Determine if a valid index is returned. Select the item if it is valid.
+                    if (index != ListBox.NoMatches)
+                        listBoxVideoCodec.SetSelected(index, true);
+                    else
+                        Trace.WriteLine("Video source not found");
+                }
+            }
         }
 
-        public VideoSourceForm()
+        public VideoCodecForm()
         {
             InitializeComponent();
+            //enumerate Video Input filters
+            foreach (DsDevice ds in DsDevice.GetDevicesOfCat(FilterCategory.VideoCompressorCategory))
+            {
+                listBoxVideoCodec.Items.Add(ds.Name);
+            }
         }
 
-        private void VideoSourceForm_Load(object sender, EventArgs e)
+        private void VideoCodecForm_Load(object sender, EventArgs e)
         {
-            //enumerate Video Input filters
-            foreach (DsDevice ds in DsDevice.GetDevicesOfCat(FilterCategory.VideoInputDevice))
-            {
-                listBoxVideoSources.Items.Add(ds.Name);
-            }
+            
         }
 
         private void buttonConfig_Click(object sender, EventArgs e)
         {
-            IBaseFilter theDevice = theDevice = CreateFilter(FilterCategory.VideoInputDevice, listBoxVideoSources.Text);
+            IBaseFilter theDevice = theDevice = CreateFilter(FilterCategory.VideoCompressorCategory, listBoxVideoCodec.Text);
             DisplayPropertyPage(theDevice);
         }
 

@@ -8,6 +8,8 @@ using System.Windows.Forms;
 using System.IO;
 using WeifenLuo.WinFormsUI.Docking;
 using QUAVS.Base;
+using System.IO;
+using System.IO.Ports;
 
 
 namespace QUAVS.GS
@@ -17,7 +19,9 @@ namespace QUAVS.GS
     /// </summary>
     public partial class MainForm : Form
     {
-        static private TelemetryDataObject _telemetryDataObject = new TelemetryDataObject();
+        //static private TelemetryDataObject _telemetryDataObject = new TelemetryDataObject();
+
+        static private TelemetryComms _telemetryComms = new TelemetryComms("COM3", 57600, Parity.None, 8, StopBits.One);
 
         private bool _bSaveLayout = true;
         private DeserializeDockContent _deserializeDockContent;
@@ -35,11 +39,12 @@ namespace QUAVS.GS
         {
             InitializeComponent();
 
-            _videoForm = new VideoForm(_telemetryDataObject);
+            _telemetryComms.InitializeComPort();
+            _videoForm = new VideoForm(_telemetryComms.Data);
             _mapForm = new MapForm();
             _settingsForm = new SettingsForm();
             _outputForm = new OutputForm();
-            _telemetryForm = new TelemetryForm(_telemetryDataObject);
+            _telemetryForm = new TelemetryForm(_telemetryComms.Data);
 
             _deserializeDockContent = new DeserializeDockContent(GetContentFromPersistString);
         }
@@ -107,7 +112,7 @@ namespace QUAVS.GS
 
             //check for null forms - Not working - figure out the disposal of forms.
             if (_videoForm.IsDisposed == true)
-                _videoForm = new VideoForm(_telemetryDataObject);
+                _videoForm = new VideoForm(_telemetryComms.Data);
             _videoForm.Show(DockingPanel, DockState.Document);
             if (_mapForm.IsDisposed == true)
                 _mapForm = new MapForm();
@@ -119,20 +124,13 @@ namespace QUAVS.GS
                 _outputForm = new OutputForm();
             _outputForm.Show(DockingPanel, DockState.DockBottom);
             if (_telemetryForm.IsDisposed == true)
-                _telemetryForm = new TelemetryForm(_telemetryDataObject);
+                _telemetryForm = new TelemetryForm(_telemetryComms.Data);
             _telemetryForm.Show(DockingPanel, DockState.Float);
             
             //save current layout
             _deserializeDockContent = new DeserializeDockContent(GetContentFromPersistString);
 
             DockingPanel.ResumeLayout(true, true);
-        }
-
-        private void timer1_Tick(object sender, EventArgs e)
-        {
-            TelemetryData telemetry = _telemetryDataObject.Telemetry;
-            telemetry.SpeedX += 1;
-            _telemetryDataObject.Telemetry = telemetry;
         }
 
         private void NewSession()

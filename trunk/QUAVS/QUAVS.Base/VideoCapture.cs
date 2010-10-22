@@ -10,6 +10,7 @@ using System.Drawing.Imaging;
 using System.Runtime.InteropServices;
 using System.Text;
 using DirectShowLib;
+using QUAVS.Types;
 
 namespace QUAVS.Base
 {
@@ -81,10 +82,17 @@ namespace QUAVS.Base
         private bool _hud_enabled;
         private HUD _hud;
 
+       
+
         private bool _canPlay;
         private bool _canStop;
         private bool _canRecord;
         private bool _canPause;
+        
+        public HUD HUD
+        {
+            get { return _hud; }
+        }
 
         public bool CanPlay
         {
@@ -146,10 +154,7 @@ namespace QUAVS.Base
             get { return _hud_enabled; }
             set { _hud_enabled = value; }
         }
-        public HUD HUD
-        {
-            get { return _hud; }
-        }
+
 
 #if DEBUG
         // Allow you to "Connect to remote graph" from GraphEdit

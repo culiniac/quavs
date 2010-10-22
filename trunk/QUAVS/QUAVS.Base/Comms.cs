@@ -8,37 +8,38 @@ using System.Collections;
 
 namespace QUAVS.Base
 {
-    public abstract class Comms<T> : IDisposable
+    public abstract class Comms : IDisposable
     {
         //create an Serial Port object
         protected SerialPort _sp; 
         //Error handling
         protected SerialError _spErr;
         protected Queue<byte> _recievedData = new Queue<byte>();
-
-        private T _object;
         
         #region Constructor
 
-        public Comms(string portName, int baudRate, Parity parity, int dataBits, StopBits stopBits, T o)
+        public Comms(string portName, int baudRate, Parity parity, int dataBits, StopBits stopBits)
         {
             _sp = new SerialPort(portName, baudRate, parity, dataBits, stopBits);
             _sp.DataReceived += new SerialDataReceivedEventHandler(sp_DataReceived);
             _sp.ErrorReceived += new SerialErrorReceivedEventHandler(sp_ErrorReceived);
 
-            _object = o;
             Trace.WriteLine("Constructor: SerialCom", "TelemetryComms");
         }
 
         public Comms()
         {
             _sp = new SerialPort();
+            _sp.DataReceived += new SerialDataReceivedEventHandler(sp_DataReceived);
+            _sp.ErrorReceived += new SerialErrorReceivedEventHandler(sp_ErrorReceived);
             Trace.WriteLine("Constructor: SerialCom", "TelemetryComms");
         }
 
         public Comms(string portName)
         {
             _sp = new SerialPort(portName);
+            _sp.DataReceived += new SerialDataReceivedEventHandler(sp_DataReceived);
+            _sp.ErrorReceived += new SerialErrorReceivedEventHandler(sp_ErrorReceived);
             Trace.WriteLine("Constructor: SerialCom", "TelemetryComms");
         }
         #endregion
@@ -73,14 +74,13 @@ namespace QUAVS.Base
         {
             try
             {
-                byte[] data = new byte[_sp.BytesToRead];
+                byte[] data = new byte[1024];
                 int ret = _sp.Read(data, 0, data.Length);
 
                 for (int i = 0; i < ret; i++)
                 {
                     _recievedData.Enqueue(data[i]);
                 }
-
                 ProcessData();
             }
             catch (Exception ex)

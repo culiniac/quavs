@@ -22,6 +22,12 @@ namespace QUAVS.GS
             Debug.WriteLine("TelemetryDataChanged event received", "VideoForm");
             _telemetryData = tData;
             VideoFeed.HUDSpeed = _telemetryData.SpeedX;
+            VideoFeed.HUDRoll = _telemetryData.Roll;
+            VideoFeed.HUDPitch = _telemetryData.Pitch;
+            VideoFeed.HUDAltitude = _telemetryData.Altitude;
+            VideoFeed.HUDHeading = _telemetryData.HeadingMagN;
+            VideoFeed.HUDYaw = _telemetryData.Yaw;
+            Debug.WriteLine(_telemetryData.Yaw);
         }
         
         /// <summary>

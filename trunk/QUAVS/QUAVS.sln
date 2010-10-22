@@ -2,6 +2,9 @@
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QUAVS.Base", "QUAVS.Base\QUAVS.Base.csproj", "{2DB79CF4-62CC-4B68-B14C-3C613552ECF9}"
+	ProjectSection(ProjectDependencies) = postProject
+		{26B0A7C2-0398-48DE-86E7-BE16AB44B383} = {26B0A7C2-0398-48DE-86E7-BE16AB44B383}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QUAVS.GroundStation", "QUAVS.GroundStation\QUAVS.GroundStation.csproj", "{A72C0128-9847-4938-91C6-C06A60379190}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -32,6 +35,13 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GMap.NET.Core", "libraries\greatmaps_5b688b20c7f7\GMap.NET.Core\GMap.NET.Core.csproj", "{D0C39D9D-BED0-418B-9A5E-713176CAF40C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GMap.NET.WindowsForms", "libraries\greatmaps_5b688b20c7f7\GMap.NET.WindowsForms\GMap.NET.WindowsForms.csproj", "{E06DEF77-F933-42FB-AFD7-DB2D0D8D6A98}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QUAVS.FlightGearGW", "QUAVS.FlightGearGW\QUAVS.FlightGearGW.csproj", "{C1EB356C-577E-4876-A7BD-4AE7DC354493}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Quavs.Types", "Quavs.Types\Quavs.Types.csproj", "{26B0A7C2-0398-48DE-86E7-BE16AB44B383}"
+	ProjectSection(ProjectDependencies) = postProject
+		{CE009BFA-5EF6-4153-B2A1-2FA79698A9AE} = {CE009BFA-5EF6-4153-B2A1-2FA79698A9AE}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SubversionScc) = preSolution
@@ -154,6 +164,32 @@ Global
 		{E06DEF77-F933-42FB-AFD7-DB2D0D8D6A98}.Release|x64.ActiveCfg = Release|x86
 		{E06DEF77-F933-42FB-AFD7-DB2D0D8D6A98}.Release|x86.ActiveCfg = Release|x86
 		{E06DEF77-F933-42FB-AFD7-DB2D0D8D6A98}.Release|x86.Build.0 = Release|x86
+		{C1EB356C-577E-4876-A7BD-4AE7DC354493}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{C1EB356C-577E-4876-A7BD-4AE7DC354493}.Debug|Any CPU.Build.0 = Debug|x86
+		{C1EB356C-577E-4876-A7BD-4AE7DC354493}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{C1EB356C-577E-4876-A7BD-4AE7DC354493}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{C1EB356C-577E-4876-A7BD-4AE7DC354493}.Debug|x64.ActiveCfg = Debug|x86
+		{C1EB356C-577E-4876-A7BD-4AE7DC354493}.Debug|x86.ActiveCfg = Debug|x86
+		{C1EB356C-577E-4876-A7BD-4AE7DC354493}.Debug|x86.Build.0 = Debug|x86
+		{C1EB356C-577E-4876-A7BD-4AE7DC354493}.Release|Any CPU.ActiveCfg = Release|x86
+		{C1EB356C-577E-4876-A7BD-4AE7DC354493}.Release|Any CPU.Build.0 = Release|x86
+		{C1EB356C-577E-4876-A7BD-4AE7DC354493}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{C1EB356C-577E-4876-A7BD-4AE7DC354493}.Release|Mixed Platforms.Build.0 = Release|x86
+		{C1EB356C-577E-4876-A7BD-4AE7DC354493}.Release|x64.ActiveCfg = Release|x86
+		{C1EB356C-577E-4876-A7BD-4AE7DC354493}.Release|x86.ActiveCfg = Release|x86
+		{C1EB356C-577E-4876-A7BD-4AE7DC354493}.Release|x86.Build.0 = Release|x86
+		{26B0A7C2-0398-48DE-86E7-BE16AB44B383}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{26B0A7C2-0398-48DE-86E7-BE16AB44B383}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{26B0A7C2-0398-48DE-86E7-BE16AB44B383}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{26B0A7C2-0398-48DE-86E7-BE16AB44B383}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{26B0A7C2-0398-48DE-86E7-BE16AB44B383}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{26B0A7C2-0398-48DE-86E7-BE16AB44B383}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{26B0A7C2-0398-48DE-86E7-BE16AB44B383}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{26B0A7C2-0398-48DE-86E7-BE16AB44B383}.Release|Any CPU.Build.0 = Release|Any CPU
+		{26B0A7C2-0398-48DE-86E7-BE16AB44B383}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{26B0A7C2-0398-48DE-86E7-BE16AB44B383}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{26B0A7C2-0398-48DE-86E7-BE16AB44B383}.Release|x64.ActiveCfg = Release|Any CPU
+		{26B0A7C2-0398-48DE-86E7-BE16AB44B383}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

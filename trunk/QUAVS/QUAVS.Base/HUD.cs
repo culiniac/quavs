@@ -156,14 +156,14 @@ namespace QUAVS.Base
 
         public HUD()
         {
-            _speed = 100;
-            _altitude = 20;
+            _speed = 0;
+            _altitude = 0;
             _latitude = 0;
             _longitude = 0;
-            _headingMagneticNorth = 235;
-            _roll = 13;
-            _pitch = 5;
-            _yaw = 1;
+            _headingMagneticNorth = 0;
+            _roll = 0;
+            _pitch = 0;
+            _yaw = 0;
             _message = "Initialized...";
 
             _videoWidth = 640;
@@ -278,7 +278,7 @@ namespace QUAVS.Base
             _pointsHUD1[1].Y = _videoHeight / 2;
             _g.DrawLines(_pen1, _pointsHUD1);
 
-            double pitch = 0;
+            double pitch = _pitch;
             if (_pitch >= 90)
                 pitch = 180 - _pitch;
             if (_pitch <= -90)

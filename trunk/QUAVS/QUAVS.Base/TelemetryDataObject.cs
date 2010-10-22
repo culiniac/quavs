@@ -194,27 +194,35 @@ namespace QUAVS.Base
     /// </summary>
     public class TelemetryDataObject
     {
-        #region Public Members
+        #region private Members
 
-        private TelemetryData _telemetry = new TelemetryData();
+        private TelemetryData _telemetryData = new TelemetryData();
+
+        
        
         #endregion
+
+        
         
         #region Properties
         
-        public TelemetryData Telemetry
+        public TelemetryData TelemetryData
         {
-            get { return _telemetry; }
-            set 
-            { 
-                _telemetry = value;
-                TelemetryDataChanged(_telemetry);
+            get
+            {
+                return _telemetryData;
+            }
+            set
+            {
+                _telemetryData = value;
+                TelemetryDataChanged(TelemetryData);
                 Debug.WriteLine("Telemetry data changed", "TelemetryDataObject");
             }
         }
 
         #endregion
-        
+
+
         #region Constructor
         /// <summary>
         /// Initializes a new instance of the <see cref="TelemetryDataObject"/> class.
@@ -224,6 +232,8 @@ namespace QUAVS.Base
             Trace.TraceInformation("{0} : TelemetryDataObject Constructor : Object created", DateTime.Now.ToString("[d/M/yyyy HH:mm:ss.fff]"));
         }
         #endregion
+
+        
 
         public delegate void TelemetryDataDelegate(TelemetryData data);
         public event TelemetryDataDelegate TelemetryDataChanged;

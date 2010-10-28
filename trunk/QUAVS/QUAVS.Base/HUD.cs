@@ -14,7 +14,7 @@ namespace QUAVS.Base
     class HUD
     {
         /// <summary>
-        /// Private variables to hold telemetry data
+        /// Private variables to hold Telemetry data
         /// </summary>
         private double _speed;
         private double _altitude;

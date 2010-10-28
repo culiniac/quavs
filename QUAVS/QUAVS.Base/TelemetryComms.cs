@@ -32,18 +32,23 @@ namespace QUAVS.Base
         INS_ = 0x00
     }
 
-
+    /// <summary>
+    /// 
+    /// </summary>
     public class TelemetryComms : Comms
     {
         private TelemetryDataObject _data = new TelemetryDataObject();
         private TelemetryData _dataTelemetry = new TelemetryData();
 
+        /// <summary>
+        /// Gets or sets the data.
+        /// </summary>
+        /// <value>The data.</value>
         public TelemetryDataObject Data
         {
             get { return _data; }
             set { _data = value; }
         }
-
 
         private int _stateMachine = 0;
 
@@ -62,14 +67,12 @@ namespace QUAVS.Base
         public const int LONG = 12;
         public const int AIRSPEED = 13;
 
-        //number of telemetry variables
+        //number of Telemetry variables
         public const int MAX_SIGNALS = 14;
 
-        static double[] telemetry = new double[MAX_SIGNALS];
-
-        static private int buffer_len = 56;
+        private float[] telemetry = new float[MAX_SIGNALS];
         
-        byte[] QBP_buffer = new byte[buffer_len];
+        byte[] QBP_buffer = new byte[56];
 
         private byte _checksum_a = 0;
         private byte _checksum_b = 0;
@@ -82,16 +85,31 @@ namespace QUAVS.Base
         byte QBP_checksum_a = 0;
         byte QBP_checksum_b = 0;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TelemetryComms"/> class.
+        /// </summary>
+        /// <param name="portName">Name of the port.</param>
+        /// <param name="baudRate">The baud rate.</param>
+        /// <param name="parity">The parity.</param>
+        /// <param name="dataBits">The data bits.</param>
+        /// <param name="stopBits">The stop bits.</param>
         public TelemetryComms(string portName, int baudRate, Parity parity, int dataBits, StopBits stopBits)
             : base(portName, baudRate, parity, dataBits, stopBits)
         {
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TelemetryComms"/> class.
+        /// </summary>
+        /// <param name="portName">Name of the port.</param>
         public TelemetryComms(string portName)
             :base(portName)
         {
         }
 
+        /// <summary>
+        /// Processes the data.
+        /// </summary>
         protected override void ProcessData()
         {
             try
@@ -112,6 +130,10 @@ namespace QUAVS.Base
             }
         }
 
+        /// <summary>
+        /// Telemetries the comms state machine.
+        /// </summary>
+        /// <param name="data">The data.</param>
         private void TelemetryCommsStateMachine(byte data)
         {
             switch(_stateMachine)
@@ -140,7 +162,7 @@ namespace QUAVS.Base
                     break;
                 case 4:
                     QBP_payload_length_hi = data;
-                    if (QBP_payload_length_hi > buffer_len) //bad data
+                    if (QBP_payload_length_hi > QBP_buffer.Length) //bad data
                     {
                         _stateMachine = 0;
                         QBP_payload_counter = 0;
@@ -192,6 +214,9 @@ namespace QUAVS.Base
             }
         }
 
+        /// <summary>
+        /// Parses the message.
+        /// </summary>
         private void parseMessage()
         {
             switch (QBP_class)
@@ -201,33 +226,31 @@ namespace QUAVS.Base
                     {
                         case 0x01:
                             byte[] tmp = new byte[4];
-                            for (int i = 0; i < MAX_SIGNALS; i++)
+                            for (int i = 0; i < QBP_payload_length_hi; i += 4)
                             {
 
-                                int x = i * 4;
-
                                 //FG2.0 network order - float 4 bytes in network order
-                                tmp[3] = QBP_buffer[x];
-                                tmp[2] = QBP_buffer[x + 1];
-                                tmp[1] = QBP_buffer[x + 2];
-                                tmp[0] = QBP_buffer[x + 3];
+                                tmp[3] = QBP_buffer[i];
+                                tmp[2] = QBP_buffer[i + 1];
+                                tmp[1] = QBP_buffer[i + 2];
+                                tmp[0] = QBP_buffer[i + 3];
 
-                                telemetry[i] = BitConverter.ToSingle(tmp, 0);
+                                _dataTelemetry.Telemetry[i] = BitConverter.ToSingle(tmp, 0);
                             }
-                            _dataTelemetry.AccelX = telemetry[X_ACCEL];
-                            _dataTelemetry.AccelY = telemetry[Y_ACCEL];
-                            _dataTelemetry.AccelZ = telemetry[Z_ACCEL];
-                            //public const int ROLL_RATE = 4;
-                            //public const int PITCH_RATE = 5;
-                            //public const int YAW_RATE = 6;
-                            _dataTelemetry.Roll = telemetry[ROLL];
-                            _dataTelemetry.Pitch = telemetry[PITCH];
-                            _dataTelemetry.SpeedX = telemetry[AIRSPEED]; //I need to map it like this for now.
-                            _dataTelemetry.Latitude = telemetry[LAT];
-                            _dataTelemetry.Longitude = telemetry[LONG];
-                            _dataTelemetry.HeadingMagN = telemetry[HEADING];
-                            _dataTelemetry.Altitude = telemetry[ALT];
-                            _dataTelemetry.Yaw = 0; // telemetry[ALPHA];
+                            //_dataTelemetry.AccelX = Telemetry[X_ACCEL];
+                            //_dataTelemetry.AccelY = Telemetry[Y_ACCEL];
+                            //_dataTelemetry.AccelZ = Telemetry[Z_ACCEL];
+                            ////public const int ROLL_RATE = 4;
+                            ////public const int PITCH_RATE = 5;
+                            ////public const int YAW_RATE = 6;
+                            //_dataTelemetry.Roll = Telemetry[ROLL];
+                            //_dataTelemetry.Pitch = Telemetry[PITCH];
+                            //_dataTelemetry.SpeedX = Telemetry[AIRSPEED]; //I need to map it like this for now.
+                            //_dataTelemetry.Latitude = Telemetry[LAT];
+                            //_dataTelemetry.Longitude = Telemetry[LONG];
+                            //_dataTelemetry.HeadingMagN = Telemetry[HEADING];
+                            //_dataTelemetry.Altitude = Telemetry[ALT];
+                            //_dataTelemetry.Yaw = 0; // Telemetry[ALPHA];
                             
                             _data.TelemetryData = _dataTelemetry;
 
@@ -242,6 +265,10 @@ namespace QUAVS.Base
             
         }
 
+        /// <summary>
+        /// Checksums the specified data.
+        /// </summary>
+        /// <param name="data">The data.</param>
         void checksum(byte data)
         {
             _checksum_a += data;

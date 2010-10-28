@@ -84,6 +84,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ByteAppend.cs" />
     <Compile Include="FileStreamWithBackup.cs" />
     <Compile Include="MessageQueueTraceListener.cs" />
     <Compile Include="Properties\Resources.Designer.cs">

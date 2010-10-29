@@ -93,28 +93,18 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Comms.cs" />
+    <Compile Include="Signal.cs" />
     <Compile Include="TelemetryComms.cs" />
     <Compile Include="TelemetryDataObject.cs" />
     <Compile Include="TextWriterTraceListenerWithTime.cs" />
     <Compile Include="TraceException.cs" />
-    <Compile Include="HUD.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="VideoCapture.cs" />
-    <Compile Include="VideoControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="VideoControl.Designer.cs">
-      <DependentUpon>VideoControl.cs</DependentUpon>
-    </Compile>
     <Service Include="{94E38DFF-614B-4cbd-B67C-F211BB35CE8B}" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="VideoControl.resx">
-      <DependentUpon>VideoControl.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
@@ -123,10 +113,6 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <ProjectReference Include="..\libraries\DirectShowNet\src\DirectShowLib-2008.csproj">
-      <Project>{CE009BFA-5EF6-4153-B2A1-2FA79698A9AE}</Project>
-      <Name>DirectShowLib-2008</Name>
-    </ProjectReference>
     <ProjectReference Include="..\libraries\ge-kml\KML\Google.KML.csproj">
       <Project>{DB966B8B-28FF-4042-BE7E-587709C8569C}</Project>
       <Name>Google.KML</Name>
@@ -143,18 +129,6 @@
       <Project>{26B0A7C2-0398-48DE-86E7-BE16AB44B383}</Project>
       <Name>Quavs.Types</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\PauseHS.bmp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\PlayHS.bmp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\RecordHS.bmp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\StopHS.bmp" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

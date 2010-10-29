@@ -1,4 +1,4 @@
-﻿namespace QUAVS.Base
+﻿namespace QUAVS.Video
 {
     partial class VideoControl
     {
@@ -57,7 +57,7 @@
             // toolStripPlayButton
             // 
             this.toolStripPlayButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripPlayButton.Image = global::QUAVS.Base.Properties.Resources.PlayHS;
+            this.toolStripPlayButton.Image = global::QUAVS.Video.Properties.Resources.PlayHS;
             this.toolStripPlayButton.ImageTransparentColor = System.Drawing.Color.Black;
             this.toolStripPlayButton.Name = "toolStripPlayButton";
             this.toolStripPlayButton.Size = new System.Drawing.Size(23, 20);
@@ -67,7 +67,7 @@
             // toolStripPauseButton
             // 
             this.toolStripPauseButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripPauseButton.Image = global::QUAVS.Base.Properties.Resources.PauseHS;
+            this.toolStripPauseButton.Image = global::QUAVS.Video.Properties.Resources.PauseHS;
             this.toolStripPauseButton.ImageTransparentColor = System.Drawing.Color.Black;
             this.toolStripPauseButton.Name = "toolStripPauseButton";
             this.toolStripPauseButton.Size = new System.Drawing.Size(23, 20);
@@ -77,7 +77,7 @@
             // toolStripRecordButton
             // 
             this.toolStripRecordButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripRecordButton.Image = global::QUAVS.Base.Properties.Resources.RecordHS;
+            this.toolStripRecordButton.Image = global::QUAVS.Video.Properties.Resources.RecordHS;
             this.toolStripRecordButton.ImageTransparentColor = System.Drawing.Color.Black;
             this.toolStripRecordButton.Name = "toolStripRecordButton";
             this.toolStripRecordButton.Size = new System.Drawing.Size(23, 20);
@@ -87,7 +87,7 @@
             // toolStripStopButton
             // 
             this.toolStripStopButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripStopButton.Image = global::QUAVS.Base.Properties.Resources.StopHS;
+            this.toolStripStopButton.Image = global::QUAVS.Video.Properties.Resources.StopHS;
             this.toolStripStopButton.ImageTransparentColor = System.Drawing.Color.Black;
             this.toolStripStopButton.Name = "toolStripStopButton";
             this.toolStripStopButton.Size = new System.Drawing.Size(23, 20);

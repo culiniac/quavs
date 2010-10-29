@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Text;
 using System.Collections;
 
-namespace QUAVS.FlightGearGW
+namespace QUAVS.Base
 {
-    class Signal
+    public class Signal
     {
         #region Privates
         private float _value;
@@ -13,8 +13,7 @@ namespace QUAVS.FlightGearGW
         private float _max;
         private float _normalized;
         #endregion
-
-
+        
         #region Properties 
         public float Value
         {

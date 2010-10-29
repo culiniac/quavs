@@ -10,6 +10,7 @@ using System.ComponentModel;
 using System.IO;
 using System.IO.Ports;
 using System.Diagnostics;
+using QUAVS.Base;
 
 namespace QUAVS.FlightGearGW
 {

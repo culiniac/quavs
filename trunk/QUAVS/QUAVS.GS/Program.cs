@@ -4,6 +4,7 @@ using System.Windows.Forms;
 using QUAVS.Base;
 using System.IO;
 using System.Diagnostics;
+using System.Threading;
 
 namespace QUAVS.GS
 {
@@ -15,6 +16,12 @@ namespace QUAVS.GS
         [STAThread]
         static void Main()
         {
+            Thread thrd = Thread.CurrentThread;
+
+            thrd.Priority = ThreadPriority.AboveNormal;
+
+            Trace.WriteLine("Priority is now: " + thrd.Priority); 
+
             FileStreamWithBackup fs = new FileStreamWithBackup("quavs.gs.log", 2000000000, 10, FileMode.Append);
             fs.CanSplitData = false;
             TextWriterTraceListener listener = new TextWriterTraceListener(fs);

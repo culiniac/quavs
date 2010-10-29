@@ -11,8 +11,9 @@ using System.Runtime.InteropServices;
 using System.Text;
 using DirectShowLib;
 using QUAVS.Types;
+using QUAVS.Base;
 
-namespace QUAVS.Base
+namespace QUAVS.Video
 {
     /// <summary>
     /// 

@@ -21,7 +21,7 @@ namespace QUAVS.GS
     {
         //static private TelemetryDataObject _telemetryDataObject = new TelemetryDataObject();
 
-        static private TelemetryComms _telemetryComms = new TelemetryComms("COM3", 57600, Parity.None, 8, StopBits.One);
+        static private TelemetryComms _telemetryComms = new TelemetryComms("COM4", 57600, Parity.None, 8, StopBits.One);
 
         private bool _bSaveLayout = true;
         private DeserializeDockContent _deserializeDockContent;

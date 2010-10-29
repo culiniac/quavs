@@ -9,7 +9,7 @@ using System.Windows.Forms;
 using System.Windows.Forms.Design;
 using QUAVS.Types;
 
-namespace QUAVS.Base
+namespace QUAVS.Video
 {
     public partial class VideoControl : UserControl
     {
@@ -187,7 +187,7 @@ namespace QUAVS.Base
         /// <value>The HUD speed.</value>
         [Category("QUAVS")]
         [Description("HUD speed")]
-        public double HUDSpeed
+        public float HUDSpeed
         {
             get { return _cam.HUD.Speed; }
             set { _cam.HUD.Speed = value; }
@@ -196,7 +196,7 @@ namespace QUAVS.Base
 
         [Category("QUAVS")]
         [Description("HUD pitch")]
-        public double HUDPitch
+        public float HUDPitch
         {
             get { return _cam.HUD.Pitch; }
             set { _cam.HUD.Pitch = value; }
@@ -204,7 +204,7 @@ namespace QUAVS.Base
 
         [Category("QUAVS")]
         [Description("HUD roll")]
-        public double HUDRoll
+        public float HUDRoll
         {
             get { return _cam.HUD.Roll; }
             set { _cam.HUD.Roll = value; }
@@ -212,7 +212,7 @@ namespace QUAVS.Base
 
         [Category("QUAVS")]
         [Description("HUD yaw")]
-        public double HUDYaw
+        public float HUDYaw
         {
             get { return _cam.HUD.Yaw; }
             set { _cam.HUD.Yaw = value; }
@@ -220,7 +220,7 @@ namespace QUAVS.Base
 
         [Category("QUAVS")]
         [Description("HUD altitude")]
-        public double HUDAltitude
+        public float HUDAltitude
         {
             get { return _cam.HUD.Altitude; }
             set { _cam.HUD.Altitude = value; }
@@ -228,7 +228,7 @@ namespace QUAVS.Base
 
         [Category("QUAVS")]
         [Description("HUD altitude")]
-        public double HUDHeading
+        public float HUDHeading
         {
             get { return _cam.HUD.HeadingMagN; }
             set { _cam.HUD.HeadingMagN = value; }

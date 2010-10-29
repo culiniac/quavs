@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.VideoFeed = new QUAVS.Base.VideoControl();
+            this.VideoFeed = new QUAVS.Video.VideoControl();
             this.SuspendLayout();
             // 
             // VideoFeed
@@ -42,11 +42,11 @@
             this.VideoFeed.DataBindings.Add(new System.Windows.Forms.Binding("VideoWidth", global::QUAVS.GS.Properties.Settings.Default, "VideoWidth", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.VideoFeed.Dock = System.Windows.Forms.DockStyle.Fill;
             this.VideoFeed.HUDAlpha = global::QUAVS.GS.Properties.Settings.Default.HUDAlpha;
-            this.VideoFeed.HUDAltitude = 0D;
+            this.VideoFeed.HUDAltitude = 0F;
             this.VideoFeed.HUDColor = global::QUAVS.GS.Properties.Settings.Default.HUDColor;
-            this.VideoFeed.HUDPitch = 0D;
-            this.VideoFeed.HUDRoll = 0D;
-            this.VideoFeed.HUDSpeed = 0D;
+            this.VideoFeed.HUDPitch = 0F;
+            this.VideoFeed.HUDRoll = 0F;
+            this.VideoFeed.HUDSpeed = 0F;
             this.VideoFeed.Location = new System.Drawing.Point(0, 0);
             this.VideoFeed.Margin = new System.Windows.Forms.Padding(0);
             this.VideoFeed.MinimumSize = new System.Drawing.Size(640, 480);
@@ -78,7 +78,7 @@
 
         #endregion
 
-        public Base.VideoControl VideoFeed;
+        public Video.VideoControl VideoFeed;
 
     }
 }

@@ -72,7 +72,7 @@ namespace QUAVS.Base
 
         private float[] telemetry = new float[MAX_SIGNALS];
         
-        byte[] QBP_buffer = new byte[56];
+        byte[] QBP_buffer = new byte[128];
 
         private byte _checksum_a = 0;
         private byte _checksum_b = 0;
@@ -226,14 +226,14 @@ namespace QUAVS.Base
                     {
                         case 0x01:
                             byte[] tmp = new byte[4];
-                            for (int i = 0; i < QBP_payload_length_hi; i += 4)
-                            {
 
+                            for (int i = 0; i < MAX_SIGNALS; i++)
+                            {
                                 //FG2.0 network order - float 4 bytes in network order
-                                tmp[3] = QBP_buffer[i];
-                                tmp[2] = QBP_buffer[i + 1];
-                                tmp[1] = QBP_buffer[i + 2];
-                                tmp[0] = QBP_buffer[i + 3];
+                                tmp[3] = QBP_buffer[i*4];
+                                tmp[2] = QBP_buffer[i*4 + 1];
+                                tmp[1] = QBP_buffer[i*4 + 2];
+                                tmp[0] = QBP_buffer[i*4 + 3];
 
                                 _dataTelemetry.Telemetry[i] = BitConverter.ToSingle(tmp, 0);
                             }

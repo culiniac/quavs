@@ -90,11 +90,11 @@ namespace QUAVS.Video
         /// <value>The name of the STR file.</value>
         [Category("QUAVS")]
         [Description("select video source")]
-        //[EditorAttribute(typeof(System.Windows.Forms.Design.FolderNameEditor), typeof(System.Drawing.Design.UITypeEditor))]
+        [EditorAttribute(typeof(System.Windows.Forms.Design.FolderNameEditor), typeof(System.Drawing.Design.UITypeEditor))]
         public string VideoFolder
         {
-            get { return _cam.VideoFile; }
-            set { _cam.VideoFile = value; }
+            get { return _cam.VideoFolder; }
+            set { _cam.VideoFolder = value;}
         }
 
         /// <summary>

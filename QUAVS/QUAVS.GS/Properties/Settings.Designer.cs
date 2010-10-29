@@ -83,6 +83,18 @@ namespace QUAVS.GS.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string VideoFolder {
+            get {
+                return ((string)(this["VideoFolder"]));
+            }
+            set {
+                this["VideoFolder"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("0, 255, 0")]
         public global::System.Drawing.Color HUDColor {
             get {

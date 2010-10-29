@@ -124,10 +124,6 @@
       <Project>{E06DEF77-F933-42FB-AFD7-DB2D0D8D6A98}</Project>
       <Name>GMap.NET.WindowsForms</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Quavs.Types\QUAVS.Types.csproj">
-      <Project>{26B0A7C2-0398-48DE-86E7-BE16AB44B383}</Project>
-      <Name>QUAVS.Types</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

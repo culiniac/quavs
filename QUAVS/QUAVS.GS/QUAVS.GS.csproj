@@ -159,10 +159,6 @@
       <Project>{2DB79CF4-62CC-4B68-B14C-3C613552ECF9}</Project>
       <Name>QUAVS.Base</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Quavs.Types\QUAVS.Types.csproj">
-      <Project>{26B0A7C2-0398-48DE-86E7-BE16AB44B383}</Project>
-      <Name>QUAVS.Types</Name>
-    </ProjectReference>
     <ProjectReference Include="..\QUAVS.Video\QUAVS.Video.csproj">
       <Project>{0415EDC2-1D92-45CB-893A-2AA6321E9BF8}</Project>
       <Name>QUAVS.Video</Name>

@@ -61,9 +61,9 @@
             // 
             // statusStrip1
             // 
-            this.statusStrip1.Location = new System.Drawing.Point(0, 590);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 846);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(736, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(1156, 22);
             this.statusStrip1.TabIndex = 0;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -75,7 +75,7 @@
             this.viewToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(736, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(1156, 24);
             this.menuStrip1.TabIndex = 1;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -122,7 +122,7 @@
             this.toolStripEndSessionButton});
             this.toolStripMainForm.Location = new System.Drawing.Point(0, 24);
             this.toolStripMainForm.Name = "toolStripMainForm";
-            this.toolStripMainForm.Size = new System.Drawing.Size(736, 25);
+            this.toolStripMainForm.Size = new System.Drawing.Size(1156, 25);
             this.toolStripMainForm.TabIndex = 2;
             this.toolStripMainForm.Text = "toolStrip1";
             // 
@@ -155,7 +155,7 @@
             this.DockingPanel.DocumentStyle = WeifenLuo.WinFormsUI.Docking.DocumentStyle.DockingWindow;
             this.DockingPanel.Location = new System.Drawing.Point(0, 49);
             this.DockingPanel.Name = "DockingPanel";
-            this.DockingPanel.Size = new System.Drawing.Size(736, 541);
+            this.DockingPanel.Size = new System.Drawing.Size(1156, 797);
             dockPanelGradient1.EndColor = System.Drawing.SystemColors.ControlLight;
             dockPanelGradient1.StartColor = System.Drawing.SystemColors.ControlLight;
             autoHideStripSkin1.DockStripGradient = dockPanelGradient1;
@@ -206,7 +206,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(736, 612);
+            this.ClientSize = new System.Drawing.Size(1156, 868);
             this.Controls.Add(this.DockingPanel);
             this.Controls.Add(this.toolStripMainForm);
             this.Controls.Add(this.statusStrip1);

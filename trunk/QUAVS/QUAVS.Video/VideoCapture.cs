@@ -9,6 +9,7 @@ using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.IO;
 using DirectShowLib;
 using QUAVS.Types;
 using QUAVS.Base;
@@ -60,7 +61,7 @@ namespace QUAVS.Video
     internal class VideoCapture : ISampleGrabberCB, IDisposable
     {
 
-#region Member variables
+        #region Member variables
 
         IGraphBuilder _graphBuilder = null;
         IMediaControl _mediaCtrl = null;
@@ -68,6 +69,7 @@ namespace QUAVS.Video
         private VideoCaptureState _state;
         private VideoSourceType _strCapture;
         private VideoCodecType _strCompressor;
+        private string _strFolderName;
         private string _strFileName;
         private IntPtr _hOwner;
 
@@ -125,10 +127,10 @@ namespace QUAVS.Video
             get { return _strCompressor; }
             set { _strCompressor = value; }
         }
-        public string VideoFile
+        public string VideoFolder
         {
-            get { return _strFileName; }
-            set { _strFileName = value; }
+            get { return _strFolderName; }
+            set { _strFolderName = value; }
         }
         public IntPtr Owner
         {
@@ -162,24 +164,31 @@ namespace QUAVS.Video
         DsROTEntry _rot = null;
 #endif
 
-#endregion
+        #endregion
 
-#region API
+        #region API
 
         [DllImport("Kernel32.dll", EntryPoint = "RtlMoveMemory")]
         private static extern void CopyMemory(IntPtr Destination, IntPtr Source, [MarshalAs(UnmanagedType.U4)] uint Length);
 
-#endregion
+        #endregion
         
         public VideoCapture(IntPtr owner)
         {
-            _hOwner = owner;
+            try 
+	        {	        
+		        _hOwner = owner;
 
-            ChangeState(VideoCaptureState.UNINITIALIZED);
+                    ChangeState(VideoCaptureState.UNINITIALIZED);
 
-            _hud_enabled = false;
-            _hud = new HUD();
-            _hud_enabled = true;
+                    _hud_enabled = false;
+                    _hud = new HUD();
+                    _hud_enabled = true;
+	        }
+	        catch (Exception e)
+	        {
+                TraceException.WriteLine(e);
+	        };
         }
 
         public void InitializeCapture(bool recording)
@@ -191,6 +200,8 @@ namespace QUAVS.Video
 #endif
                 CloseInterfaces();
                 // Set up the capture graph
+                string tmp = DateTime.Now.ToString("yyymmddHHmmssfff");
+                _strFileName = _strFolderName + Path.DirectorySeparatorChar + tmp + ".avi";
                 SetupGraph(_strCapture, _strCompressor, _strFileName, _fps, _videoWidth, _videoHeight, _hOwner, recording);
 
 #if DEBUG
@@ -201,7 +212,6 @@ namespace QUAVS.Video
             }
             catch(Exception e)
             {
-                //Trace.WriteLine(e);
                 TraceException.WriteLine(e);
                 Dispose();
             }
@@ -570,7 +580,7 @@ namespace QUAVS.Video
             // Get the media type from the SampleGrabber
             AMMediaType media = new AMMediaType();
             hr = sampGrabber.GetConnectedMediaType(media);
-            DsError.ThrowExceptionForHR(hr);
+            checkHR(hr,"SaveSizeInfo");
 
             if ((media.formatType != FormatType.VideoInfo) || (media.formatPtr == IntPtr.Zero))
             {
@@ -788,10 +798,17 @@ namespace QUAVS.Video
         /// <param name="msg">The MSG.</param>
         static void checkHR(int hr, string msg)
         {
-            if (hr < 0)
+            try
             {
-                //Trace.WriteLine(msg);
-                DsError.ThrowExceptionForHR(hr);
+                if (hr < 0)
+                {
+                    Trace.WriteLine(msg);
+                    DsError.ThrowExceptionForHR(hr);
+                }
+            }
+            catch (Exception e)
+            {
+                TraceException.WriteLine(e);
             }
         }
 

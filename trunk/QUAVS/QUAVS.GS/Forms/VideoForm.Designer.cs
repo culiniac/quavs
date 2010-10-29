@@ -44,9 +44,11 @@
             this.VideoFeed.HUDAlpha = global::QUAVS.GS.Properties.Settings.Default.HUDAlpha;
             this.VideoFeed.HUDAltitude = 0F;
             this.VideoFeed.HUDColor = global::QUAVS.GS.Properties.Settings.Default.HUDColor;
+            this.VideoFeed.HUDHeading = 0F;
             this.VideoFeed.HUDPitch = 0F;
             this.VideoFeed.HUDRoll = 0F;
             this.VideoFeed.HUDSpeed = 0F;
+            this.VideoFeed.HUDYaw = 0F;
             this.VideoFeed.Location = new System.Drawing.Point(0, 0);
             this.VideoFeed.Margin = new System.Windows.Forms.Padding(0);
             this.VideoFeed.MinimumSize = new System.Drawing.Size(640, 480);
@@ -55,7 +57,7 @@
             this.VideoFeed.TabIndex = 0;
             this.VideoFeed.VideoCompressor = global::QUAVS.GS.Properties.Settings.Default.VideoCompressor;
             this.VideoFeed.VideoControlVisible = false;
-            this.VideoFeed.VideoFolder = "test.avi";
+            this.VideoFeed.VideoFolder = ".\\video";
             this.VideoFeed.VideoFps = 0;
             this.VideoFeed.VideoHeight = global::QUAVS.GS.Properties.Settings.Default.VideoHeight;
             this.VideoFeed.VideoSource = global::QUAVS.GS.Properties.Settings.Default.VideoSource;

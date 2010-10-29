@@ -80,7 +80,7 @@ namespace QUAVS.GS
                 // config map
                 trackBarMapZoom.Minimum = MainMap.MinZoom;
                 trackBarMapZoom.Maximum = MainMap.MaxZoom;
-                MainMap.Zoom = MainMap.MinZoom;
+                MainMap.Zoom = MainMap.MaxZoom;
                 MainMap.CurrentPosition = new PointLatLng(43.8528890087738, -79.457995891571);
                 trackBarMapZoom.Value = (int)MainMap.Zoom;
                 textBoxLat.Text = MainMap.CurrentPosition.Lat.ToString(CultureInfo.InvariantCulture);

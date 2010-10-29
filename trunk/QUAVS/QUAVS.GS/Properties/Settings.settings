@@ -2,10 +2,10 @@
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="QUAVS.GS.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
-    <Setting Name="VideoSource" Type="QUAVS.Base.VideoSourceType" Scope="User">
+    <Setting Name="VideoSource" Type="QUAVS.Types.VideoSourceType" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="VideoCompressor" Type="QUAVS.Base.VideoCodecType" Scope="User">
+    <Setting Name="VideoCompressor" Type="QUAVS.Types.VideoCodecType" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="HUDAlpha" Type="System.Byte" Scope="User">
@@ -16,6 +16,9 @@
     </Setting>
     <Setting Name="VideoWidth" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">640</Value>
+    </Setting>
+    <Setting Name="VideoFolder" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
     </Setting>
     <Setting Name="HUDColor" Type="System.Drawing.Color" Scope="User">
       <Value Profile="(Default)">0, 255, 0</Value>

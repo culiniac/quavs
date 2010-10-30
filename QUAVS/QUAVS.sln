@@ -6,11 +6,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QUAVS.Base", "QUAVS.Base\QU
 		{26B0A7C2-0398-48DE-86E7-BE16AB44B383} = {26B0A7C2-0398-48DE-86E7-BE16AB44B383}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QUAVS.GroundStation", "QUAVS.GroundStation\QUAVS.GroundStation.csproj", "{A72C0128-9847-4938-91C6-C06A60379190}"
-	ProjectSection(ProjectDependencies) = postProject
-		{2DB79CF4-62CC-4B68-B14C-3C613552ECF9} = {2DB79CF4-62CC-4B68-B14C-3C613552ECF9}
-	EndProjectSection
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{3106F931-EB75-4914-9E13-A7C37384D94F}"
 	ProjectSection(SolutionItems) = preProject
 		PublicKeys.htm = PublicKeys.htm
@@ -47,6 +42,19 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QUAVS.Video", "QUAVS.Video\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QUAVS.Types", "QUAVS.Types\QUAVS.Types.csproj", "{26B0A7C2-0398-48DE-86E7-BE16AB44B383}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "references", "references", "{E76D220C-9CAD-4155-8651-35749E818EF4}"
+	ProjectSection(SolutionItems) = preProject
+		libraries\References\Mono.Data.SqliteClient.dll = libraries\References\Mono.Data.SqliteClient.dll
+		libraries\References\MySql.Data.dll = libraries\References\MySql.Data.dll
+		libraries\References\System.Data.SQLite.DLL = libraries\References\System.Data.SQLite.DLL
+		libraries\References\System.Data.SQLite.XML = libraries\References\System.Data.SQLite.XML
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "x64", "x64", "{AA587A40-EA2F-41D8-B7B1-47D8D843BED6}"
+	ProjectSection(SolutionItems) = preProject
+		libraries\References\x64\System.Data.SQLite.DLL = libraries\References\x64\System.Data.SQLite.DLL
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SubversionScc) = preSolution
 		Svn-Managed = True
@@ -77,19 +85,6 @@ Global
 		{2DB79CF4-62CC-4B68-B14C-3C613552ECF9}.Release|Mixed Platforms.Build.0 = Release|x86
 		{2DB79CF4-62CC-4B68-B14C-3C613552ECF9}.Release|x64.ActiveCfg = Release|x64
 		{2DB79CF4-62CC-4B68-B14C-3C613552ECF9}.Release|x86.ActiveCfg = Release|x86
-		{A72C0128-9847-4938-91C6-C06A60379190}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A72C0128-9847-4938-91C6-C06A60379190}.Debug|Mixed Platforms.ActiveCfg = Debug|x64
-		{A72C0128-9847-4938-91C6-C06A60379190}.Debug|Mixed Platforms.Build.0 = Debug|x64
-		{A72C0128-9847-4938-91C6-C06A60379190}.Debug|x64.ActiveCfg = Debug|x64
-		{A72C0128-9847-4938-91C6-C06A60379190}.Debug|x64.Build.0 = Debug|x64
-		{A72C0128-9847-4938-91C6-C06A60379190}.Debug|x86.ActiveCfg = Debug|x86
-		{A72C0128-9847-4938-91C6-C06A60379190}.Debug|x86.Build.0 = Debug|x86
-		{A72C0128-9847-4938-91C6-C06A60379190}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A72C0128-9847-4938-91C6-C06A60379190}.Release|Mixed Platforms.ActiveCfg = Release|x64
-		{A72C0128-9847-4938-91C6-C06A60379190}.Release|Mixed Platforms.Build.0 = Release|x64
-		{A72C0128-9847-4938-91C6-C06A60379190}.Release|x64.ActiveCfg = Release|x64
-		{A72C0128-9847-4938-91C6-C06A60379190}.Release|x86.ActiveCfg = Release|x86
-		{A72C0128-9847-4938-91C6-C06A60379190}.Release|x86.Build.0 = Release|x86
 		{6CC075A8-2A99-4BC6-B77D-6005A2B512BF}.Debug|Any CPU.ActiveCfg = Debug|x86
 		{6CC075A8-2A99-4BC6-B77D-6005A2B512BF}.Debug|Any CPU.Build.0 = Debug|x86
 		{6CC075A8-2A99-4BC6-B77D-6005A2B512BF}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
@@ -216,5 +211,7 @@ Global
 		{CE009BFA-5EF6-4153-B2A1-2FA79698A9AE} = {6E8E4D19-6CED-46F8-841C-8DF10B1C53EA}
 		{D0C39D9D-BED0-418B-9A5E-713176CAF40C} = {6E8E4D19-6CED-46F8-841C-8DF10B1C53EA}
 		{E06DEF77-F933-42FB-AFD7-DB2D0D8D6A98} = {6E8E4D19-6CED-46F8-841C-8DF10B1C53EA}
+		{E76D220C-9CAD-4155-8651-35749E818EF4} = {6E8E4D19-6CED-46F8-841C-8DF10B1C53EA}
+		{AA587A40-EA2F-41D8-B7B1-47D8D843BED6} = {E76D220C-9CAD-4155-8651-35749E818EF4}
 	EndGlobalSection
 EndGlobal

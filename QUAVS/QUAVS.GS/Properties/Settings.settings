@@ -21,7 +21,7 @@
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="HUDColor" Type="System.Drawing.Color" Scope="User">
-      <Value Profile="(Default)">0, 255, 0</Value>
+      <Value Profile="(Default)">Lime</Value>
     </Setting>
   </Settings>
 </SettingsFile>

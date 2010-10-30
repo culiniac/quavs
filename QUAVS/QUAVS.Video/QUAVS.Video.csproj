@@ -33,6 +33,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Design" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Drawing.Design" />
     <Reference Include="System.Windows.Forms" />
@@ -83,6 +84,10 @@
     <ProjectReference Include="..\QUAVS.Base\QUAVS.Base.csproj">
       <Project>{2DB79CF4-62CC-4B68-B14C-3C613552ECF9}</Project>
       <Name>QUAVS.Base</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\QUAVS.Types\QUAVS.Types.csproj">
+      <Project>{26B0A7C2-0398-48DE-86E7-BE16AB44B383}</Project>
+      <Name>QUAVS.Types</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

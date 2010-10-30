@@ -4,7 +4,7 @@ using System.Text;
 using System.Diagnostics;
 using System.Collections;
 
-namespace QUAVS.Base
+namespace QUAVS.Log
 {
     static public class TraceException
     {

@@ -85,8 +85,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ByteAppend.cs" />
-    <Compile Include="FileStreamWithBackup.cs" />
-    <Compile Include="MessageQueueTraceListener.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -96,8 +94,6 @@
     <Compile Include="Signal.cs" />
     <Compile Include="TelemetryComms.cs" />
     <Compile Include="TelemetryDataObject.cs" />
-    <Compile Include="TextWriterTraceListenerWithTime.cs" />
-    <Compile Include="TraceException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Service Include="{94E38DFF-614B-4cbd-B67C-F211BB35CE8B}" />
   </ItemGroup>
@@ -123,6 +119,10 @@
     <ProjectReference Include="..\libraries\greatmaps_5b688b20c7f7\GMap.NET.WindowsForms\GMap.NET.WindowsForms.csproj">
       <Project>{E06DEF77-F933-42FB-AFD7-DB2D0D8D6A98}</Project>
       <Name>GMap.NET.WindowsForms</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\QUAVS.Log\QUAVS.Log.csproj">
+      <Project>{56BD31B6-7E81-407A-8231-834667EF1657}</Project>
+      <Name>QUAVS.Log</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -5,11 +5,11 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
-
 using System.Diagnostics;
 
 using WeifenLuo.WinFormsUI.Docking;
 using QUAVS.Base;
+using QUAVS.Log;
 
 namespace QUAVS.GS
 {

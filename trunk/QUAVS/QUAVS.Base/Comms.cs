@@ -5,6 +5,7 @@ using System.IO;
 using System.IO.Ports;
 using System.Diagnostics;
 using System.Collections;
+using QUAVS.Log;
 
 namespace QUAVS.Base
 {

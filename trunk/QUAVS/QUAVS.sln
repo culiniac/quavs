@@ -55,6 +55,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "x64", "x64", "{AA587A40-EA2
 		libraries\References\x64\System.Data.SQLite.DLL = libraries\References\x64\System.Data.SQLite.DLL
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QUAVS.Log", "QUAVS.Log\QUAVS.Log.csproj", "{56BD31B6-7E81-407A-8231-834667EF1657}"
+EndProject
 Global
 	GlobalSection(SubversionScc) = preSolution
 		Svn-Managed = True
@@ -201,6 +203,18 @@ Global
 		{26B0A7C2-0398-48DE-86E7-BE16AB44B383}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{26B0A7C2-0398-48DE-86E7-BE16AB44B383}.Release|x64.ActiveCfg = Release|Any CPU
 		{26B0A7C2-0398-48DE-86E7-BE16AB44B383}.Release|x86.ActiveCfg = Release|Any CPU
+		{56BD31B6-7E81-407A-8231-834667EF1657}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{56BD31B6-7E81-407A-8231-834667EF1657}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{56BD31B6-7E81-407A-8231-834667EF1657}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{56BD31B6-7E81-407A-8231-834667EF1657}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{56BD31B6-7E81-407A-8231-834667EF1657}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{56BD31B6-7E81-407A-8231-834667EF1657}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{56BD31B6-7E81-407A-8231-834667EF1657}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{56BD31B6-7E81-407A-8231-834667EF1657}.Release|Any CPU.Build.0 = Release|Any CPU
+		{56BD31B6-7E81-407A-8231-834667EF1657}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{56BD31B6-7E81-407A-8231-834667EF1657}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{56BD31B6-7E81-407A-8231-834667EF1657}.Release|x64.ActiveCfg = Release|Any CPU
+		{56BD31B6-7E81-407A-8231-834667EF1657}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

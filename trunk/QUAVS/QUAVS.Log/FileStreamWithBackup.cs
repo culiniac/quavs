@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.IO;
 
-namespace QUAVS.Base
+namespace QUAVS.Log
 {
     public sealed class FileStreamWithBackup : FileStream
     {

@@ -5,6 +5,7 @@ using QUAVS.Base;
 using System.IO;
 using System.Diagnostics;
 using System.Threading;
+using QUAVS.Log;
 
 namespace QUAVS.GS
 {

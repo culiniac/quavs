@@ -13,6 +13,7 @@ using System.IO;
 using DirectShowLib;
 using QUAVS.Types;
 using QUAVS.Base;
+using QUAVS.Log;
 
 namespace QUAVS.Video
 {

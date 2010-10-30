@@ -199,9 +199,14 @@ namespace QUAVS.Video
                 Stopwatch benchmark = Stopwatch.StartNew();
 #endif
                 CloseInterfaces();
-                // Set up the capture graph
+                if (!Directory.Exists(_strFolderName))
+                {
+                    // Create the directory it does not exist.
+                    Directory.CreateDirectory(_strFolderName);
+                }
                 string tmp = DateTime.Now.ToString("yyymmddHHmmssfff");
                 _strFileName = _strFolderName + Path.DirectorySeparatorChar + tmp + ".avi";
+                // Set up the capture graph
                 SetupGraph(_strCapture, _strCompressor, _strFileName, _fps, _videoWidth, _videoHeight, _hOwner, recording);
 
 #if DEBUG

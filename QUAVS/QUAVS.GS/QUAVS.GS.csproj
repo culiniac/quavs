@@ -99,6 +99,12 @@
     <Compile Include="Forms\CommsForm.Designer.cs">
       <DependentUpon>CommsForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\GEForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\GEForm.Designer.cs">
+      <DependentUpon>GEForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -138,6 +144,9 @@
     <Compile Include="Forms\VideoForm.Designer.cs">
       <DependentUpon>VideoForm.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Forms\GEForm.resx">
+      <DependentUpon>GEForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>

@@ -1,4 +1,4 @@
-﻿namespace QUAVS.GS
+﻿namespace QUAVS.GS.Forms
 {
     partial class VideoForm
     {
@@ -40,6 +40,7 @@
             this.VideoFeed.DataBindings.Add(new System.Windows.Forms.Binding("HUDAlpha", global::QUAVS.GS.Properties.Settings.Default, "HUDAlpha", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.VideoFeed.DataBindings.Add(new System.Windows.Forms.Binding("VideoHeight", global::QUAVS.GS.Properties.Settings.Default, "VideoHeight", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.VideoFeed.DataBindings.Add(new System.Windows.Forms.Binding("VideoWidth", global::QUAVS.GS.Properties.Settings.Default, "VideoWidth", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.VideoFeed.DataBindings.Add(new System.Windows.Forms.Binding("VideoFolder", global::QUAVS.GS.Properties.Settings.Default, "VideoFolder", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.VideoFeed.Dock = System.Windows.Forms.DockStyle.Fill;
             this.VideoFeed.HUDAlpha = global::QUAVS.GS.Properties.Settings.Default.HUDAlpha;
             this.VideoFeed.HUDAltitude = 0F;
@@ -57,7 +58,7 @@
             this.VideoFeed.TabIndex = 0;
             this.VideoFeed.VideoCompressor = global::QUAVS.GS.Properties.Settings.Default.VideoCompressor;
             this.VideoFeed.VideoControlVisible = false;
-            this.VideoFeed.VideoFolder = ".\\video";
+            this.VideoFeed.VideoFolder = global::QUAVS.GS.Properties.Settings.Default.VideoFolder;
             this.VideoFeed.VideoFps = 0;
             this.VideoFeed.VideoHeight = global::QUAVS.GS.Properties.Settings.Default.VideoHeight;
             this.VideoFeed.VideoSource = global::QUAVS.GS.Properties.Settings.Default.VideoSource;

@@ -84,6 +84,7 @@
     <CodeAnalysisIgnoreBuiltInRules>true</CodeAnalysisIgnoreBuiltInRules>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Deployment" />
@@ -185,6 +186,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <None Include="webroot\default.kml" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\quavs.gif" />
@@ -193,6 +195,10 @@
     <None Include="Resources\quavs.ico" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\libraries\FC-GEPluginCtrls\FC.GEPluginCtrls.csproj">
+      <Project>{C06F0F75-6B29-4BA2-9EC5-BBFA3CA28617}</Project>
+      <Name>FC.GEPluginCtrls</Name>
+    </ProjectReference>
     <ProjectReference Include="..\libraries\greatmaps_5b688b20c7f7\GMap.NET.Core\GMap.NET.Core.csproj">
       <Project>{D0C39D9D-BED0-418B-9A5E-713176CAF40C}</Project>
       <Name>GMap.NET.Core</Name>
@@ -233,6 +239,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\StopHS.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="webroot\red-stars.png" />
+    <Content Include="webroot\wht-blank.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

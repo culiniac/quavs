@@ -68,7 +68,7 @@ namespace QUAVS.Types
                     if (index != ListBox.NoMatches)
                         listBoxVideoCodec.SetSelected(index, true);
                     else
-                        Trace.WriteLine("Video source not found");
+                        Trace.WriteLine("Video codec not found");
                 }
             }
         }

@@ -1,0 +1,21 @@
+try
+            {
+                throw new Exception("test");
+            }
+            catch (Exception e)
+            {
+                Trace.TraceError("{0}: {1}", DateTime.Now, e.Message);
+                foreach (DictionaryEntry de in e.Data)
+                    Trace.TraceInformation("key: '{0}',  value: {1}", de.Key, de.Value);
+                Trace.TraceInformation(e.StackTrace);
+                StackTrace st = new StackTrace(1, true);
+                string stackIndent = "----";
+                for (int i = 0; i < st.FrameCount; i++)
+                {
+                    // Note that at this level, there are four
+                    // stack frames, one for each method invocation.
+                    StackFrame sf = st.GetFrame(i);
+                    Trace.TraceInformation(stackIndent + "at {0} in {1}:line {2}", sf.GetMethod(), sf.GetFileName(), sf.GetFileLineNumber());
+                    stackIndent += "-";
+                }
+            }

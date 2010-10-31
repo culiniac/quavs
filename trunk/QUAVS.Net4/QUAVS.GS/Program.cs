@@ -6,6 +6,7 @@ using System.IO;
 using System.Diagnostics;
 using System.Threading;
 using QUAVS.Log;
+using QUAVS.GS.Forms;
 
 namespace QUAVS.GS
 {

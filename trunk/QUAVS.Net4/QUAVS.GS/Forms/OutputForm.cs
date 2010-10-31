@@ -11,7 +11,7 @@ using WeifenLuo.WinFormsUI.Docking;
 using QUAVS.Base;
 using QUAVS.Log;
 
-namespace QUAVS.GS
+namespace QUAVS.GS.Forms
 {
     public partial class OutputForm : DockContent
     {

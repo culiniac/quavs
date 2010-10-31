@@ -83,10 +83,9 @@ namespace QUAVS.GS.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string VideoFolder {
+        public global::QUAVS.Types.VideoFolderType VideoFolder {
             get {
-                return ((string)(this["VideoFolder"]));
+                return ((global::QUAVS.Types.VideoFolderType)(this["VideoFolder"]));
             }
             set {
                 this["VideoFolder"] = value;

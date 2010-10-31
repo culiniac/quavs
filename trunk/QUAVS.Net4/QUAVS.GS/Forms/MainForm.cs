@@ -8,11 +8,12 @@ using System.Windows.Forms;
 using System.IO;
 using WeifenLuo.WinFormsUI.Docking;
 using QUAVS.Base;
+using QUAVS.Log;
 using System.IO;
 using System.IO.Ports;
 
 
-namespace QUAVS.GS
+namespace QUAVS.GS.Forms
 {
     /// <summary>
     /// 
@@ -31,6 +32,7 @@ namespace QUAVS.GS
         static private SettingsForm _settingsForm;
         static private OutputForm _outputForm;
         static private TelemetryForm _telemetryForm;
+        static private GEForm _geForm;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MainForm"/> class.
@@ -45,6 +47,7 @@ namespace QUAVS.GS
             _settingsForm = new SettingsForm();
             _outputForm = new OutputForm();
             _telemetryForm = new TelemetryForm(_telemetryComms.Data);
+            _geForm = new GEForm();
 
             _deserializeDockContent = new DeserializeDockContent(GetContentFromPersistString);
         }
@@ -97,6 +100,8 @@ namespace QUAVS.GS
                 return _outputForm;
             else if (persistString == typeof(TelemetryForm).ToString())
                 return _telemetryForm;
+            else if (persistString == typeof(GEForm).ToString())
+                return _geForm;
             else
                 return null;
         }
@@ -108,29 +113,41 @@ namespace QUAVS.GS
 
         private void standardLayoutToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DockingPanel.SuspendLayout(true);
+            try
+            {
+                DockingPanel.SuspendLayout(true);
 
-            //check for null forms - Not working - figure out the disposal of forms.
-            if (_videoForm.IsDisposed == true)
-                _videoForm = new VideoForm(_telemetryComms.Data);
-            _videoForm.Show(DockingPanel, DockState.Document);
-            if (_mapForm.IsDisposed == true)
-                _mapForm = new MapForm();
-            _mapForm.Show(DockingPanel, DockState.DockRight);
-            if (_settingsForm.IsDisposed == true)
-                _settingsForm = new SettingsForm();
-            _settingsForm.Show(DockingPanel, DockState.DockLeft);
-            if (_outputForm.IsDisposed == true)
-                _outputForm = new OutputForm();
-            _outputForm.Show(DockingPanel, DockState.DockBottom);
-            if (_telemetryForm.IsDisposed == true)
-                _telemetryForm = new TelemetryForm(_telemetryComms.Data);
-            _telemetryForm.Show(DockingPanel, DockState.Float);
-            
-            //save current layout
-            _deserializeDockContent = new DeserializeDockContent(GetContentFromPersistString);
+                //check for null forms - Not working - figure out the disposal of forms.
+                if (_videoForm.IsDisposed == true)
+                    _videoForm = new VideoForm(_telemetryComms.Data);
+                _videoForm.Show(DockingPanel, DockState.Document);
+                if (_mapForm.IsDisposed == true)
+                    _mapForm = new MapForm();
+                _mapForm.Show(DockingPanel, DockState.DockRight);
+                if (_settingsForm.IsDisposed == true)
+                    _settingsForm = new SettingsForm();
+                _settingsForm.Show(DockingPanel, DockState.DockLeft);
+                if (_outputForm.IsDisposed == true)
+                    _outputForm = new OutputForm();
+                _outputForm.Show(DockingPanel, DockState.DockBottom);
+                if (_telemetryForm.IsDisposed == true)
+                    _telemetryForm = new TelemetryForm(_telemetryComms.Data);
+                if (_telemetryForm.IsDisposed == true)
+                    _telemetryForm = new TelemetryForm(_telemetryComms.Data);
+                _telemetryForm.Show(DockingPanel, DockState.Float);
+                if (_geForm.IsDisposed == true)
+                    _geForm = new GEForm();
+                _geForm.Show(DockingPanel, DockState.Float);
 
-            DockingPanel.ResumeLayout(true, true);
+                //save current layout
+                _deserializeDockContent = new DeserializeDockContent(GetContentFromPersistString);
+
+                DockingPanel.ResumeLayout(true, true);
+            }
+            catch (Exception ex)
+            {
+                TraceException.WriteLine(ex);
+            }
         }
 
         private void NewSession()

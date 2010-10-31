@@ -1,4 +1,4 @@
-﻿namespace QUAVS.GS
+﻿namespace QUAVS.GS.Forms
 {
     partial class SettingsForm
     {

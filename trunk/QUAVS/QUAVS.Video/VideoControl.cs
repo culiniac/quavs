@@ -91,7 +91,7 @@ namespace QUAVS.Video
         [Category("QUAVS")]
         [Description("select video source")]
         [EditorAttribute(typeof(System.Windows.Forms.Design.FolderNameEditor), typeof(System.Drawing.Design.UITypeEditor))]
-        public string VideoFolder
+        public VideoFolderType VideoFolder
         {
             get { return _cam.VideoFolder; }
             set { _cam.VideoFolder = value;}

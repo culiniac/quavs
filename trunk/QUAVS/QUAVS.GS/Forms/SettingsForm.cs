@@ -9,7 +9,7 @@ using System.Windows.Forms;
 using WeifenLuo.WinFormsUI.Docking;
 using QUAVS.Base;
 
-namespace QUAVS.GS
+namespace QUAVS.GS.Forms
 {
     public partial class SettingsForm : DockContent
     {

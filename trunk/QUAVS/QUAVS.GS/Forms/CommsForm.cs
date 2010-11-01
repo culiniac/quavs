@@ -6,7 +6,7 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 
-namespace QUAVS.GS
+namespace QUAVS.GS.Forms
 {
     public partial class CommsForm : Form
     {

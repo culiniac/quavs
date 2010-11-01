@@ -28,11 +28,11 @@ namespace QUAVS.GS.Forms
         private DeserializeDockContent _deserializeDockContent;
 
         static private VideoForm _videoForm;
-        static private MapForm _mapForm;
+        static private MapForm _mapForm; 
         static private SettingsForm _settingsForm;
         static private OutputForm _outputForm;
         static private TelemetryForm _telemetryForm;
-        static private GEForm _geForm;
+        //static private GEForm _geForm; 
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MainForm"/> class.
@@ -47,7 +47,7 @@ namespace QUAVS.GS.Forms
             _settingsForm = new SettingsForm();
             _outputForm = new OutputForm();
             _telemetryForm = new TelemetryForm(_telemetryComms.Data);
-            _geForm = new GEForm();
+            //_geForm = new GEForm();
 
             _deserializeDockContent = new DeserializeDockContent(GetContentFromPersistString);
         }
@@ -100,8 +100,8 @@ namespace QUAVS.GS.Forms
                 return _outputForm;
             else if (persistString == typeof(TelemetryForm).ToString())
                 return _telemetryForm;
-            else if (persistString == typeof(GEForm).ToString())
-                return _geForm;
+            //else if (persistString == typeof(GEForm).ToString())
+                //return _geForm;
             else
                 return null;
         }
@@ -135,9 +135,9 @@ namespace QUAVS.GS.Forms
                 if (_telemetryForm.IsDisposed == true)
                     _telemetryForm = new TelemetryForm(_telemetryComms.Data);
                 _telemetryForm.Show(DockingPanel, DockState.Float);
-                if (_geForm.IsDisposed == true)
-                    _geForm = new GEForm();
-                _geForm.Show(DockingPanel, DockState.Float);
+                //if (_geForm.IsDisposed == true)
+                //    _geForm = new GEForm();
+                //_geForm.Show(DockingPanel, DockState.Float);
 
                 //save current layout
                 _deserializeDockContent = new DeserializeDockContent(GetContentFromPersistString);

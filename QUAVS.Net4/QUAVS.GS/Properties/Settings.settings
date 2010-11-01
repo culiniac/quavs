@@ -17,9 +17,6 @@
     <Setting Name="VideoWidth" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">640</Value>
     </Setting>
-    <Setting Name="VideoFolder" Type="QUAVS.Types.VideoFolderType" Scope="User">
-      <Value Profile="(Default)" />
-    </Setting>
     <Setting Name="HUDColor" Type="System.Drawing.Color" Scope="User">
       <Value Profile="(Default)">Lime</Value>
     </Setting>

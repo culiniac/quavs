@@ -32,7 +32,7 @@ namespace QUAVS.GS.Forms
         // The listener works on port 8080
         // The server looks for the file "defualt.kml" if none is specified
         // All of these things can be altered either via the constructor or properties
-        private Server server = new Server(Application.StartupPath + "\\webroot\\");
+        // private Server server = new Server(Application.StartupPath + "\\webroot\\");
 
         // the plug-in instance (IGEPluginCoClass)
         private dynamic ge = null;
@@ -48,7 +48,7 @@ namespace QUAVS.GS.Forms
             InitializeComponent();
 
             // start the local server
-            server.Start();
+            //server.Start();
 
             // load the embeded plug-in
             geWebBrowser1.LoadEmbededPlugin();
@@ -65,7 +65,7 @@ namespace QUAVS.GS.Forms
 
         void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
-            server.Stop();
+            // server.Stop();
         }
 
         void geWebBrowser1_PluginReady(object sender, GEEventArgs e)
@@ -73,7 +73,7 @@ namespace QUAVS.GS.Forms
             GEWebBrowser browser = sender as GEWebBrowser;
             ge = browser.GetPlugin();
             // with the default setting the same as loading http://localhost:8080/defualt.kml
-            geWebBrowser1.FetchKml("http://localhost:8080/");
+            geWebBrowser1.FetchKmlLocal("netlink.kml");
         }
 
         void geWebBrowser1_ViewEvent(object sender, GEEventArgs e)
@@ -148,7 +148,7 @@ namespace QUAVS.GS.Forms
 
         void geWebBrowser1_ScriptError(object sender, GEEventArgs e)
         {
-            MessageBox.Show(e.Data, e.Message);
+            //MessageBox.Show(e.Data, e.Message);
         }
     }
 }

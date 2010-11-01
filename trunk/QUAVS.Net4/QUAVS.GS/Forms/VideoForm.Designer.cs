@@ -58,7 +58,7 @@
             this.VideoFeed.TabIndex = 0;
             this.VideoFeed.VideoCompressor = global::QUAVS.GS.Properties.Settings.Default.VideoCompressor;
             this.VideoFeed.VideoControlVisible = false;
-            this.VideoFeed.VideoFolder = global::QUAVS.GS.Properties.Settings.Default.VideoFolder;
+            this.VideoFeed.VideoFolder = null;
             this.VideoFeed.VideoFps = 0;
             this.VideoFeed.VideoHeight = global::QUAVS.GS.Properties.Settings.Default.VideoHeight;
             this.VideoFeed.VideoSource = global::QUAVS.GS.Properties.Settings.Default.VideoSource;

@@ -9,7 +9,7 @@ using QUAVS.Base;
 using WeifenLuo.WinFormsUI.Docking;
 using System.Diagnostics;
 
-namespace QUAVS.GS
+namespace QUAVS.GS.Forms
 {
     public partial class TelemetryForm : DockContent
     {

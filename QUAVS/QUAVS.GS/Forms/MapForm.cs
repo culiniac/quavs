@@ -16,7 +16,7 @@ using GMap.NET.WindowsForms.Markers;
 using GMap.NET.WindowsForms.ToolTips;
 
 
-namespace QUAVS.GS
+namespace QUAVS.GS.Forms
 {
     public partial class MapForm : DockContent
     {

@@ -12,7 +12,7 @@ using System.IO;
 using System.IO.Ports;
 
 
-namespace QUAVS.GS
+namespace QUAVS.GS.Forms
 {
     /// <summary>
     /// 

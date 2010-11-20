@@ -123,6 +123,12 @@
     <Compile Include="Forms\OutputForm.Designer.cs">
       <DependentUpon>OutputForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\UAVForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\UAVForm.Designer.cs">
+      <DependentUpon>UAVForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Settings.cs" />
@@ -158,6 +164,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\TelemetryForm.resx">
       <DependentUpon>TelemetryForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\UAVForm.resx">
+      <DependentUpon>UAVForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

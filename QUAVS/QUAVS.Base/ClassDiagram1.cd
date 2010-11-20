@@ -1,0 +1,96 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="QUAVS.Base.ByteAppend&lt;T&gt;" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="3" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACIAAAAAAAAAABAACAQAAAQgAABAAAAAAAAAAABAAAA=</HashCode>
+      <FileName>ByteAppend.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="QUAVS.Base.Comms" Collapsed="true">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAAAADAAEAAAAABIAAAAAAEAABAAAAAAAAAAAAA=</HashCode>
+      <FileName>Comms.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="QUAVS.Base.Signal" Collapsed="true">
+    <Position X="6.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABAAAAEAABAAAAAAEAAAAAAAAAAAAAABEABgAAAAAAA=</HashCode>
+      <FileName>Signal.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="QUAVS.Base.TelemetryComms" Collapsed="true">
+    <Position X="0.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EiQBAAjgBCEAACgMAQAAAACEEAITABIIIABEAAAgABA=</HashCode>
+      <FileName>TelemetryComms.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="QUAVS.Base.TelemetryData" Collapsed="true">
+    <Position X="3" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AASBABBgAEAAAAEMACwIiAcFAEAiIAAAAABAgIAgAAA=</HashCode>
+      <FileName>TelemetryDataObject.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="QUAVS.Base.TelemetryDataObject" Collapsed="true">
+    <Position X="4.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAIAAAAAQAAAAAAAAAAAAAAAACAAAAAA=</HashCode>
+      <FileName>TelemetryDataObject.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="QUAVS.Base.Properties.Resources" Collapsed="true">
+    <Position X="4.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAABEAAAAQAAAAAAAAAAAAAAAIA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="QUAVS.Base.UAV">
+    <Position X="9.25" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAACAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>UAV.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="QUAVS.Base.UAVFleet">
+    <Position X="9.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>UAVFleet.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Enum Name="QUAVS.Base.TelemetryClass" Collapsed="true">
+    <Position X="4.75" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAABAAEAAAAAIAAAIAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>TelemetryComms.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="QUAVS.Base.TelemetryACK" Collapsed="true">
+    <Position X="3" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAACAA=</HashCode>
+      <FileName>TelemetryComms.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="QUAVS.Base.TelemetryCMD" Collapsed="true">
+    <Position X="6.5" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>TelemetryComms.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="QUAVS.Base.TelemetryINS" Collapsed="true">
+    <Position X="3" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAA=</HashCode>
+      <FileName>TelemetryComms.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

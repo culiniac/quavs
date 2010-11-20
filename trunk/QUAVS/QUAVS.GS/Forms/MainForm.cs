@@ -31,6 +31,7 @@ namespace QUAVS.GS.Forms
         static private SettingsForm _settingsForm;
         static private OutputForm _outputForm;
         static private TelemetryForm _telemetryForm;
+        static private UAVForm _uavForm;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MainForm"/> class.
@@ -45,6 +46,9 @@ namespace QUAVS.GS.Forms
             _settingsForm = new SettingsForm();
             _outputForm = new OutputForm();
             _telemetryForm = new TelemetryForm(_telemetryComms.Data);
+
+            _uavForm = new UAVForm();
+            _uavForm.Show();
 
             _deserializeDockContent = new DeserializeDockContent(GetContentFromPersistString);
         }
